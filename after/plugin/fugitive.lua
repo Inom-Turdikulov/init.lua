@@ -1,7 +1,5 @@
-local ok, fugitive = pcall(require, "fugitive")
-if not ok then
-  print("‼ Tried loading fugitive ... unsuccessfully.")
-  return
+if not vim.g.loaded_fugitive then
+    return
 end
 
 -- Automatically start insert mode when opening gitcommit buffers
