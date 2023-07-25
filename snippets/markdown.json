@@ -1,0 +1,127 @@
+{
+    "Insert Java code block": {
+        "prefix": "javac",
+        "body": [
+            "```java",
+            "$0",
+            "```"
+        ],
+        "description": "Insert fenced code block for Java"
+    },
+    "Insert C code block": {
+        "prefix": "clc",
+        "body": [
+            "```c",
+            "$0",
+            "```"
+        ],
+        "description": "Insert fenced code block for C"
+    },
+    "Insert Python code block": {
+        "prefix": "pyc",
+        "body": [
+            "```python",
+            "$0",
+            "```"
+        ],
+        "description": "Insert fenced code block for Python"
+    },
+    "Insert C++ code block": {
+        "prefix": "cppc",
+        "body": [
+            "```cpp",
+            "$0",
+            "```"
+        ],
+        "description": "Insert fenced code block for C++"
+    },
+    "Insert JavaScript code block": {
+        "prefix": "jsc",
+        "body": [
+            "```javascript",
+            "$0",
+            "```"
+        ],
+        "description": "Insert fenced code block for JavaScript"
+    },
+    "Insert PHP code block": {
+        "prefix": "phpc",
+        "body": [
+            "```php",
+            "$0",
+            "```"
+        ],
+        "description": "Insert fenced code block for PHP"
+    },
+    "Insert SQL code block": {
+        "prefix": "sqlc",
+        "body": [
+            "```sql",
+            "$0",
+            "```"
+        ],
+        "description": "Insert fenced code block for SQL"
+    },
+    "Insert TypeScript code block": {
+        "prefix": "tsc",
+        "body": [
+            "```typescript",
+            "$0",
+            "```"
+        ],
+        "description": "Insert fenced code block for TypeScript"
+    },
+    "Insert Ruby code block": {
+        "prefix": "rubyc",
+        "body": [
+            "```ruby",
+            "$0",
+            "```"
+        ],
+        "description": "Insert fenced code block for Ruby"
+    },
+    "Insert Go code block": {
+        "prefix": "goc",
+        "body": [
+            "```go",
+            "$0",
+            "```"
+        ],
+        "description": "Insert fenced code block for Go"
+    },
+    "Insert Rust code block": {
+        "prefix": "rustc",
+        "body": [
+            "```rust",
+            "$0",
+            "```"
+        ],
+        "description": "Insert fenced code block for Rust"
+    },
+    "Insert Lua code block": {
+        "prefix": "lua",
+        "body": [
+            "```lua",
+            "$0",
+            "```"
+        ],
+        "description": "Insert fenced code block for Lua"
+    },
+    "Insert sh code block": {
+        "prefix": "shc",
+        "body": [
+            "```bash",
+            "$0",
+            "```"
+        ],
+        "description": "Insert fenced code block for sh/bash"
+    },
+    "Insert blockquote snippet": {
+        "prefix": "bqt",
+        "body": [
+            "> $1.\\",
+            "> —&thinsp;<cite>$0</cite>"
+        ],
+        "description": "Insert blockquote snippet"
+    }
+}
