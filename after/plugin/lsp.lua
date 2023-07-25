@@ -21,7 +21,7 @@
 ]]
 
 -- Test plugins exists
-plugins = {"lspconfig", "cmp", "cmp_nvim_lsp", "luasnip"}
+local plugins = {"lspconfig", "cmp", "cmp_nvim_lsp", "luasnip", "copilot_cmp"}
 
 for id, plugin in ipairs(plugins)
 do
@@ -77,6 +77,7 @@ sign({name = 'DiagnosticSignError', text = '✘'})
 sign({name = 'DiagnosticSignWarn', text = '▲'})
 sign({name = 'DiagnosticSignHint', text = '⚑'})
 sign({name = 'DiagnosticSignInfo', text = ''})
+sign({name = 'CmpItemKindCopilot', text = ''})
 
 vim.diagnostic.config({
   virtual_text = false,
@@ -104,13 +105,16 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
 -- require('mason').setup({})
 -- require('mason-lspconfig').setup({})
 
+require("copilot_cmp").setup()
+
 local lspconfig = require('lspconfig')
 local lsp_defaults = lspconfig.util.default_config
 
 lsp_defaults.capabilities = vim.tbl_deep_extend(
   'force',
   lsp_defaults.capabilities,
-  require('cmp_nvim_lsp').default_capabilities()
+  require('cmp_nvim_lsp').default_capabilities(),
+  require('copilot_cmp').default_capabilities()
 )
 
 
@@ -121,7 +125,7 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
 lspconfig.tsserver.setup({})
 lspconfig.html.setup({})
 lspconfig.cssls.setup({})
-lspconfig.lua_ls.setup{}
+-- lspconfig.lua_ls.setup{}
 lspconfig.pyright.setup{}
 lspconfig.clangd.setup{}
 lspconfig.rust_analyzer.setup{}
@@ -142,6 +146,13 @@ local luasnip = require('luasnip')
 
 local select_opts = {behavior = cmp.SelectBehavior.Select}
 
+-- Helper function for copilot_cmp
+local has_words_before = function()
+  if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
+end
+
 cmp.setup({
   snippet = {
     expand = function(args)
@@ -149,10 +160,13 @@ cmp.setup({
     end
   },
   sources = {
-    {name = 'path'},
-    {name = 'nvim_lsp', keyword_length = 1},
-    {name = 'buffer', keyword_length = 3},
-    {name = 'luasnip', keyword_length = 2},
+    -- Copilot Source
+    { name = "copilot", group_index = 2 },
+    -- Other Sources
+    { name = "path", group_index = 2 },
+    { name = "nvim_lsp", group_index = 2, keyword_length = 1},
+    { name = 'buffer', group_index = 3, keyword_length = 3},
+    { name = "luasnip", group_index = 2, keyword_length = 2},
   },
   window = {
     documentation = cmp.config.window.bordered()
@@ -201,17 +215,17 @@ cmp.setup({
       end
     end, {'i', 's'}),
 
-    ['<Tab>'] = cmp.mapping(function(fallback)
+    ["<Tab>"] = vim.schedule_wrap(function(fallback)
       local col = vim.fn.col('.') - 1
 
-      if cmp.visible() then
-        cmp.select_next_item(select_opts)
+      if cmp.visible() and has_words_before() then
+        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
       elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
         fallback()
       else
         cmp.complete()
       end
-    end, {'i', 's'}),
+    end),
 
     ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
