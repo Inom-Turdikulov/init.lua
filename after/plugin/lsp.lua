@@ -125,7 +125,7 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
 lspconfig.tsserver.setup({})
 lspconfig.html.setup({})
 lspconfig.cssls.setup({})
--- lspconfig.lua_ls.setup{}
+lspconfig.lua_ls.setup{}
 lspconfig.pyright.setup{}
 lspconfig.clangd.setup{}
 lspconfig.rust_analyzer.setup{}
