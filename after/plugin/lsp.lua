@@ -135,15 +135,7 @@ lspconfig.emmet_ls.setup{}
 vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
 
 require('luasnip.loaders.from_vscode').lazy_load()
-
--- Load snippets from snippets directory
-local custom_snippets = vim.fn.stdpath("config") .. "/snippets"
-if vim.fn.isdirectory(custom_snippets) == 0 then
-    print("WARNING: Snippets directory not found: " .. custom_snippets)
-end
-require("luasnip/loaders/from_vscode").load({
-    paths = { custom_snippets },
-})
+require("luasnip.loaders.from_vscode").load({ paths = {"./snippets" } })
 
 local cmp = require('cmp')
 local luasnip = require('luasnip')
