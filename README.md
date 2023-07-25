@@ -7,3 +7,9 @@ TODO: move this into nixos configuration
 I manage all my LSP servers using nixos, except `emmet-ls`.
 I need manually instal it with:
 `npm i -g emmet-ls`
+
+## TODO
+
+TODO: port configuration
+
+TODO: check https://github.com/zbirenbaum/copilot-cmp
