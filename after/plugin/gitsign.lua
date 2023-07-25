@@ -16,6 +16,7 @@ signs.setup {
   word_diff = false,
 
   -- TODO: Figure out what the new thing is for keymaps and git signs
+  -- TODO: use onattach! onattach = function(bufnr) ... end
   -- keymaps = {
   --   -- Default keymap options
   --   noremap = true,
