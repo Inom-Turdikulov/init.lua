@@ -14,7 +14,7 @@ if not ok then
   return
 end
 
-if not pcall(require, "treesitter") then
+if not pcall(require, "nvim-treesitter") then
   print("TreeSitter not found, required for ufo!'")
   return
 end
