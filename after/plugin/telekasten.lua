@@ -24,7 +24,6 @@ end
 
 local wiki_home = vim.fn.expand("~/Projects/main/wiki")
 if vim.fn.isdirectory(wiki_home) == 0 then
-    print("Telekasten: wiki home directory not found: " .. wiki_home)
     return
 end
 telekasten.setup(
