@@ -13,3 +13,6 @@ I need manually instal it with:
 TODO: port configuration
 
 TODO: check https://github.com/zbirenbaum/copilot-cmp
+
+TODO: print in config not really works (at least in telekasten.lua on startup).
+Need to use some notification systems?
