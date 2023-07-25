@@ -5,6 +5,8 @@ end
 
 -- I use copilot with copilot-cmp (cmp autocomplete plugin)
 -- so suggestion and panel are disabled
+-- you need to auth/validate copilot with github on first run
+-- `Copilot auth` or `Copilot status`
 copilot.setup({
     suggestion = { enabled = false },
     panel = { enabled = false },
