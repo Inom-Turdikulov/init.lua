@@ -3,10 +3,34 @@ if not has_dap then
     return
 end
 
-local has_dap_virtual_text, dap_virtual_text = pcall(require, "dap-virtual-text")
-if not has_dap_virtual_text then
-    return
+local map = function(lhs, rhs, desc)
+  if desc then
+    desc = "[DAP] " .. desc
+  end
+
+  vim.keymap.set("n", lhs, rhs, { silent = true, desc = desc })
 end
+
+map("<F1>", dap.step_back, "step_back")
+map("<F2>", dap.step_into, "step_into")
+map("<F3>", dap.step_over, "step_over")
+map("<F4>", dap.step_out, "step_out")
+map("<F5>", dap.continue, "continue")
+
+-- TODO:
+-- disconnect vs. terminate
+
+map("<leader>dr", dap.repl.open)
+
+map("<leader>db", dap.toggle_breakpoint)
+map("<leader>dB", function()
+  dap.set_breakpoint(vim.fn.input "[DAP] Condition > ")
+end)
+
+map("<leader>de", require("dapui").eval)
+map("<leader>dE", function()
+  require("dapui").eval(vim.fn.input "[DAP] Expression > ")
+end)
 
 -- Configure custom signs
 vim.fn.sign_define("DapBreakpoint", { text = "ß", texthl = "", linehl = "", numhl = "" })
@@ -24,48 +48,130 @@ dap.defaults.fallback.external_terminal = {
 }
 
 -- Virtual text
-dap_virtual_text.setup {
-    enabled = true,
+local has_dap_virtual_text, dap_virtual_text = pcall(require, "dap-virtual-text")
+if has_dap_virtual_text then
+    dap_virtual_text.setup {
+        enabled = true,
 
-    -- DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, DapVirtualTextForceRefresh
-    enabled_commands = false,
+        -- DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, DapVirtualTextForceRefresh
+        enabled_commands = false,
 
-    -- highlight changed values with NvimDapVirtualTextChanged, else always NvimDapVirtualText
-    highlight_changed_variables = true,
-    highlight_new_as_changed = true,
+        -- highlight changed values with NvimDapVirtualTextChanged, else always NvimDapVirtualText
+        highlight_changed_variables = true,
+        highlight_new_as_changed = true,
 
-    -- prefix virtual text with comment string
-    commented = false,
+        -- prefix virtual text with comment string
+        commented = false,
 
-    show_stop_reason = true,
+        show_stop_reason = true,
 
-    -- experimental features:
-    virt_text_pos = "eol", -- position of virtual text, see `:h nvim_buf_set_extmark()`
-    all_frames = false,    -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
-}
+        -- experimental features:
+        virt_text_pos = "eol", -- position of virtual text, see `:h nvim_buf_set_extmark()`
+        all_frames = false,    -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
+    }
+end
 
--- -- Lua configuration
--- dap.adapters.nlua = function(callback, config)
---     callback { type = "server", host = config.host, port = config.port }
--- end
---
--- dap.configurations.lua = {
---     {
---         type = "nlua",
---         request = "attach",
---         name = "Attach to running Neovim instance",
---         host = function()
---             return "127.0.0.1"
---         end,
---         port = function()
---             -- local val = tonumber(vim.fn.input('Port: '))
---             -- assert(val, "Please provide a port number")
---             local val = 54231
---             return val
---         end,
---     },
--- }
---
+-- DAP UI
+local has_dap_ui, dap_ui = pcall(require, "dapui")
+if has_dap_ui then
+    local _ = dap_ui.setup {
+        layouts = {
+            {
+                elements = {
+                    "scopes",
+                    "breakpoints",
+                    "stacks",
+                    "watches",
+                },
+                size = 40,
+                position = "right",
+            },
+            {
+                elements = {
+                    {
+                        id = "repl",
+                        size = 0.375,
+                    },
+                    {
+                        id = "console",
+                        size = 0.625,
+                    },
+                },
+                size = 10,
+                position = "bottom",
+            },
+        },
+    }
+
+    dap.listeners.after.event_initialized["dapui_config"] = function()
+        dap_ui.open()
+    end
+
+    dap.listeners.before.event_terminated["dapui_config"] = function()
+        dap_ui.close()
+    end
+
+    dap.listeners.before.event_exited["dapui_config"] = function()
+        dap_ui.close()
+    end
+end
+
+-- Requirements:
+-- debugpy, pytest
+local has_dap_python, dap_python = pcall(require, "dap-python")
+if has_dap_python then
+    local python_path = 'python3'
+    if vim.env.PYTHONPATH then python_path = vim.env.PYTHONPATH end
+
+    vim.g.python3_host_prog = python_path
+    dap_python.setup(vim.g.python3_host_prog)
+    dap_python.test_runner = 'pytest'
+
+    table.insert(dap.configurations.python, {
+        type = 'python',
+        request = 'launch',
+        name = 'SLP Flask App',
+        module = 'flask',
+        env = {
+            FLASK_APP = 'wsgi.py',
+            FLASK_ENV = 'development',
+            FLASK_DEBUG = '1',
+        },
+        args = {
+            'run',
+            '--no-debugger',
+            '--host=0.0.0.0',
+            '--port=45120',
+        },
+        cwd = vim.fn.getcwd(),
+        jinja = true,
+    })
+
+    table.insert(dap.configurations.python, {
+        type = 'python',
+        request = 'launch',
+        module = 'celery',
+        name = 'SLP Celery Workers',
+        args = {
+            "worker",
+            "--app=wsgi.celery",
+            "--concurrency=1",
+            "--loglevel=DEBUG",
+            "--queues=linkedin_default",
+            "-B"
+        },
+        gevent = true,
+        console = 'integratedTerminal',
+        cwd = vim.fn.getcwd(),
+        env = {
+            CELERY_TASK_ALWAYS_EAGER = 'True',
+            AUTH_DEV                 = "KEYCLOAK_AUTH_DISABLED",
+            LOG_NAME                 = "tasks",
+            GEVENT_SUPPORT           = 'True'
+        }
+    })
+end
+
 -- -- C configuration
 -- -- lldb-vscode is part of the lldb/llvm package
 -- -- check if lldb is available
@@ -143,89 +249,6 @@ dap_virtual_text.setup {
 -- end
 --
 --
--- -- Python configuration
--- local pythonPath = function()
---     -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
---     -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
---     -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
---     -- custom path to python3 if PYTHONPATH is set
---     if vim.env.PYTHONPATH then
---         return vim.env.PYTHONPATH
---     else
---         return 'python3'
---     end
--- end
---
--- dap.configurations.python = {
---     {
---         type = "python",
---         request = "launch",
---         name = "Launch with terminal",
---         program = "${file}",
---         args = {},
---         console = "integratedTerminal",
---     },
---     {
---         type = 'python',
---         request = 'launch',
---         name = 'SLP Flask App',
---         module = 'flask',
---         env = {
---             FLASK_APP = 'wsgi.py',
---             FLASK_ENV = 'development',
---             FLASK_DEBUG = '1',
---         },
---         args = {
---             'run',
---             '--no-debugger',
---             '--host=0.0.0.0',
---             '--port=45120',
---         },
---         pythonPath = function()
---             return 'python'
---         end,
---         cwd = vim.fn.getcwd(),
---         jinja = true,
---         -- ... more options, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings
---     },
---     {
---         type = 'python',
---         request = 'launch',
---         module = 'celery',
---         name = 'SLP Celery Workers',
---         args = {
---             "worker",
---             "--app=wsgi.celery",
---             "--concurrency=1",
---             "--loglevel=DEBUG",
---             "--queues=linkedin_default",
---             "-B"
---         },
---         gevent = true,
---         console = 'integratedTerminal',
---         cwd = vim.fn.getcwd(),
---         env = {
---             CELERY_TASK_ALWAYS_EAGER = 'True',
---             AUTH_DEV                 = "KEYCLOAK_AUTH_DISABLED",
---             LOG_NAME                 = "tasks",
---             GEVENT_SUPPORT           = 'True'
---         }
---     }
--- }
---
--- local dap_python = require "dap-python"
--- dap_python.setup("python", {
---     -- So if configured correctly, this will open up new terminal.
---     --    Could probably get this to target a particular terminal
---     --    and/or add a tab to kitty or something like that as well.
---     console = "externalTerminal",
---     include_configs = true,
--- })
---
--- vim.g.python3_host_prog = pythonPath()
--- require('dap-python').setup(vim.g.python3_host_prog)
--- require('dap-python').test_runner = 'pytest'
---
 -- dap.configurations.rust = {
 --     {
 --         name = "Launch",
@@ -285,83 +308,3 @@ dap_virtual_text.setup {
 -- augroup END
 -- ]]
 --
--- local dap_ui = require "dapui"
---
--- local _ = dap_ui.setup {
---     layouts = {
---         {
---             elements = {
---                 "scopes",
---                 "breakpoints",
---                 "stacks",
---                 "watches",
---             },
---             size = 40,
---             position = "right",
---         },
---         {
---             elements = {
---                 {
---                     id = "repl",
---                     size = 0.375,
---                 },
---                 {
---                     id = "console",
---                     size = 0.625,
---                 },
---             },
---             size = 10,
---             position = "bottom",
---         },
---     },
--- }
---
--- local original = {}
--- local debug_map = function(lhs, rhs, desc)
---     local keymaps = vim.api.nvim_get_keymap "n"
---     original[lhs] = vim.tbl_filter(function(v)
---             return v.lhs == lhs
---         end, keymaps)[1] or true
---
---     vim.keymap.set("n", lhs, rhs, { desc = desc })
--- end
---
--- local debug_unmap = function()
---     for k, v in pairs(original) do
---         if v == true then
---             vim.keymap.del("n", k)
---         else
---             local rhs = v.rhs
---
---             v.lhs = nil
---             v.rhs = nil
---             v.buffer = nil
---             v.mode = nil
---             v.sid = nil
---             v.lnum = nil
---
---             vim.keymap.set("n", k, rhs, v)
---         end
---     end
---
---     original = {}
--- end
---
--- dap.listeners.after.event_initialized["dapui_config"] = function()
---     -- debug_map("asdf", ":echo 'hello world<CR>", "showing things")
---
---     dap_ui.open()
--- end
---
--- dap.listeners.before.event_terminated["dapui_config"] = function()
---     debug_unmap()
---
---     dap_ui.close()
--- end
---
--- dap.listeners.before.event_exited["dapui_config"] = function()
---     dap_ui.close()
--- end
---
--- -- load telescope dap
--- require('telescope').load_extension('dap')
