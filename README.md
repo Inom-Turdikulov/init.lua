@@ -10,6 +10,8 @@ I need manually instal it with:
 
 ## TODO
 
+TODO: port old LSP keybindings
+
 TODO: port configuration
 
 TODO: check https://github.com/zbirenbaum/copilot-cmp
