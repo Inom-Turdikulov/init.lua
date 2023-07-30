@@ -132,6 +132,26 @@ lspconfig.rust_analyzer.setup{}
 lspconfig.gdscript.setup{}
 lspconfig.emmet_ls.setup{}
 
+local ok, ltex_extra = pcall(require, "ltex_extra")
+if ok then
+  local ltex_allowed_filetypes = { "gitcommit", "markdown" }
+  lspconfig.ltex.setup({
+        on_attach = function()
+            require("ltex_extra").setup {
+                load_langs = { "ru-RU", "en-US" },            -- table <string> : languages for witch dictionaries will be loaded
+                init_check = true,                            -- boolean : whether to load dictionaries on startup
+                path = vim.fn.stdpath("config") .. "spell",   -- string : path to store dictionaries. Relative path uses current working directory
+                log_level = "none",                           -- string : "none", "trace", "debug", "info", "warn", "error", "fatal"
+            }
+        end,
+        settings = {
+          ltex = {
+              -- check LSP config if you add new filetypes
+              filetypes = ltex_allowed_filetypes
+          }
+      }
+  })
+end
 
 ---
 -- Autocomplete

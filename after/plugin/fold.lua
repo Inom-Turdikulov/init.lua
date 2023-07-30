@@ -4,11 +4,6 @@ vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to de
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
--- Markdown conceallevel
-vim.cmd[[
-au FileType markdown setlocal foldlevel=99 conceallevel=2
-]]
-
 local ok, ufo = pcall(require, "ufo")
 if not ok then
   return
