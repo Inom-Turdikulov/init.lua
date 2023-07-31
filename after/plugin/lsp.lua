@@ -147,7 +147,7 @@ lspconfig.ruff_lsp.setup {}
 
 lspconfig.efm.setup {
     -- Format on save if NVIM_AUTOFORMAT is set to 1
-    on_attach = function(client, bufnr)
+    on_attach    = function(client, bufnr)
         if vim.env.NVIM_AUTOFORMAT == "1" and client.supports_method("textDocument/formatting") then
             vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
             vim.api.nvim_create_autocmd("BufWritePre", {
@@ -160,7 +160,7 @@ lspconfig.efm.setup {
         end
     end,
     init_options = { documentFormatting = true },
-    settings = {
+    settings     = {
         rootMarkers = { ".git/" },
         languages = {
             lua = { { formatCommand = "lua-format -i", formatStdin = true } },
