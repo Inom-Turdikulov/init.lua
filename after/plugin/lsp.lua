@@ -38,25 +38,59 @@ end
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP actions',
   callback = function()
-    local bufmap = function(mode, lhs, rhs)
-      local opts = {buffer = true}
-      vim.keymap.set(mode, lhs, rhs, opts)
+    local map = function(lhs, rhs, desc)
+      if desc then
+        desc = "[LSP] " .. desc
+      end
+
+      vim.keymap.set("n", lhs, rhs, { silent = true, desc = desc })
     end
 
-    bufmap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>')
-    bufmap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>')
-    bufmap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>')
-    bufmap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>')
-    bufmap('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>')
-    bufmap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>')
-    bufmap('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>')
-    bufmap('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>')
-    bufmap('n', '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>')
-    bufmap('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>')
-    bufmap('x', '<F4>', '<cmd>lua vim.lsp.buf.range_code_action()<cr>')
-    bufmap('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>')
-    bufmap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
-    bufmap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
+    map('<leader>wa', vim.lsp.buf.add_workspace_folder,
+        "Add workspace folder")
+    map('<leader>wr', vim.lsp.buf.remove_workspace_folder,
+        "Remove workspace folder")
+    map('<leader>wl', function()
+        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, "Lis workspace folders")
+
+    map("K", vim.lsp.buf.hover, "hover")
+    map("gd", vim.lsp.buf.definition, 'go to definition')
+    map("gD", vim.lsp.buf.declaration, 'go to declaration')
+    map("gi", vim.lsp.buf.implementation, 'go to implementation')
+
+    -- Formatting
+    map("<leader>F", function() vim.lsp.buf.format { async = true } end, 'format')
+    vim.keymap.set("v", "<leader>F",
+            function() vim.lsp.buf.format { async = true } end,
+            { silent = true, desc = "LSP Visual Format" })
+
+
+    map('go', vim.lsp.buf.type_definition, "go to type definition")
+    map('gr', vim.lsp.buf.references, "go to references")
+    vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end,
+            { desc = '[LSP] signature Help' })
+
+    map('<leader>vrn', vim.lsp.buf.rename, "rename")
+    map("<leader>vaa", vim.lsp.buf.code_action, 'code action')
+    vim.keymap.set("x", "<leader>vaa",
+            function() vim.lsp.buf.range_code_action() end,
+            { silent = true, desc = "[LSP] Range Code Action" })
+
+    -- Diagnostic
+    map('gl', vim.diagnostic.open_float, "open diagnostic")
+    map("[d", vim.diagnostic.goto_prev, 'go to previous diagnostic')
+    map("]d", vim.diagnostic.goto_next, 'go to next diagnostic')
+
+    -- Symbols
+    map("<leader>vws",
+        function()
+            vim.cmd("Telescope lsp_dynamic_workspace_symbols")
+        end,
+        'telescope workspace symbol')
+
+    map("<leader>vwS", vim.lsp.buf.workspace_symbol, 'workspace Symbol')
+
   end
 })
 
@@ -75,8 +109,8 @@ end
 
 sign({name = 'DiagnosticSignError', text = '✘'})
 sign({name = 'DiagnosticSignWarn', text = '▲'})
-sign({name = 'DiagnosticSignHint', text = '⚑'})
-sign({name = 'DiagnosticSignInfo', text = ''})
+sign({name = 'DiagnosticSignHint', text = '󰈻'})
+sign({name = 'DiagnosticSignInfo', text = ''})
 sign({name = 'CmpItemKindCopilot', text = ''})
 
 vim.diagnostic.config({
@@ -256,3 +290,119 @@ cmp.setup({
     end, {'i', 's'}),
   },
 })
+
+        -- -- if client.name == 'pyright' then
+        -- --     -- optimize imports with pyright
+        -- --     vim.keymap.set("n", "<leader>voi",
+        -- --         function()
+        -- --             vim.lsp.buf.execute_command({
+        -- --                 command = 'pyright.organizeimports',
+        -- --                 arguments = { vim.uri_from_bufnr(0) }
+        -- --             })
+        -- --         end, { unpack(opts), desc = 'LSP Organize Imports' })
+        -- -- end
+        --
+        --
+        --
+        -- -- Custom restart session
+        -- vim.keymap.set("n", "<leader>dR", function()
+        --     require('dap').disconnect()
+        --     require('dap').close()
+        --     require('dap').run_last()
+        -- end, { desc = 'debug restart' })
+        --
+        -- -- Debugging
+        -- -- vim.keymap.set("n", "<S-F1>", require("dap").goto_)
+        -- vim.keymap.set("n", "<F1>", require("dap").step_back)
+        --
+        -- vim.keymap.set("n", "<F2>", require("dap").step_into)
+        -- vim.keymap.set("n", "<F3>", require("dap").step_over)
+        -- vim.keymap.set("n", "<F4>", require("dap").step_out)
+        -- vim.keymap.set("n", "<F5>", require("dap").continue)
+        -- vim.keymap.set("n", "<F6>", require("dap").continue)
+        --
+        -- vim.keymap.set("n", "<Leader>dx", function() require 'dap'.close() end,
+        --     { desc = 'Debug close' })
+        --
+        -- vim.keymap.set("n", "<Leader>dX",
+        --     function() require 'dap'.terminate() end,
+        --     { desc = 'Debug terminate' })
+        --
+        -- vim.keymap.set("n", "<Leader>dD",
+        --     function() require 'dap'.disconnect() end,
+        --     { desc = 'Debug disconnect' })
+        --
+        --
+        -- vim.keymap.set("n", "<F6>", function() require 'dap'.pause.toggle() end,
+        --     { desc = 'Debug pause toggle' })
+        --
+        -- vim.keymap.set("n", "<leader>db",
+        --     function() require 'dap'.toggle_breakpoint() end,
+        --     { desc = 'Debug toggle breakpoint' })
+        -- vim.keymap.set("n", "<leader>dB",
+        --     function()
+        --         require 'dap'.set_breakpoint(vim.fn.input(
+        --             '[DAP] Condition >'))
+        --     end,
+        --     { desc = 'Debug set breakpoint condition' })
+        --
+        -- vim.keymap.set("n", "<C-F9>",
+        --     function()
+        --         require 'dap'.set_breakpoint(nil, nil,
+        --             vim.fn.input('Log point message: '))
+        --     end,
+        --     { desc = 'Debug set log point' })
+        --
+        -- vim.keymap.set("n", "<Leader>dC",
+        --     function() require 'dap'.run_to_cursor() end,
+        --     { desc = 'Debug run to cursor' })
+        -- vim.keymap.set("n", "<Leader>dL",
+        --     function() require 'dap'.repl.toggle() end,
+        --     { desc = 'Debug repl toggle' })
+        -- vim.keymap.set("n", "<leader>dr", function() require 'dap'.run_last() end,
+        --     { desc = 'Debug run last' })
+        --
+        -- vim.keymap.set("n", "<Leader>de", function() require 'dapui'.eval() end,
+        --     { desc = 'Debug eval' })
+        -- vim.keymap.set(
+        --     "n",
+        --     "<leader>dE",
+        --     function()
+        --         vim.cmd(":edit " .. vim.fn.stdpath('cache') .. "/dap.log")
+        --     end
+        -- )
+        --
+        -- vim.keymap.set({ "n", "v" }, "<Leader>dh",
+        --     function() require 'dap.ui.widgets'.hover() end,
+        --     { desc = 'Debug hover' })
+        -- vim.keymap.set({ "n", "v" }, "<Leader>dp",
+        --     function() require 'dap.ui.widgets'.preview() end,
+        --     { desc = 'Debug preview' })
+        -- vim.keymap.set({ "n", "v" }, "<Leader>dF",
+        --     function() require 'dap.ui.widgets'.frames() end,
+        --     { desc = 'Debug frames' })
+        -- vim.keymap.set({ "n", "v" }, "<Leader>ds",
+        --     function() require 'dap.ui.widgets'.scopes() end,
+        --     { desc = 'Debug scopes' })
+        --
+        --
+        -- -- DapUI keybindings
+        -- vim.keymap.set("n", "<Leader>dut",
+        --     function() require('dapui').toggle() end,
+        --     { desc = 'Debug ui toggle and reset' })
+        -- vim.keymap.set("n", "<Leader>duc",
+        --     function() require('dapui').close({ reset = true }) end,
+        --     { desc = 'Debug ui close' })
+        -- vim.keymap.set("n", "<Leader>duo",
+        --     function() require('dapui').open({ reset = true }) end,
+        --     { desc = 'Debug ui open' })
+        --
+        -- -- Autoformat on save if $AUTOFORMAT is set to 1
+        -- if vim.env.AUTOFORMAT == "1" then
+        --     vim.api.nvim_create_autocmd("BufWritePre", {
+        --         buffer = bufnr,
+        --         callback = function()
+        --             vim.lsp.buf.format { async = false }
+        --         end
+        --     })
+        -- end

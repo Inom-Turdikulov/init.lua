@@ -32,6 +32,25 @@ map("<leader>dE", function()
   require("dapui").eval(vim.fn.input "[DAP] Expression > ")
 end)
 
+
+-- Telescope DAP
+if pcall(require, "telescope._extensions.dap") then
+    local telescope = require("telescope")
+    telescope.load_extension("dap")
+
+    -- telescope-dap
+    map("<leader>dlk", telescope.extensions.dap.commands, 'Telescope DAP Commands')
+
+    map("<leader>dlb", telescope.extensions.dap.list_breakpoints, 'Telescope DAP List Breakpoints')
+
+   map("<leader>dlc", telescope.extensions.dap.configurations, 'Telescope DAP Configurations')
+
+   map("<leader>dlv", telescope.extensions.dap.variables, 'Telescope DAP Variables')
+
+   map("<leader>dlf", telescope.extensions.dap.frames, 'Telescope DAP Frames')
+end
+
+
 -- Configure custom signs
 vim.fn.sign_define("DapBreakpoint", { text = "ß", texthl = "", linehl = "", numhl = "" })
 vim.fn.sign_define("DapBreakpointCondition", { text = "ü", texthl = "", linehl = "", numhl = "" })

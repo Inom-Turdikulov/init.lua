@@ -77,11 +77,6 @@ if pcall(require, "telescope._extensions.file_browser") then
     telescope.load_extension("file_browser")
 end
 
--- Telescope dap
-if pcall(require, "telescope._extensions.dap") then
-    telescope.load_extension("dap")
-end
-
 -- open file_browser with the path of the current buffer
 vim.keymap.set("n", "<leader>pV", function()
     require("telescope").extensions.file_browser.file_browser({

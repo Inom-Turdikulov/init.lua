@@ -23,3 +23,43 @@ neotest.setup({
         })
     }
 })
+
+
+local map = function(lhs, rhs, desc)
+  if desc then
+    desc = "[Neotest] " .. desc
+  end
+
+  vim.keymap.set("n", lhs, rhs, { silent = true, desc = desc })
+end
+
+-- Neotest keybindings
+map("<leader>dnn", neotest.run.run, 'Neotest run the nearest test')
+
+map("<leader>dnc", function()
+        require("neotest").run.run({ strategy = "dap" })
+        require("neotest").summary.open()
+    end,
+    'debug the nearest test')
+
+map("<leader>dnf",
+    function() neotest.run.run(vim.fn.expand("%")) end,
+    'run the current file')
+
+map("<leader>dna", neotest.run.attach, 'attach to the nearest test')
+map("<leader>dns", neotest.run.stop, 'stop the nearest test')
+
+map("<leader>dno",
+    function() require("neotest").output.open({ enter = true }) end,
+    'open the output of a test result')
+
+map("<leader>dnt", neotest.output_panel.toggle, 'toggle the output panel')
+
+map("<leader>dns", function()
+        require("neotest").summary.open()
+        require("functions.utils").resize_vertical_splits()
+    end,
+    'open the summary window')
+
+map("]n", neotest.jump.next, 'Neotest jump to the next test')
+map("[n", neotest.jump.prev, 'Neotest jump to the previous test')
