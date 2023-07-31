@@ -156,7 +156,10 @@ lspconfig.gdscript.setup {}
 lspconfig.emmet_ls.setup {}
 lspconfig.ruff_lsp.setup {}
 
-local prettier = {formatCommand = 'prettierd "${INPUT}"', formatStdin = true}
+local prettier = {
+    formatCommand = 'prettier_d_slim "${INPUT}"',
+    formatStdin = true
+}
 local eslint = {
     lintCommand = "eslint_d -f visualstudio --stdin --stdin-filename ${INPUT}",
     lintIgnoreExitCode = true,
