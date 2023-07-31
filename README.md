@@ -10,11 +10,10 @@ I need manually instal it with:
 
 ## TODO
 
-TODO: port old LSP keybindings
-
-TODO: port configuration
-
-TODO: check https://github.com/zbirenbaum/copilot-cmp
-
-TODO: print in config not really works (at least in telekasten.lua on startup).
+- TODO: LSP icons check
+- TODO: LSP telescope func check, dap shortcuts check
+- TODO: port old LSP keybindings
+- TODO: port configuration
+- TODO: check https://github.com/zbirenbaum/copilot-cmp
+- TODO: print in config not really works (at least in telekasten.lua on startup).
 Need to use some notification systems?
