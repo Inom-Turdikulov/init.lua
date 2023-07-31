@@ -59,3 +59,11 @@ autocmd({ "BufRead" }, {
     end,
 })
 
+-- Return to last edit position when opening files
+-- silent is needed to avoid errors when opening a file without a previous position
+vim.api.nvim_create_autocmd({'BufWinEnter'}, {
+  group = PersonalGroup,
+  desc = 'return cursor to where it was last time closing the file',
+  pattern = '*',
+  command = 'silent! normal! g`"zv',
+})
