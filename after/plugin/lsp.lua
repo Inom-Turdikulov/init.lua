@@ -151,7 +151,7 @@ lspconfig.cssls.setup({})
 lspconfig.lua_ls.setup {}
 lspconfig.pyright.setup {}
 lspconfig.clangd.setup {on_attach = on_attach}
-lspconfig.rust_analyzer.setup {}
+lspconfig.rust_analyzer.setup {on_attach = on_attach}
 lspconfig.gdscript.setup {}
 lspconfig.emmet_ls.setup {}
 lspconfig.ruff_lsp.setup {}
