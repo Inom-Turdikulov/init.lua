@@ -94,7 +94,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end
 })
 
-
 ---
 -- Diagnostics
 ---
@@ -165,6 +164,7 @@ lspconfig.clangd.setup{}
 lspconfig.rust_analyzer.setup{}
 lspconfig.gdscript.setup{}
 lspconfig.emmet_ls.setup{}
+lspconfig.ruff_lsp.setup{}
 
 local ok, ltex_extra = pcall(require, "ltex_extra")
 if ok then
@@ -303,99 +303,6 @@ cmp.setup({
         -- -- end
         --
         --
-        --
-        -- -- Custom restart session
-        -- vim.keymap.set("n", "<leader>dR", function()
-        --     require('dap').disconnect()
-        --     require('dap').close()
-        --     require('dap').run_last()
-        -- end, { desc = 'debug restart' })
-        --
-        -- -- Debugging
-        -- -- vim.keymap.set("n", "<S-F1>", require("dap").goto_)
-        -- vim.keymap.set("n", "<F1>", require("dap").step_back)
-        --
-        -- vim.keymap.set("n", "<F2>", require("dap").step_into)
-        -- vim.keymap.set("n", "<F3>", require("dap").step_over)
-        -- vim.keymap.set("n", "<F4>", require("dap").step_out)
-        -- vim.keymap.set("n", "<F5>", require("dap").continue)
-        -- vim.keymap.set("n", "<F6>", require("dap").continue)
-        --
-        -- vim.keymap.set("n", "<Leader>dx", function() require 'dap'.close() end,
-        --     { desc = 'Debug close' })
-        --
-        -- vim.keymap.set("n", "<Leader>dX",
-        --     function() require 'dap'.terminate() end,
-        --     { desc = 'Debug terminate' })
-        --
-        -- vim.keymap.set("n", "<Leader>dD",
-        --     function() require 'dap'.disconnect() end,
-        --     { desc = 'Debug disconnect' })
-        --
-        --
-        -- vim.keymap.set("n", "<F6>", function() require 'dap'.pause.toggle() end,
-        --     { desc = 'Debug pause toggle' })
-        --
-        -- vim.keymap.set("n", "<leader>db",
-        --     function() require 'dap'.toggle_breakpoint() end,
-        --     { desc = 'Debug toggle breakpoint' })
-        -- vim.keymap.set("n", "<leader>dB",
-        --     function()
-        --         require 'dap'.set_breakpoint(vim.fn.input(
-        --             '[DAP] Condition >'))
-        --     end,
-        --     { desc = 'Debug set breakpoint condition' })
-        --
-        -- vim.keymap.set("n", "<C-F9>",
-        --     function()
-        --         require 'dap'.set_breakpoint(nil, nil,
-        --             vim.fn.input('Log point message: '))
-        --     end,
-        --     { desc = 'Debug set log point' })
-        --
-        -- vim.keymap.set("n", "<Leader>dC",
-        --     function() require 'dap'.run_to_cursor() end,
-        --     { desc = 'Debug run to cursor' })
-        -- vim.keymap.set("n", "<Leader>dL",
-        --     function() require 'dap'.repl.toggle() end,
-        --     { desc = 'Debug repl toggle' })
-        -- vim.keymap.set("n", "<leader>dr", function() require 'dap'.run_last() end,
-        --     { desc = 'Debug run last' })
-        --
-        -- vim.keymap.set("n", "<Leader>de", function() require 'dapui'.eval() end,
-        --     { desc = 'Debug eval' })
-        -- vim.keymap.set(
-        --     "n",
-        --     "<leader>dE",
-        --     function()
-        --         vim.cmd(":edit " .. vim.fn.stdpath('cache') .. "/dap.log")
-        --     end
-        -- )
-        --
-        -- vim.keymap.set({ "n", "v" }, "<Leader>dh",
-        --     function() require 'dap.ui.widgets'.hover() end,
-        --     { desc = 'Debug hover' })
-        -- vim.keymap.set({ "n", "v" }, "<Leader>dp",
-        --     function() require 'dap.ui.widgets'.preview() end,
-        --     { desc = 'Debug preview' })
-        -- vim.keymap.set({ "n", "v" }, "<Leader>dF",
-        --     function() require 'dap.ui.widgets'.frames() end,
-        --     { desc = 'Debug frames' })
-        -- vim.keymap.set({ "n", "v" }, "<Leader>ds",
-        --     function() require 'dap.ui.widgets'.scopes() end,
-        --     { desc = 'Debug scopes' })
-        --
-        --
-        -- -- DapUI keybindings
-        -- vim.keymap.set("n", "<Leader>dut",
-        --     function() require('dapui').toggle() end,
-        --     { desc = 'Debug ui toggle and reset' })
-        -- vim.keymap.set("n", "<Leader>duc",
-        --     function() require('dapui').close({ reset = true }) end,
-        --     { desc = 'Debug ui close' })
-        -- vim.keymap.set("n", "<Leader>duo",
-        --     function() require('dapui').open({ reset = true }) end,
-        --     { desc = 'Debug ui open' })
         --
         -- -- Autoformat on save if $AUTOFORMAT is set to 1
         -- if vim.env.AUTOFORMAT == "1" then

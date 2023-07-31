@@ -11,27 +11,47 @@ local map = function(lhs, rhs, desc)
   vim.keymap.set("n", lhs, rhs, { silent = true, desc = desc })
 end
 
+map("<S-F1>", dap.goto_, "goto_")
 map("<F1>", dap.step_back, "step_back")
 map("<F2>", dap.step_into, "step_into")
 map("<F3>", dap.step_over, "step_over")
 map("<F4>", dap.step_out, "step_out")
 map("<F5>", dap.continue, "continue")
+map("<F6>", function()
+     dap.pause.toggle()
+end,
+    'Debug pause toggle')
+map("<C-F9>", function()
+        dap.set_breakpoint(nil, nil,
+            vim.fn.input('Log point message: '))
+end,
+    'set log point')
+map("<Leader>dx", dap.close, 'close')
+map("<leader>dX", dap.terminate, 'terminate')
+map("<leader>dD", dap.disconnect, 'disconnect')
 
 -- TODO:
 -- disconnect vs. terminate
 
-map("<leader>dr", dap.repl.open)
+map("<leader>dr", dap.repl.open, "repl.open")
 
-map("<leader>db", dap.toggle_breakpoint)
+map("<leader>db", dap.toggle_breakpoint, "toggle_breakpoint")
 map("<leader>dB", function()
   dap.set_breakpoint(vim.fn.input "[DAP] Condition > ")
-end)
+end, "set beakpoint with condition")
 
 map("<leader>de", require("dapui").eval)
 map("<leader>dE", function()
   require("dapui").eval(vim.fn.input "[DAP] Expression > ")
 end)
 
+map("<Leader>dC", dap.run_to_cursor, 'run to cursor')
+map("<Leader>dL", dap.repl.toggle, 'repl toggle')
+map("<Leader>dr", dap.run_last, 'run last')
+map("<Leader>dE", function()
+        vim.cmd(":edit " .. vim.fn.stdpath('cache') .. "/dap.log")
+     end,
+    'open dap log')
 
 -- Telescope DAP
 if pcall(require, "telescope._extensions.dap") then
@@ -49,7 +69,6 @@ if pcall(require, "telescope._extensions.dap") then
 
    map("<leader>dlf", telescope.extensions.dap.frames, 'Telescope DAP Frames')
 end
-
 
 -- Configure custom signs
 vim.fn.sign_define("DapBreakpoint", { text = "ß", texthl = "", linehl = "", numhl = "" })
@@ -132,6 +151,25 @@ if has_dap_ui then
             },
         },
     }
+
+    -- DapUI keybindings
+    map("<Leader>dut", dap_ui.toggle, 'Debug ui toggle and reset')
+    map("<Leader>duc", function() dap_ui.close({ reset = true }) end, 'Debug ui close')
+    map("<Leader>duo", function() dap_ui.open({ reset = true }) end, 'Debug ui open')
+    map("<Leader>due", dap_ui.eval, 'eval')
+
+    vim.keymap.set({ "n", "v" }, "<Leader>dh",
+        function() require 'dap.ui.widgets'.hover() end,
+        { desc = '[DAP] Debug hover' })
+    vim.keymap.set({ "n", "v" }, "<Leader>dp",
+        function() require 'dap.ui.widgets'.preview() end,
+        { desc = '[DAP] Debug preview' })
+    vim.keymap.set({ "n", "v" }, "<Leader>dF",
+        function() require 'dap.ui.widgets'.frames() end,
+        { desc = '[DAP] Debug frames' })
+    vim.keymap.set({ "n", "v" }, "<Leader>ds",
+        function() require 'dap.ui.widgets'.scopes() end,
+        { desc = '[DAP] Debug scopes' })
 
     dap.listeners.after.event_initialized["dapui_config"] = function()
         dap_ui.open()
