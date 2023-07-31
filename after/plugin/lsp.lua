@@ -94,10 +94,10 @@ local sign = function(opts)
                        {texthl = opts.name, text = opts.text, numhl = ''})
 end
 
-sign({name = 'DiagnosticSignError', text = '✘'})
-sign({name = 'DiagnosticSignWarn', text = '▲'})
-sign({name = 'DiagnosticSignHint', text = '󰈻'})
-sign({name = 'DiagnosticSignInfo', text = ''})
+sign({name = 'DiagnosticSignError', text = 'E'})
+sign({name = 'DiagnosticSignWarn', text = 'W'})
+sign({name = 'DiagnosticSignHint', text = '?'})
+sign({name = 'DiagnosticSignInfo', text = 'I'})
 sign({name = 'CmpItemKindCopilot', text = ''})
 
 vim.diagnostic.config({
