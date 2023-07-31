@@ -134,40 +134,41 @@ lsp_defaults.capabilities = vim.tbl_deep_extend('force',
 -- LSP servers
 ---
 
+local function on_attach(client, bufnr)
+    if vim.env.NVIM_AUTOFORMAT == "1" and client.supports_method("textDocument/formatting") then
+        vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            group = augroup,
+            buffer = bufnr,
+            callback = function()
+                vim.lsp.buf.format()
+            end,
+        })
+    end
+end
+
 lspconfig.tsserver.setup({})
 lspconfig.html.setup({})
 lspconfig.cssls.setup({})
 lspconfig.lua_ls.setup {}
 lspconfig.pyright.setup {}
-lspconfig.clangd.setup {}
+lspconfig.clangd.setup { on_attach = on_attach }
 lspconfig.rust_analyzer.setup {}
 lspconfig.gdscript.setup {}
 lspconfig.emmet_ls.setup {}
 lspconfig.ruff_lsp.setup {}
 
 lspconfig.efm.setup {
-    -- Format on save if NVIM_AUTOFORMAT is set to 1
-    on_attach    = function(client, bufnr)
-        if vim.env.NVIM_AUTOFORMAT == "1" and client.supports_method("textDocument/formatting") then
-            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-            vim.api.nvim_create_autocmd("BufWritePre", {
-                group = augroup,
-                buffer = bufnr,
-                callback = function()
-                    vim.lsp.buf.format()
-                end,
-            })
-        end
-    end,
+    on_attach = on_attach,
     init_options = { documentFormatting = true },
     settings     = {
         rootMarkers = { ".git/" },
         languages = {
             lua = { { formatCommand = "lua-format -i", formatStdin = true } },
-            python = {
+            python = { {
                 formatCommand = "black --quiet -",
                 formatStdin = true
-            },
+            } },
         }
     }
 }
