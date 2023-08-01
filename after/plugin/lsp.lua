@@ -153,7 +153,7 @@ lspconfig.pyright.setup {}
 lspconfig.clangd.setup {on_attach = on_attach}
 lspconfig.rust_analyzer.setup {on_attach = on_attach}
 lspconfig.gdscript.setup {}
-lspconfig.emmet_ls.setup {}
+lspconfig.emmet_ls.setup {filetypes = {'html', 'typescript', 'jinja'}}
 lspconfig.ruff_lsp.setup {}
 
 local prettier = {formatCommand = 'prettier "${INPUT}"', formatStdin = true}
