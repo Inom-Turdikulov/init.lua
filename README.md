@@ -20,6 +20,7 @@ Need to use some notification systems?
   - https://davelage.com/posts/nvim-dap-getting-started/
   - https://miguelcrespo.co/posts/how-to-debug-like-a-pro-using-neovim/
   - https://harrisoncramer.me/debugging-in-neovim/
+  - https://stackoverflow.com/questions/71810002/how-to-configure-the-dap-debugger-under-neovim-for-typescript
 - [x] port old LSP keybindings
 - [x] port configuration
 - [x] check https://github.com/zbirenbaum/copilot-cmp
