@@ -131,6 +131,7 @@ if has_dap_ui then
                     "breakpoints",
                     "stacks",
                     "watches",
+                    "repl",
                 },
                 size = 40,
                 position = "right",
@@ -138,12 +139,8 @@ if has_dap_ui then
             {
                 elements = {
                     {
-                        id = "repl",
-                        size = 0.375,
-                    },
-                    {
                         id = "console",
-                        size = 0.625,
+                        size = 1,
                     },
                 },
                 size = 10,
