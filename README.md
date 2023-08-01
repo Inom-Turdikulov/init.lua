@@ -11,14 +11,16 @@ I need manually install it with:
 ## TODO
 
 - [x] LSP icons check
+- [ ] Learn lua: https://github.com/nanotee/nvim-lua-guide
+- [ ] Go through shortcuts
 - [ ] LSP telescope function check, DAP shortcuts check
-- [ ] port old LSP keybindings
-- [ ] port configuration
-- [ ] check https://github.com/zbirenbaum/copilot-cmp
 - [ ] print in config not really works (at least in telekasten.lua on startup).
 Need to use some notification systems?
 - [ ] review and maybe integrate some changes from these articles:
   - https://davelage.com/posts/nvim-dap-getting-started/
   - https://miguelcrespo.co/posts/how-to-debug-like-a-pro-using-neovim/
   - https://harrisoncramer.me/debugging-in-neovim/
+- [x] port old LSP keybindings
+- [x] port configuration
+- [x] check https://github.com/zbirenbaum/copilot-cmp
 - [k] ~~move this into NixOS configuration~~
