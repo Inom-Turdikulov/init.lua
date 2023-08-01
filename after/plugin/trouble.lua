@@ -7,8 +7,8 @@ trouble.setup {
     icons = true,
 }
 vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle document_diagnostics<cr>",
-    { silent = true, noremap = true }
+    { silent = true, desc = "[TROUBLE] document_diagnostics" }
 )
 vim.keymap.set("n", "<leader>xQ", "<cmd>TroubleToggle workspace_diagnostics<cr>",
-    { silent = true, noremap = true }
+    { silent = true, desc = "[TROUBLE] workspace_diagnostics" }
 )
