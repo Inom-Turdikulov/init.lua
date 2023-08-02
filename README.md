@@ -21,6 +21,7 @@ Need to use some notification systems?
   - https://miguelcrespo.co/posts/how-to-debug-like-a-pro-using-neovim/
   - https://harrisoncramer.me/debugging-in-neovim/
   - https://stackoverflow.com/questions/71810002/how-to-configure-the-dap-debugger-under-neovim-for-typescript
+- [x] integrate https://github.com/creativenull/efmls-configs-nvim
 - [x] port old LSP keybindings
 - [x] port configuration
 - [x] check https://github.com/zbirenbaum/copilot-cmp

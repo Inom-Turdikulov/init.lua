@@ -156,34 +156,33 @@ lspconfig.gdscript.setup {}
 lspconfig.emmet_ls.setup {filetypes = {'html', 'typescript', 'jinja'}}
 lspconfig.ruff_lsp.setup {}
 
-local prettier = {formatCommand = 'prettier "${INPUT}"', formatStdin = true}
-local eslint = {
-    lintCommand = "eslint_d -f visualstudio --stdin --stdin-filename ${INPUT}",
-    lintIgnoreExitCode = true,
-    lintStdin = true,
-    lintFormats = {"%f(%l,%c): %tarning %m", "%f(%l,%c): %rror %m"},
-    lintSource = "eslint"
-}
-lspconfig.efm.setup {
-    on_attach = on_attach,
-    init_options = {documentFormatting = true},
-    settings = {
-        rootMarkers = {".git/"},
-        languages = {
-            lua = {{formatCommand = "lua-format -i", formatStdin = true}},
-            python = {{formatCommand = "black --quiet -", formatStdin = true}},
-            typescript = {prettier, eslint},
-            javascript = {prettier, eslint},
-            typescriptreact = {prettier, eslint},
-            javascriptreact = {prettier, eslint},
-            yaml = {prettier},
-            json = {prettier},
-            html = {prettier},
-            scss = {prettier},
-            css = {prettier}
-        }
+local efmls_loaded, efmls = pcall(require, 'efmls-configs')
+if efmls_loaded then
+    efmls.init {
+        -- Your custom attach function
+        on_attach = on_attach,
+
+        -- Enable formatting provided by efm langserver
+        init_options = {documentFormatting = true}
     }
-}
+
+    local eslint_d = require 'efmls-configs.linters.eslint_d'
+    local prettier = require 'efmls-configs.formatters.prettier'
+    local lua = require 'efmls-configs.formatters.lua_format'
+    local black = require 'efmls-configs.formatters.black'
+    local flake8 = require 'efmls-configs.linters.flake8'
+
+    efmls.setup {
+        javascript = {linter = eslint_d, formatter = prettier},
+        lua = {formatter = lua},
+        python = {linter = flake8, formatter = black},
+        yaml = {formatter = prettier},
+        json = {formatter = prettier},
+        html = {formatter = prettier},
+        scss = {formatter = prettier},
+        css = {formatter = prettier}
+    }
+end
 
 local ok, ltex_extra = pcall(require, "ltex_extra")
 if ok then
