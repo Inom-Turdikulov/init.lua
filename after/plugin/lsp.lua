@@ -72,7 +72,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
                        {silent = true, desc = "[LSP] Range Code Action"})
 
         -- Diagnostic
-        map('gl', vim.diagnostic.open_float, "open diagnostic")
+        map('gl', vim.diagnostic.open_float, "hover diagnostic")
         map("[d", vim.diagnostic.goto_prev, 'go to previous diagnostic')
         map("]d", vim.diagnostic.goto_next, 'go to next diagnostic')
 
