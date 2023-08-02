@@ -155,6 +155,7 @@ lspconfig.rust_analyzer.setup {on_attach = on_attach}
 lspconfig.gdscript.setup {}
 lspconfig.emmet_ls.setup {filetypes = {'html', 'typescript', 'jinja'}}
 lspconfig.ruff_lsp.setup {}
+lspconfig.nil_ls.setup{}
 
 local efmls_loaded, efmls = pcall(require, 'efmls-configs')
 if efmls_loaded then
