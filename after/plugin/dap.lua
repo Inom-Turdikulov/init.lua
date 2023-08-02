@@ -208,6 +208,7 @@ if has_dap_python then
             '--host=0.0.0.0',
             '--port=45120',
         },
+        console = 'integratedTerminal',
         cwd = vim.fn.getcwd(),
         jinja = true,
     })

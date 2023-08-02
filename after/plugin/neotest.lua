@@ -13,7 +13,7 @@ neotest.setup({
         neotest_python({
             -- Extra arguments for nvim-dap configuration
             -- See https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for values
-            dap = { justMyCode = false },
+            dap = { justMyCode = false, console = "integratedTerminal" },
             -- Command line arguments for runner
             -- Can also be a function to return dynamic values
             args = { "--log-level", "DEBUG" },
@@ -33,7 +33,6 @@ local map = function(lhs, rhs, desc)
   vim.keymap.set("n", lhs, rhs, { silent = true, desc = desc })
 end
 
--- Neotest keybindings
 map("<leader>dnn", neotest.run.run, 'Neotest run the nearest test')
 
 map("<leader>dnc", function()
@@ -55,9 +54,9 @@ map("<leader>dno",
 
 map("<leader>dnt", neotest.output_panel.toggle, 'toggle the output panel')
 
-map("<leader>dns", function()
+map("<leader>dnS", function()
         require("neotest").summary.open()
-        require("functions.utils").resize_vertical_splits()
+        -- require("functions.utils").resize_vertical_splits()
     end,
     'open the summary window')
 
