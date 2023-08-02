@@ -148,14 +148,33 @@ end
 lspconfig.tsserver.setup({})
 lspconfig.html.setup({})
 lspconfig.cssls.setup({})
-lspconfig.lua_ls.setup {}
+lspconfig.lua_ls.setup {
+    settings = {
+        Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                version = 'LuaJIT'
+            },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = {'vim'}
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = vim.api.nvim_get_runtime_file("", true)
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {enable = false}
+        }
+    }
+}
 lspconfig.pyright.setup {}
 lspconfig.clangd.setup {on_attach = on_attach}
 lspconfig.rust_analyzer.setup {on_attach = on_attach}
 lspconfig.gdscript.setup {}
 lspconfig.emmet_ls.setup {filetypes = {'html', 'typescript', 'jinja'}}
 lspconfig.ruff_lsp.setup {}
-lspconfig.nil_ls.setup{}
+lspconfig.nil_ls.setup {}
 
 local efmls_loaded, efmls = pcall(require, 'efmls-configs')
 if efmls_loaded then
@@ -305,26 +324,3 @@ cmp.setup({
         end, {'i', 's'})
     }
 })
-
--- -- if client.name == 'pyright' then
--- --     -- optimize imports with pyright
--- --     vim.keymap.set("n", "<leader>voi",
--- --         function()
--- --             vim.lsp.buf.execute_command({
--- --                 command = 'pyright.organizeimports',
--- --                 arguments = { vim.uri_from_bufnr(0) }
--- --             })
--- --         end, { unpack(opts), desc = 'LSP Organize Imports' })
--- -- end
---
---
---
--- -- Autoformat on save if $AUTOFORMAT is set to 1
--- if vim.env.AUTOFORMAT == "1" then
---     vim.api.nvim_create_autocmd("BufWritePre", {
---         buffer = bufnr,
---         callback = function()
---             vim.lsp.buf.format { async = false }
---         end
---     })
--- end
