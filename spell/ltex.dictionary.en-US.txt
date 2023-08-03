@@ -298,3 +298,4 @@ Nixpkgs
 Filesystem
 intgeration
 Penza
+newsboat
