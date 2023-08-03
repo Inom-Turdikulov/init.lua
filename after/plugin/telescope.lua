@@ -19,6 +19,18 @@ vim.keymap.set('n', '<leader>fS', function()
     builtin.grep_string({ search = '- [ ]' });
 end)
 
+vim.keymap.set({ "n", "i", "v" }, '<M-p>', function()
+    if vim.fn.filereadable('.git/HEAD') == 1 then
+        builtin.git_files()
+    else
+        builtin.find_files()
+    end
+end, { desc = 'Telescope find files' })
+
+vim.keymap.set('n', '<M-P>', function()
+    builtin.find_files()
+end, { desc = 'Telescope find files' })
+
 vim.keymap.set("n", "<M-e>", function()
     builtin.oldfiles({ only_cwd = true })
 end, { noremap = true, silent = true }, { desc = 'Telescope oldfiles' })
@@ -29,18 +41,6 @@ vim.keymap.set('n', '<leader>fK', builtin.commands, { desc = 'Commands' })
 
 vim.keymap.set('n', '<leader>fc', builtin.command_history,
     { desc = 'Command history' })
-
-vim.keymap.set({ "n", "i", "v" }, '<M-p>', function()
-    if vim.fn.filereadable('.git/HEAD') == 1 then
-        builtin.git_files()
-    else
-        builtin.find_files()
-    end
-end, { desc = 'Telescope find files' })
-
-vim.keymap.set('n', '<M-P>', function()
-    builtin.resume()
-end, { desc = 'Telescope resume' })
 
 vim.keymap.set('n', '<M-b>', function()
     builtin.buffers()
