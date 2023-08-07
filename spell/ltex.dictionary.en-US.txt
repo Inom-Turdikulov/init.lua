@@ -299,3 +299,15 @@ Filesystem
 intgeration
 Penza
 newsboat
+keyserver
+keyservers
+ownertrust
+keyring
+Mailvelope
+godot
+weechat
+ncspot
+WeeChat
+rofi
+Rofi
+termdown
