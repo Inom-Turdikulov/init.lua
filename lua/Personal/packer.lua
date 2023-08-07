@@ -11,6 +11,15 @@ vim.cmd.packadd('packer.nvim')
 return require('packer').startup(function(use)
     -- Universal plugins, with minimum requirements
     -- ===============================
+    use 'Vimjas/vim-python-pep8-indent'
+
+    use {
+        "ThePrimeagen/refactoring.nvim",
+        requires = {
+            {"nvim-lua/plenary.nvim"},
+            {"nvim-treesitter/nvim-treesitter"}
+        }
+    }
 
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
