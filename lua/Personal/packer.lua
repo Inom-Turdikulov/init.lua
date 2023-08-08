@@ -11,7 +11,7 @@ vim.cmd.packadd('packer.nvim')
 return require('packer').startup(function(use)
     -- Universal plugins, with minimum requirements
     -- ===============================
-    use 'Vimjas/vim-python-pep8-indent'
+    use 'Darazaki/indent-o-matic'
 
     use {
         "ThePrimeagen/refactoring.nvim",
