@@ -11,7 +11,7 @@ vim.keymap.set("n", "<leader>pV", ":Lexplore %:p:h<CR>")
 vim.keymap.set("n", "<C-с>", "<C-d>")
 vim.keymap.set("n", "<C-ш>", "<C-u>")
 
--- Map Ctrl-Backspace to delete the previous word in insert mode.
+-- NOTE: this keymap for xst/st term, in our case Ctrl-Backspace
 vim.keymap.set("i", "<C-H>", "<C-W>", {noremap = true})
 
 vim.keymap.set("n", "<C-s>", "<cmd>w<CR>")
