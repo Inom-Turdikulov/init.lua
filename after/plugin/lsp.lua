@@ -61,7 +61,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
         map('go', vim.lsp.buf.type_definition, "go to type definition")
         map('gr', vim.lsp.buf.references, "go to references")
-        vim.keymap.set("i", "<C-h>",
+
+        -- NOTE: this keymap for xst/st term, in our case Ctrl-F1
+        vim.keymap.set("i", "<F25>",
                        function() vim.lsp.buf.signature_help() end,
                        {desc = '[LSP] signature Help'})
 
