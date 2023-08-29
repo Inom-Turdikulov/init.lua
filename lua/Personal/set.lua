@@ -63,6 +63,7 @@ end
 vim.g.nerw_keepdir = 0 --  avoid the move files error.
 vim.g.netrw_browse_split = 0
 vim.g.netrw_winsize = 25
+vim.g.netrw_localcopydircmd = 'cp -r'  -- fix netrw recursive dir copy
 
 -- Save data in session
 vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

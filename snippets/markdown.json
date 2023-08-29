@@ -120,7 +120,7 @@
         "prefix": "bqt",
         "body": [
             "> $1.\\",
-            "> —&thinsp;<cite>$0</cite>"
+            "> — <cite>$0</cite>"
         ],
         "description": "Insert blockquote snippet"
     }

@@ -21,6 +21,16 @@ return require('packer').startup(function(use)
         }
     }
 
+    use { "phelipetls/jsonpath.nvim" }
+
+    use { "tpope/vim-rsi"}
+
+    use { "jamessan/vim-gnupg" }
+
+    -- required pynvim
+    use { "jalvesaq/zotcite" }
+    use { "jalvesaq/cmp-zotcite" }
+
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
@@ -39,6 +49,13 @@ return require('packer').startup(function(use)
         "nvim-telescope/telescope-file-browser.nvim",
          requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim",
              "nvim-tree/nvim-web-devicons" }
+    }
+
+    -- Image viewer
+    use {
+        "nvim-telescope/telescope-media-files.nvim",
+         requires = { "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim",
+             "nvim-telescope/telescope.nvim" }
     }
 
     -- A dark Vim/Neovim color scheme for the GUI and 16/256/true-color terminal

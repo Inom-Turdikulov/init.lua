@@ -4,7 +4,7 @@ if not ok then return end
 telescope.setup {
   defaults = { file_ignore_patterns = { "./node_modules" } },
   extensions = {
-    media_files = { find_cmd = "fd" },
+    media_files = { filetypes = { "png", "webp", "jpg", "jpeg", "svg", "pdf" } },
     file_browser = {
       theme = "ivy",
       -- disables netrw and use telescope-file-browser in its place
@@ -62,6 +62,11 @@ map("<M-b>", builtin.buffers, "buffers")
 -- File browser
 if pcall(require, "telescope._extensions.file_browser") then
   telescope.load_extension("file_browser")
+end
+
+-- Previewer
+if pcall(require, "telescope._extensions.media_files") then
+  telescope.load_extension("media_files")
 end
 
 -- open file_browser with the path of the current buffer

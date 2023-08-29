@@ -9,7 +9,7 @@ sniprun.setup({
             compiler = "gcc"
         },
         Python3_original = {
-            interpreter = "python",
+            interpreter = "python3",
         },
     },
 })

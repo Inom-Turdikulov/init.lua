@@ -90,11 +90,13 @@ augroup END
 
 -- TODO: How does terminal work?
 local terminal = vim.env.TERMINAL
-local terminal_path = vim.fn.trim(vim.fn.system("which " .. terminal))
-dap.defaults.fallback.external_terminal = {
-    command = terminal_path,
-    args = { "-e" },
-}
+if terminal then
+    local terminal_path = vim.fn.trim(vim.fn.system("which " .. terminal))
+    dap.defaults.fallback.external_terminal = {
+        command = terminal_path,
+        args = { "-e" },
+    }
+end
 
 -- Virtual text
 local has_dap_virtual_text, dap_virtual_text = pcall(require, "dap-virtual-text")
