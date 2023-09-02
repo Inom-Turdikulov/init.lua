@@ -277,7 +277,6 @@ cmp.setup({
     { name = "nvim_lsp",    group_index = 2, keyword_length = 1 },
     { name = 'buffer',      group_index = 3, keyword_length = 3 },
     { name = "luasnip",     group_index = 2, keyword_length = 2 },
-    { name = "cmp_zotcite", keyword_length = 1 }
   },
   window = { documentation = cmp.config.window.bordered() },
   formatting = {
