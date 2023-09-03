@@ -8,12 +8,6 @@ if not pcall(require, "telescope") then
     return
 end
 
--- test viu binary availability, for images preview
-if vim.fn.executable("viu") == 0 then
-    print("Telekasten: viu not found, previewing images will not work")
-    return
-end
-
 -- Function to map keys, with [Telekasten] prefix for description
 local map = function(lhs, rhs, desc)
     if desc then
