@@ -67,3 +67,13 @@ vim.api.nvim_create_autocmd({'BufWinEnter'}, {
   pattern = '*',
   command = 'silent! normal! g`"zv',
 })
+
+-- -- Set *.asc files to markdown filetype
+-- autocmd({'BufWinEnter'}, {
+--     desc = 'ASC files syntax to markdown',
+--     pattern = { '*.asc' },
+--     callback = function()
+--         vim.opt_local.filetype = 'markdown'
+--     end,
+-- })
+--
