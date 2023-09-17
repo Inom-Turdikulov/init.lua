@@ -102,11 +102,6 @@ return require('packer').startup(function(use)
     use('tpope/vim-fugitive')
     use('tpope/vim-rhubarb') -- Fugitive-companion to interact with github
     use('idanarye/vim-merginal')
-    -- maybe not needed?
-    use {
-        'lewis6991/gitsigns.nvim',
-        -- tag = 'release' -- To use the latest release (do not use this if you run Neovim nightly or dev builds!)
-    }
 
     -- Distraction-free coding
     use("folke/zen-mode.nvim")
