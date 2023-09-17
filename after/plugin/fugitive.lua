@@ -4,7 +4,7 @@ end
 
 -- Automatically start insert mode when opening gitcommit buffers
 vim.cmd [[
-    autocmd FileType * lua if vim.bo.ft == "gitcommit" then vim.cmd("startinsert") end
+    autocmd FileType gitcommit startinsert
 ]]
 
 local Personal_Fugitive = vim.api.nvim_create_augroup("Personal_Fugitive", {})
@@ -23,6 +23,8 @@ autocmd("BufWinEnter", {
         if vim.bo.ft ~= "fugitive" then
             return
         end
+
+        vim.notify("Fugitive buffer opened")
 
         local bufnr = vim.api.nvim_get_current_buf()
         local opts = { buffer = bufnr, remap = false }
