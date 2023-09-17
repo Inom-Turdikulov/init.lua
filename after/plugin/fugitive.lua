@@ -14,33 +14,38 @@ autocmd("BufWinEnter", {
     group = Personal_Fugitive,
     pattern = "*",
     callback = function()
+        local map = function(lhs, rhs, desc)
+            local bufnr = vim.api.nvim_get_current_buf()
+            if desc then
+                desc = "[Fugitive] " .. desc
+            end
+
+            vim.keymap.set("n", lhs, rhs, { buffer = bufnr, desc = desc, remap = false })
+        end
+
         if vim.bo.ft == "diff" then
             -- TODO: need test it
-            vim.keymap.set("n", "gn", "<cmd>diffget //2<CR>") -- select left side of diff
-            vim.keymap.set("n", "gt", "<cmd>diffget //3<CR>") -- select right side of diff
+            map("gn", "<cmd>diffget //2<CR>", "select left side of diff")
+            map("gt", "<cmd>diffget //3<CR>", "select right side of diff")
         end
 
         if vim.bo.ft ~= "fugitive" then
             return
         end
 
-        vim.notify("Fugitive buffer opened")
-
-        local bufnr = vim.api.nvim_get_current_buf()
-        local opts = { buffer = bufnr, remap = false }
-        vim.keymap.set("n", "<leader>p", function()
+        map("<leader>pp", function()
             vim.cmd.Git('push')
-        end, opts)
+        end, "Git push")
 
         -- rebase always
-        vim.keymap.set("n", "<leader>P", function()
+        map("<leader>pP", function()
             vim.cmd.Git({ 'pull --rebase' })
-        end, opts)
+        end, "Git pull")
 
         -- NOTE: It allows me to easily set the branch i am pushing and any tracking
         -- needed if i did not set the branch up correctly
-        vim.keymap.set("n", "<leader>t", ":Git push -u origin ", opts);
-        vim.keymap.set("n", "<leader>T", ":Git push -o merge_request.create --set-upstream origin -u origin ", opts);
+        map("<leader>pt", ":Git push -u origin ", "Git push origin");
+        map("<leader>pT", ":Git push -o merge_request.create --set-upstream origin -u origin ", "Git push with MR");
     end,
 })
 
@@ -63,25 +68,33 @@ local function toggleFugitiveGit()
     end
 end
 
--- Keymaps
-vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
-vim.keymap.set('n', '<leader>gg', toggleFugitiveGit,
-    { desc = 'Toggle Git window', noremap = true })
+-- Main Keymaps
 
-vim.keymap.set("n", "<leader>gl", ":Gclog<CR>")
-vim.keymap.set("n", "<leader>gb", ":Git branch<Space>")
+local map = function(lhs, rhs, desc)
+    if desc then
+        desc = "[Fugitive] " .. desc
+    end
 
-vim.keymap.set("n", "<leader>gd", ":Gdiffsplit<CR>")
-vim.keymap.set("n", "<leader>gD", ":Git diff<CR>")
-vim.keymap.set("n", "<leader>ge", ":Gedit<CR>")
+    vim.keymap.set("n", lhs, rhs, { silent = true, desc = desc })
+end
+
+map('<leader>gg', toggleFugitiveGit, 'toggle panel')
+map("<leader>gs", vim.cmd.Git, "panel")
+
+map("<leader>gl", ":Gclog<CR>", "log")
+map("<leader>gb", ":Git branch<Space>", "branch")
+
+map("<leader>gd", ":Gdiffsplit<CR>", "diff split")
+map("<leader>gD", ":Git diff<CR>", "diff")
+map("<leader>ge", ":Gedit<CR>", "edit")
 --
 -- capitalize W/R to reduce unwanted changes
-vim.keymap.set("n", "<leader>gW", ":Gwrite<CR>")
-vim.keymap.set("n", "<leader>gR", ":Gread<CR>")
+map("<leader>gW", ":Gwrite<CR>", "write")
+map("<leader>gR", ":Gread<CR>", "read")
 
-vim.keymap.set("n", "<leader>ga", ":Git commit -v -q --amend<CR>")
-vim.keymap.set("n", "<leader>gA", ":Git add -p<CR>") -- add with patch
+map("<leader>ga", ":Git commit -v -q --amend<CR>", "ammend")
+map("<leader>gA", ":Git add -p<CR>", "add with patch")
 
-vim.keymap.set("n", "<leader>gp", ":Ggrep<Space>")
-vim.keymap.set("n", "<leader>gm", ":GMove<Space>")
-vim.keymap.set("n", "<leader>go", ":Git checkout<Space>")
+map("<leader>gp", ":Ggrep<Space>", "grep")
+map("<leader>gm", ":GMove<Space>", "move")
+map("<leader>go", ":Git checkout<Space>", "checkout")
