@@ -329,3 +329,11 @@ straif
 turdikulov
 python-cheatsheet
 Khal
+Raytracing
+DMOZ
+Diceware
+diceware
+LibGen
+Goodreads
+OPDS
+Konami
