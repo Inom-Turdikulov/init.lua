@@ -85,3 +85,11 @@ map("<leader>tp", telekasten.preview_img, "preview image")
 map("<leader>tm", telekasten.browse_media, "browse media")
 
 map("<leader>tr", telekasten.rename_note, "rename note")
+
+-- Open file in obsidian, file is current buffer name without .md extension
+map("<leader>to", function()
+    local bufname = vim.fn.expand("%:t:r")
+    local current_line = vim.fn.line(".")
+    local obsidian_url = "obsidian://advanced-uri?vault=Wiki&viewmode=preview&filepath=" .. bufname .. "&line=" .. current_line
+    vim.fn.jobstart({ 'xdg-open', obsidian_url })
+end, "open in obsidian")
