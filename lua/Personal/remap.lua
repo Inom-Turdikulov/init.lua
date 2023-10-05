@@ -17,6 +17,9 @@ vim.keymap.set("i", "<C-H>", "<C-W>", {noremap = true})
 vim.keymap.set("n", "<C-s>", "<cmd>w<CR>")
 vim.keymap.set({ "i", "v" }, "<C-s>", "<Esc><cmd>w<CR>")
 
+-- gf files with spaces
+vim.keymap.set("n", "gF", 'vi"gf')
+
 -- move lines
 vim.keymap.set("v", "<C-J>", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "<C-K>", ":m '<-2<CR>gv=gv")
