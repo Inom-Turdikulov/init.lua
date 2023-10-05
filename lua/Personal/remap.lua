@@ -199,4 +199,27 @@ end, { desc = "cd into current file path" })
 --         print("html2markdown.sh failed")
 --     end
 -- end, { desc = "Paste html as markdown" })
---
+
+
+local function renameLinkedFile()
+    local linkText = vim.fn.expand("<cWORD>")
+    local linkedFileName = linkText:match("%((.-)%)")
+
+    if linkedFileName then
+        local newPath = vim.fn.input("New filename: ", linkedFileName)
+
+        if newPath == "" then
+            vim.notify("Empty filename", vim.log.levels.ERROR)
+            return
+        end
+
+        vim.fn.rename(linkedFileName, newPath)
+
+        -- Replace linkedFileName in curret line with newPath, escape / slaches
+        vim.cmd("s/" .. vim.fn.escape(linkedFileName, "/") .. "/" .. vim.fn.escape(newPath, "/") .. "/")
+    else
+        print("No linked file detected.")
+    end
+end
+
+vim.keymap.set("n", "<leader>rR", renameLinkedFile)
