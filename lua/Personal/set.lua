@@ -40,10 +40,11 @@ vim.opt.diffopt:append { 'vertical' }
 
 -- Enable syntax highlight in code blocks
 vim.g.markdown_fenced_languages = {
-    'python', 'cpp', 'javascript',
+    'asm', 'pascal', 'perl', 'lisp',
+    'python', 'cpp', 'javascript', 'php',
     'java', 'rust', 'php', 'sql',
-    'typescript', 'ruby', 'go',
-    'lua', 'bash=sh',
+    'rb=ruby', 'ruby', 'go',
+    'lua', 'bash=sh', 'java',
     'js=javascript', 'json=javascript', 'typescript',
     'html', 'css', 'scss',
     'yaml', 'toml', 'tex', 'nix'

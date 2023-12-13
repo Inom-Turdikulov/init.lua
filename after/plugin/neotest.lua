@@ -35,11 +35,12 @@ end
 
 map("<leader>dnn", function()
     neotest.run.run()
+    neotest.output_panel.open()
 end, 'Neotest run the nearest test')
 
 map("<leader>dnc", function()
         neotest.run.run({ strategy = "dap" })
-        -- neotest.summary.open()
+        -- you can add here additional commands, like neotest.summary.open()
     end,
     'debug the nearest test')
 

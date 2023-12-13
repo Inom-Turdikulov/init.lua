@@ -351,3 +351,17 @@ Pólya
 Newsboat
 Inom
 Turdikulov
+binutils
+Markmaking
+markmaking
+Unfornetly
+Okular
+intelegence-like
+outliner
+denoise
+EEVEE
+Keyframe
+keyframe
+keyframes
+Denoiser
+normals

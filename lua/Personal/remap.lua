@@ -18,7 +18,24 @@ vim.keymap.set("n", "<C-s>", "<cmd>w<CR>")
 vim.keymap.set({ "i", "v" }, "<C-s>", "<Esc><cmd>w<CR>")
 
 -- gf files with spaces
-vim.keymap.set("n", "gF", 'vi"gf')
+vim.keymap.set("n", "gF", function ()
+    local line = vim.fn.getline(".")
+
+    -- Remove 'directory:' from line
+    local path = line:gsub("directory:", "")
+
+    -- Remove leading spaces from path
+    path = path:gsub("^%s+", "")
+
+    -- Remove leading - from path
+    path = path:gsub("^-", "")
+
+    -- Remove quotes from path
+    path = path:gsub("\"", "")
+
+    -- Go to path, using gf
+    vim.cmd("e " .. path)
+end, {desc = "gf files with spaces"})
 
 -- move lines
 vim.keymap.set("v", "<C-J>", ":m '>+1<CR>gv=gv")

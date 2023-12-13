@@ -176,7 +176,7 @@ lspconfig.pyright.setup {}
 lspconfig.clangd.setup { on_attach = on_attach }
 lspconfig.rust_analyzer.setup { on_attach = on_attach }
 lspconfig.gdscript.setup {}
-lspconfig.emmet_ls.setup { filetypes = { 'html', 'typescript', 'jinja' } }
+lspconfig.emmet_ls.setup { filetypes = { 'html', 'typescript', 'jinja', 'css', 'scss' } }
 -- lspconfig.ruff_lsp.setup {}
 lspconfig.nil_ls.setup {}
 
@@ -227,7 +227,7 @@ if ok then
     on_attach = function(client, bufnr)
       -- If buffer is netrw do not load lsp
       ltex_extra.setup {
-        load_langs = { "ru-RU", "en-US" },                   -- table <string> : languages for witch dictionaries will be loaded
+        load_langs = { "ru-RU", "en-US", "fr" },             -- table <string> : languages for witch dictionaries will be loaded
         init_check = true,                                   -- boolean : whether to load dictionaries on startup
         path = vim.fn.stdpath("config") .. "/spell",         -- string : path to store dictionaries. Relative path uses current working directory
         log_level =

@@ -76,4 +76,12 @@ vim.api.nvim_create_autocmd({'BufWinEnter'}, {
 --         vim.opt_local.filetype = 'markdown'
 --     end,
 -- })
---
+
+vim.api.nvim_create_user_command("CopySearch", function(args)
+  vim.fn.setreg(args.reg, "")
+  vim.api.nvim_cmd({
+    cmd = "substitute",
+    args = { string.format([[//\=setreg('%s', submatch(0), 'al')/n]], args.reg) },
+    range = { args.line1, args.line2 },
+  }, {})
+end, { range = true, register = true })
