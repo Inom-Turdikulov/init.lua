@@ -35,7 +35,6 @@ end
 
 map("<leader>dnn", function()
     neotest.run.run()
-    neotest.output_panel.open()
 end, 'Neotest run the nearest test')
 
 map("<leader>dnc", function()
