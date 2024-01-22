@@ -20,12 +20,15 @@ local wiki_home = vim.fn.expand("~/Wiki")
 if vim.fn.isdirectory(wiki_home) == 0 then
     return
 end
+
 telekasten.setup(
     {
+        -- Main paths
         home = wiki_home,
+        templates = wiki_home .. '/templates',
+        template_new_note = wiki_home .. '/templates/permanent_note.md',
         image_subdir = 'img',
         plug_into_calendar = true,
-        template_new_note = wiki_home .. '/templates/permanent_note.md',
         sort = "modified",
         auto_set_filetype = false,
         -- follow_url_fallback = "call jobstart('linkhandler {{url}}')",
