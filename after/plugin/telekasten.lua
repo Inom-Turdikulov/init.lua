@@ -52,7 +52,7 @@ map("<leader>tI", telekasten.insert_img_link, "insert image link")
 
 map("<leader>tL", telekasten.paste_img_and_link, "paste image and link")
 
-vim.keymap.set("n", "<leader>tt", function()
+vim.keymap.set("n", "<a-cr>", function()
     if vim.bo.filetype == "markdown" then
         telekasten.follow_link()
     end
