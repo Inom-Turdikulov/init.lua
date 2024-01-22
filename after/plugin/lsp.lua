@@ -158,6 +158,10 @@ local function on_attach(client, bufnr)
       callback = function() vim.lsp.buf.format() end
     })
   end
+
+  if client.server_capabilities.inlayHintProvider then
+      vim.lsp.inlay_hint.enable(bufnr, true)
+  end
 end
 
 lspconfig.tsserver.setup({})
