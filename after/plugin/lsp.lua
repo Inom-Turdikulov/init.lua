@@ -187,31 +187,39 @@ lspconfig.lua_ls.setup {
     }
   }
 }
-lspconfig.pyright.setup {}
+lspconfig.pyright.setup { on_attach = on_attach }
 lspconfig.clangd.setup { on_attach = on_attach }
 lspconfig.rust_analyzer.setup { on_attach = on_attach }
 lspconfig.gdscript.setup {}
 lspconfig.emmet_ls.setup { filetypes = { 'html', 'typescript', 'jinja', 'css', 'scss' } }
 -- lspconfig.ruff_lsp.setup {}
-lspconfig.nil_ls.setup {}
+-- lspconfig.nil_ls.setup {}
 
 local efmls_loaded, efmls = pcall(require, 'efmls-configs')
 if efmls_loaded then
   local eslint_d = require 'efmls-configs.linters.eslint_d'
+
   local prettier = require 'efmls-configs.formatters.prettier'
+  local dprint = require 'efmls-configs.formatters.dprint'
+
   local lua = require 'efmls-configs.formatters.lua_format'
-  local black = require 'efmls-configs.formatters.black'
-  local flake8 = require 'efmls-configs.linters.flake8'
+
+  local ruff_formatter = require('efmls-configs.formatters.ruff')
+  local ruff_linter = require('efmls-configs.linters.ruff')
 
   local languages = {
-    javascript = { linter = eslint_d, formatter = prettier },
-    lua = { formatter = lua },
-    python = { linter = flake8, formatter = black },
-    yaml = { formatter = prettier },
-    json = { formatter = prettier },
-    html = { formatter = prettier },
-    scss = { formatter = prettier },
-    css = { formatter = prettier }
+    javascript = { eslint_d, prettier },
+    lua = { lua },
+    python = { ruff_linter, ruff_formatter },
+    yaml = { prettier },
+    json = { prettier },
+    html = { prettier },
+    scss = { prettier },
+    css = { prettier },
+    gdscript = {
+      {formatCommand = "gdformat -s 4 -", formatStdin = true}
+    },
+    markdown =  { dprint }
   }
 
   local efmls_config = {
@@ -229,8 +237,19 @@ if efmls_loaded then
   lspconfig.efm.setup(vim.tbl_extend('force', efmls_config, {
     -- Pass your custom lsp config below like on_attach and capabilities
     --
-    on_attach = on_attach,
+    on_attach = function(client, buf)
+        vim.bo[buf].formatexpr = nil
+    end,
     -- capabilities = capabilities,
+    -- init_options = {documentFormatting = true},
+    -- settings = {
+    --     rootMarkers = {".git/"},
+    --     languages = {
+    --         gdscript = {
+    --             { formatCommand = "gdscript -s 4", }
+    --         }
+    --     }
+    -- }
   }))
 end
 
@@ -252,7 +271,6 @@ if ok then
     settings = {
       ltex = {
         -- check LSP config if you add new filetypes
-        -- filetypes = {"gitcommit", "markdown", "tex", "bib", "rst"}
         filetypes = ltex_filetypes
       }
     }
