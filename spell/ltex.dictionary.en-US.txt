@@ -409,3 +409,9 @@ Sidebery
 lexemes
 consonantal
 logographic
+Quicksort
+dasht
+arity
+nullary
+infinitary
+finitary
