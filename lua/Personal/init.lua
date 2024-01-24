@@ -1,5 +1,6 @@
 require("Personal.set")
 require("Personal.remap")
+require("Personal.lazy")
 
 local augroup = vim.api.nvim_create_augroup
 local PersonalGroup = augroup('Personal', {})
