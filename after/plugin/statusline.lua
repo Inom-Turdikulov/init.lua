@@ -2,7 +2,6 @@
 if not pcall(require, "el") then
   -- TODO: Add in a nice default statusline here.
   -- Would be good to research anyway for the course
-  print("No el plugin installed")
   return
 end
 
