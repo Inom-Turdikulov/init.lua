@@ -1,14 +1,23 @@
 local ok, trouble = pcall(require, "trouble")
-if not ok then
-  return
+if not ok then return end
+
+trouble.setup {}
+local map = function(lhs, rhs, desc)
+    if desc then desc = "[Trouble] " .. desc end
+
+    vim.keymap.set("n", lhs, rhs, {silent = true, desc = desc})
 end
 
-trouble.setup {
-    icons = true,
-}
-vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle document_diagnostics<cr>",
-    { silent = true, desc = "[TROUBLE] document_diagnostics" }
-)
-vim.keymap.set("n", "<leader>xQ", "<cmd>TroubleToggle workspace_diagnostics<cr>",
-    { silent = true, desc = "[TROUBLE] workspace_diagnostics" }
-)
+map("<leader>xx", function() require("trouble").toggle() end,
+    "Toggle")
+map("<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end,
+    "Workspace Diagnostics")
+map("<leader>xd",
+    function() require("trouble").toggle("document_diagnostics") end,
+    "Document Diagnostics")
+map("<leader>xq", function() require("trouble").toggle("quickfix") end,
+    "QuickFix")
+map("<leader>xl", function() require("trouble").toggle("loclist") end,
+    "LocList")
+map("gR", function() require("trouble").toggle("lsp_references") end,
+    "LSP references")

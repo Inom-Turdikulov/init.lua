@@ -1,7 +1,5 @@
 local ok, harpoon = pcall(require, "harpoon")
-if not ok then
-    return
-end
+if not ok then return end
 
 harpoon:setup({})
 
@@ -15,11 +13,9 @@ local function toggle_telescope(harpoon_files)
 
     require("telescope.pickers").new({}, {
         prompt_title = "Harpoon",
-        finder = require("telescope.finders").new_table({
-            results = file_paths,
-        }),
+        finder = require("telescope.finders").new_table({results = file_paths}),
         previewer = conf.file_previewer({}),
-        sorter = conf.generic_sorter({}),
+        sorter = conf.generic_sorter({})
     }):find()
 end
 
@@ -29,9 +25,9 @@ local map = function(lhs, rhs, desc)
     vim.keymap.set("n", lhs, rhs, {silent = true, desc = desc})
 end
 
-
 map("<leader>a", function() harpoon:list():append() end, "Add File")
-map("<C-e>", function() toggle_telescope(harpoon:list()) end, "Open harpoon window")
+map("<C-e>", function() toggle_telescope(harpoon:list()) end,
+    "Open harpoon window")
 map("<C-t>", function() harpoon:list():select(1) end, "Navigate to file 1")
 map("<C-n>", function() harpoon:list():select(2) end, "Navigate to file 2")
 map("<C-M-t>", function() harpoon:list():select(3) end, "Navigate to file 3")

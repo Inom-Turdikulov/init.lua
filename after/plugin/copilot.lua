@@ -9,6 +9,7 @@ copilot.setup({
     suggestion = {enabled = false},
     panel = {enabled = false},
     filetypes = {
+        gitcommit = true,
         yaml = true,
         markdown = true,
         python = true,
@@ -40,5 +41,3 @@ copilot.setup({
 -- Toggle Copilot
 vim.keymap.set("", "<M-\\>", ":Copilot toggle<CR>",
                {silent = true, desc = "[Copilot] Toggle"})
-
-

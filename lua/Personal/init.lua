@@ -9,9 +9,7 @@ local PersonalViewGroup = augroup('PersonalView', {})
 local autocmd = vim.api.nvim_create_autocmd
 local yank_group = augroup('HighlightYank', {})
 
-function R(name)
-    require("plenary.reload").reload_module(name)
-end
+function R(name) require("plenary.reload").reload_module(name) end
 
 -- reload nvim config
 function _G.ReloadConfig()
@@ -24,7 +22,9 @@ function _G.ReloadConfig()
     end
 
     -- reload all from ~/.config/nvim/after/plugin/*.lua
-    for _, file in pairs(vim.fn.globpath(vim.fn.stdpath("config") .. "/after/plugin", "*.lua", false, true)) do
+    for _, file in pairs(vim.fn.globpath(
+                             vim.fn.stdpath("config") .. "/after/plugin",
+                             "*.lua", false, true)) do
         dofile(file)
         files_reloaded = files_reloaded + 1
     end
@@ -37,52 +37,46 @@ autocmd('TextYankPost', {
     group = yank_group,
     pattern = '*',
     callback = function()
-        vim.highlight.on_yank({
-            higroup = 'IncSearch',
-            timeout = 40,
-        })
-    end,
+        vim.highlight.on_yank({higroup = 'IncSearch', timeout = 40})
+    end
 })
 
 -- Remove trailing whitespace on save
-autocmd({ "BufWritePre" }, {
-    group = PersonalGroup,
-    pattern = "*",
-    command = [[%s/\s\+$//e]],
-})
+autocmd({"BufWritePre"},
+        {group = PersonalGroup, pattern = "*", command = [[%s/\s\+$//e]]})
 
 -- Set listchars for specific filetypes
-autocmd({ "BufRead" }, {
+autocmd({"BufRead"}, {
     group = PersonalViewGroup,
     pattern = "*",
-    callback = function()
-        vim.wo.listchars = GLOBAL_LISTCHARS
-    end,
+    callback = function() vim.wo.listchars = GLOBAL_LISTCHARS end
 })
 
 -- Return to last edit position when opening files
 -- silent is needed to avoid errors when opening a file without a previous position
 vim.api.nvim_create_autocmd({'BufWinEnter'}, {
-  group = PersonalGroup,
-  desc = 'return cursor to where it was last time closing the file',
-  pattern = '*',
-  command = 'silent! normal! g`"zv',
+    group = PersonalGroup,
+    desc = 'return cursor to where it was last time closing the file',
+    pattern = '*',
+    command = 'silent! normal! g`"zv'
 })
 
--- -- Set *.asc files to markdown filetype
--- autocmd({'BufWinEnter'}, {
---     desc = 'ASC files syntax to markdown',
---     pattern = { '*.asc' },
---     callback = function()
---         vim.opt_local.filetype = 'markdown'
---     end,
--- })
+-- Set *.asc files to markdown filetype
+autocmd({'BufWinEnter'}, {
+    desc = 'ASC files syntax to markdown',
+    pattern = {'*.asc'},
+    callback = function() vim.opt_local.filetype = 'markdown' end
+})
 
 vim.api.nvim_create_user_command("CopySearch", function(args)
-  vim.fn.setreg(args.reg, "")
-  vim.api.nvim_cmd({
-    cmd = "substitute",
-    args = { string.format([[//\=setreg('%s', submatch(0), 'al')/n]], args.reg) },
-    range = { args.line1, args.line2 },
-  }, {})
-end, { range = true, register = true })
+    vim.fn.setreg(args.reg, "")
+    vim.api.nvim_cmd({
+        cmd = "substitute",
+        args = {
+            string.format([[//\=setreg('%s', submatch(0), 'al')/n]], args.reg)
+        },
+        range = {args.line1, args.line2}
+    }, {})
+end, {range = true, register = true})
+
+

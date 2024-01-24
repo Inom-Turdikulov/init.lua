@@ -1,7 +1,5 @@
 local ok, onedark = pcall(require, "onedark")
-if not ok then
-  return
-end
+if not ok then return end
 
 onedark.setup {
     style = 'darker',
@@ -22,13 +20,13 @@ onedark.setup {
         bg3 = "#4c324a",
         fg = "#b1b4b9",
         grey = "#717275",
-        ending_tildes = "#b1b4b9",
+        ending_tildes = "#b1b4b9"
     },
     -- fix ColorColumn transparency
     highlights = {
-        CursorLineNR = { fmt = 'bold' },
-        ColorColumn = { bg = '#30363f' },
-        NonText = { fg = '#3d4249' },
+        CursorLineNR = {fmt = 'bold'},
+        ColorColumn = {bg = '#30363f'},
+        NonText = {fg = '#3d4249'}
     }
 }
 

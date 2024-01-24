@@ -1,7 +1,5 @@
 local ok, jsonpath = pcall(require, "jsonpath")
-if not ok then
-  return
-end
+if not ok then return end
 
 local Personal_Jsonpath = vim.api.nvim_create_augroup("Personal_Jsonpath", {})
 
@@ -18,6 +16,6 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 
 -- send json path to clipboard
 -- TODO: map only for json files
-vim.keymap.set("n", "y<C-p>", function()
-  vim.fn.setreg("+", jsonpath.get())
-end, {desc = "[JSONPath] copy path"})
+vim.keymap.set("n", "y<C-p>", function() vim.fn.setreg("+", jsonpath.get()) end,
+               {desc = "[JSONPath] copy path"})
+

@@ -1,17 +1,15 @@
 vim.o.foldcolumn = '0' -- '0' is not bad
 vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
 local ok, ufo = pcall(require, "ufo")
-if not ok then
-  return
-end
+if not ok then return end
 
 if not pcall(require, "nvim-treesitter") then
-  print("TreeSitter not found, required for ufo!'")
-  return
+    print("TreeSitter not found, required for ufo!'")
+    return
 end
 
 -- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
@@ -23,7 +21,7 @@ vim.keymap.set('n', 'zm', ufo.closeFoldsWith) -- closeAllFolds == closeFoldsWith
 ufo.setup({
     preview = {
         win_config = {
-            border = { '', '─', '', '', '', '─', '', '' },
+            border = {'', '─', '', '', '', '─', '', ''},
             winhighlight = 'Normal:Folded',
             winblend = 0
         },
@@ -35,6 +33,6 @@ ufo.setup({
         }
     },
     provider_selector = function(bufnr, filetype, buftype)
-        return { 'treesitter', 'indent' }
+        return {'treesitter', 'indent'}
     end
 })

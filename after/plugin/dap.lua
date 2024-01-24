@@ -1,14 +1,10 @@
 local has_dap, dap = pcall(require, "dap")
-if not has_dap then
-    return
-end
+if not has_dap then return end
 
 local map = function(lhs, rhs, desc)
-  if desc then
-    desc = "[DAP] " .. desc
-  end
+    if desc then desc = "[DAP] " .. desc end
 
-  vim.keymap.set("n", lhs, rhs, { silent = true, desc = desc })
+    vim.keymap.set("n", lhs, rhs, {silent = true, desc = desc})
 end
 
 map("<S-F1>", dap.goto_, "goto_")
@@ -17,15 +13,10 @@ map("<F2>", dap.step_into, "step_into")
 map("<F3>", dap.step_over, "step_over")
 map("<F4>", dap.step_out, "step_out")
 map("<F5>", dap.continue, "continue")
-map("<F6>", function()
-     dap.pause.toggle()
-end,
-    'Debug pause toggle')
+map("<F6>", function() dap.pause.toggle() end, 'Debug pause toggle')
 map("<C-F9>", function()
-        dap.set_breakpoint(nil, nil,
-            vim.fn.input('Log point message: '))
-end,
-    'set log point')
+    dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))
+end, 'set log point')
 map("<Leader>dx", dap.close, 'close')
 map("<leader>dX", dap.terminate, 'terminate')
 map("<leader>dD", dap.disconnect, 'disconnect')
@@ -36,21 +27,19 @@ map("<leader>dD", dap.disconnect, 'disconnect')
 map("<leader>dr", dap.repl.open, "repl.open")
 
 map("<leader>db", dap.toggle_breakpoint, "toggle_breakpoint")
-map("<leader>dB", function()
-  dap.set_breakpoint(vim.fn.input "[DAP] Condition > ")
-end, "set beakpoint with condition")
+map("<leader>dB",
+    function() dap.set_breakpoint(vim.fn.input "[DAP] Condition > ") end,
+    "set beakpoint with condition")
 
 map("<leader>de", require("dapui").eval)
-map("<leader>dE", function()
-  require("dapui").eval(vim.fn.input "[DAP] Expression > ")
-end)
+map("<leader>dE",
+    function() require("dapui").eval(vim.fn.input "[DAP] Expression > ") end)
 
 map("<Leader>dC", dap.run_to_cursor, 'run to cursor')
 map("<Leader>dL", dap.repl.toggle, 'repl toggle')
 map("<Leader>dr", dap.run_last, 'run last')
-map("<Leader>dE", function()
-        vim.cmd(":edit " .. vim.fn.stdpath('cache') .. "/dap.log")
-     end,
+map("<Leader>dE",
+    function() vim.cmd(":edit " .. vim.fn.stdpath('cache') .. "/dap.log") end,
     'open dap log')
 
 -- Telescope DAP
@@ -59,23 +48,29 @@ if pcall(require, "telescope._extensions.dap") then
     telescope.load_extension("dap")
 
     -- telescope-dap
-    map("<leader>dlk", telescope.extensions.dap.commands, 'Telescope DAP Commands')
+    map("<leader>dlk", telescope.extensions.dap.commands,
+        'Telescope DAP Commands')
 
-    map("<leader>dlb", telescope.extensions.dap.list_breakpoints, 'Telescope DAP List Breakpoints')
+    map("<leader>dlb", telescope.extensions.dap.list_breakpoints,
+        'Telescope DAP List Breakpoints')
 
-   map("<leader>dlc", telescope.extensions.dap.configurations, 'Telescope DAP Configurations')
+    map("<leader>dlc", telescope.extensions.dap.configurations,
+        'Telescope DAP Configurations')
 
-   map("<leader>dlv", telescope.extensions.dap.variables, 'Telescope DAP Variables')
+    map("<leader>dlv", telescope.extensions.dap.variables,
+        'Telescope DAP Variables')
 
-   map("<leader>dlf", telescope.extensions.dap.frames, 'Telescope DAP Frames')
+    map("<leader>dlf", telescope.extensions.dap.frames, 'Telescope DAP Frames')
 end
 
 -- Configure custom signs
-vim.fn.sign_define("DapBreakpoint", { text = "ß", texthl = "", linehl = "", numhl = "" })
-vim.fn.sign_define("DapBreakpointCondition", { text = "ü", texthl = "", linehl = "", numhl = "" })
+vim.fn.sign_define("DapBreakpoint",
+                   {text = "ß", texthl = "", linehl = "", numhl = ""})
+vim.fn.sign_define("DapBreakpointCondition",
+                   {text = "ü", texthl = "", linehl = "", numhl = ""})
 
 -- Setup cool Among Us as avatar
-vim.fn.sign_define("DapStopped", { text = "ඞ", texthl = "Error" })
+vim.fn.sign_define("DapStopped", {text = "ඞ", texthl = "Error"})
 
 -- Configure repl
 -- You can set trigger characters OR it will default to '.'
@@ -87,19 +82,19 @@ augroup DapRepl
 augroup END
 ]]
 
-
 -- TODO: How does terminal work?
 local terminal = vim.env.TERMINAL
 if terminal then
     local terminal_path = vim.fn.trim(vim.fn.system("which " .. terminal))
     dap.defaults.fallback.external_terminal = {
         command = terminal_path,
-        args = { "-e" },
+        args = {"-e"}
     }
 end
 
 -- Virtual text
-local has_dap_virtual_text, dap_virtual_text = pcall(require, "dap-virtual-text")
+local has_dap_virtual_text, dap_virtual_text =
+    pcall(require, "dap-virtual-text")
 if has_dap_virtual_text then
     dap_virtual_text.setup {
         enabled = true,
@@ -118,7 +113,7 @@ if has_dap_virtual_text then
 
         -- experimental features:
         virt_text_pos = "eol", -- position of virtual text, see `:h nvim_buf_set_extmark()`
-        all_frames = false,    -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
+        all_frames = false -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
     }
 end
 
@@ -129,46 +124,39 @@ if has_dap_ui then
         layouts = {
             {
                 elements = {
-                    "scopes",
-                    "breakpoints",
-                    "stacks",
-                    "watches",
-                    "repl",
+                    "scopes", "breakpoints", "stacks", "watches", "repl"
                 },
                 size = 40,
-                position = "right",
+                position = "right"
             },
             {
-                elements = {
-                    {
-                        id = "console",
-                        size = 1,
-                    },
-                },
+                elements = {{id = "console", size = 1}},
                 size = 10,
-                position = "bottom",
-            },
-        },
+                position = "bottom"
+            }
+        }
     }
 
     -- DapUI keybindings
     map("<Leader>dut", dap_ui.toggle, 'Debug ui toggle and reset')
-    map("<Leader>duc", function() dap_ui.close({ reset = true }) end, 'Debug ui close')
-    map("<Leader>duo", function() dap_ui.open({ reset = true }) end, 'Debug ui open')
+    map("<Leader>duc", function() dap_ui.close({reset = true}) end,
+        'Debug ui close')
+    map("<Leader>duo", function() dap_ui.open({reset = true}) end,
+        'Debug ui open')
     map("<Leader>due", dap_ui.eval, 'eval')
 
-    vim.keymap.set({ "n", "v" }, "<Leader>dh",
-        function() require 'dap.ui.widgets'.hover() end,
-        { desc = '[DAP] Debug hover' })
-    vim.keymap.set({ "n", "v" }, "<Leader>dp",
-        function() require 'dap.ui.widgets'.preview() end,
-        { desc = '[DAP] Debug preview' })
-    vim.keymap.set({ "n", "v" }, "<Leader>dF",
-        function() require 'dap.ui.widgets'.frames() end,
-        { desc = '[DAP] Debug frames' })
-    vim.keymap.set({ "n", "v" }, "<Leader>ds",
-        function() require 'dap.ui.widgets'.scopes() end,
-        { desc = '[DAP] Debug scopes' })
+    vim.keymap.set({"n", "v"}, "<Leader>dh",
+                   function() require'dap.ui.widgets'.hover() end,
+                   {desc = '[DAP] Debug hover'})
+    vim.keymap.set({"n", "v"}, "<Leader>dp",
+                   function() require'dap.ui.widgets'.preview() end,
+                   {desc = '[DAP] Debug preview'})
+    vim.keymap.set({"n", "v"}, "<Leader>dF",
+                   function() require'dap.ui.widgets'.frames() end,
+                   {desc = '[DAP] Debug frames'})
+    vim.keymap.set({"n", "v"}, "<Leader>ds",
+                   function() require'dap.ui.widgets'.scopes() end,
+                   {desc = '[DAP] Debug scopes'})
 
     dap.listeners.after.event_initialized["dapui_config"] = function()
         dap_ui.open()
@@ -201,17 +189,12 @@ if has_dap_python then
         env = {
             FLASK_APP = 'wsgi.py',
             FLASK_ENV = 'development',
-            FLASK_DEBUG = '1',
+            FLASK_DEBUG = '1'
         },
-        args = {
-            'run',
-            '--no-debugger',
-            '--host=0.0.0.0',
-            '--port=45120',
-        },
+        args = {'run', '--no-debugger', '--host=0.0.0.0', '--port=45120'},
         console = 'integratedTerminal',
         cwd = vim.fn.getcwd(),
-        jinja = true,
+        jinja = true
     })
 
     table.insert(dap.configurations.python, {
@@ -220,25 +203,20 @@ if has_dap_python then
         module = 'celery',
         name = 'SLP Celery Workers',
         args = {
-            "worker",
-            "--app=wsgi.celery",
-            "--concurrency=1",
-            "--loglevel=DEBUG",
-            "--queues=linkedin_default",
-            "-B"
+            "worker", "--app=wsgi.celery", "--concurrency=1",
+            "--loglevel=DEBUG", "--queues=linkedin_default", "-B"
         },
         gevent = true,
         console = 'integratedTerminal',
         cwd = vim.fn.getcwd(),
         env = {
             CELERY_TASK_ALWAYS_EAGER = 'True',
-            AUTH_DEV                 = "KEYCLOAK_AUTH_DISABLED",
-            LOG_NAME                 = "tasks",
-            GEVENT_SUPPORT           = 'True'
+            AUTH_DEV = "KEYCLOAK_AUTH_DISABLED",
+            LOG_NAME = "tasks",
+            GEVENT_SUPPORT = 'True'
         }
     })
 end
-
 
 local lldb_path = vim.fn.exepath("lldb-vscode")
 if lldb_path then
@@ -253,11 +231,12 @@ if lldb_path then
             type = 'lldb',
             request = 'launch',
             program = function()
-                return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+                return vim.fn.input('Path to executable: ',
+                                    vim.fn.getcwd() .. '/', 'file')
             end,
             cwd = '${workspaceFolder}',
             stopOnEntry = false,
-            args = {},
+            args = {}
 
             -- 💀
             -- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
@@ -271,7 +250,7 @@ if lldb_path then
             -- But you should be aware of the implications:
             -- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
             -- runInTerminal = false,
-        },
+        }
     }
 
     -- If you want to use this for Rust and C, add something like this:
@@ -283,41 +262,41 @@ require("dap-vscode-js").setup({
     -- node_path = "node", -- Path of node executable. Defaults to $NODE_PATH, and then "node"
     -- TODO: parametrize this path
     -- debugger_path = vim.fn.expand(""), -- Path to vscode-js-debug installation.
-    debugger_cmd = { "dap-node" }, -- Command to use to launch the debug server. Takes precedence over `node_path` and `debugger_path`.
-    adapters = { 'chrome', 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost', 'node', 'chrome' }, -- which adapters to register in nvim-dap
+    debugger_cmd = {"dap-node"}, -- Command to use to launch the debug server. Takes precedence over `node_path` and `debugger_path`.
+    adapters = {
+        'chrome', 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal',
+        'pwa-extensionHost', 'node', 'chrome'
+    } -- which adapters to register in nvim-dap
     -- log_file_path = "(stdpath cache)/dap_vscode_js.log" -- Path for file logging
     -- log_file_level = false -- Logging level for output to file. Set to false to disable file logging.
     -- log_console_level = vim.log.levels.ERROR -- Logging level for output to console. Set to false to disable console output.
 })
 
-local js_based_languages = { "typescript", "javascript", "typescriptreact" }
+local js_based_languages = {"typescript", "javascript", "typescriptreact"}
 
 for _, language in ipairs(js_based_languages) do
-  require("dap").configurations[language] = {
-    {
-      type = "pwa-node",
-      request = "launch",
-      name = "Launch file",
-      program = "${file}",
-      cwd = "${workspaceFolder}",
-    },
-    {
-      type = "pwa-node",
-      request = "attach",
-      name = "Attach",
-      processId = require 'dap.utils'.pick_process,
-      cwd = "${workspaceFolder}",
-    },
-    {
-      type = "pwa-chrome",
-      request = "launch",
-      name = "Start Chrome with \"localhost\"",
-      url = "http://localhost:3000",
-      webRoot = "${workspaceFolder}",
-      userDataDir = "${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir",
-      runtimeExecutable = "/etc/profiles/per-user/inom/bin/brave"
-    },
+    require("dap").configurations[language] = {
         {
+            type = "pwa-node",
+            request = "launch",
+            name = "Launch file",
+            program = "${file}",
+            cwd = "${workspaceFolder}"
+        }, {
+            type = "pwa-node",
+            request = "attach",
+            name = "Attach",
+            processId = require'dap.utils'.pick_process,
+            cwd = "${workspaceFolder}"
+        }, {
+            type = "pwa-chrome",
+            request = "launch",
+            name = "Start Chrome with \"localhost\"",
+            url = "http://localhost:3000",
+            webRoot = "${workspaceFolder}",
+            userDataDir = "${workspaceFolder}/.vscode/vscode-chrome-debug-userdatadir",
+            runtimeExecutable = "/etc/profiles/per-user/inom/bin/brave"
+        }, {
             -- use nvim-dap-vscode-js's pwa-chrome debug adapter
             type = "pwa-chrome",
             request = "launch",
@@ -331,7 +310,10 @@ for _, language in ipairs(js_based_languages) do
             protocol = "inspector",
             port = 9222,
             -- skip files from vite's hmr
-            skipFiles = { "**/node_modules/**/*", "**/@vite/*", "**/src/client/*", "**/src/*" },
+            skipFiles = {
+                "**/node_modules/**/*", "**/@vite/*", "**/src/client/*",
+                "**/src/*"
+            },
             runtimeExecutable = "/etc/profiles/per-user/inom/bin/brave"
         }
     }

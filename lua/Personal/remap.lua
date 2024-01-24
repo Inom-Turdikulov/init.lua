@@ -1,5 +1,5 @@
 local vim_config_dir = vim.fn.stdpath("config")
-vim.g.mapleader = " "
+vim.g.mapleader = " " -- NOTE: set this before loading package manager
 
 -- Simplify mapping in terminal
 vim.keymap.set("t", "<C-\\><C-\\>", "<C-\\><C-n>")
@@ -15,10 +15,10 @@ vim.keymap.set("n", "<C-ш>", "<C-u>")
 vim.keymap.set("i", "<C-H>", "<C-W>", {noremap = true})
 
 vim.keymap.set("n", "<C-s>", "<cmd>w<CR>")
-vim.keymap.set({ "i", "v" }, "<C-s>", "<Esc><cmd>w<CR>")
+vim.keymap.set({"i", "v"}, "<C-s>", "<Esc><cmd>w<CR>")
 
 -- gf files with spaces
-vim.keymap.set("n", "gF", function ()
+vim.keymap.set("n", "gF", function()
     local line = vim.fn.getline(".")
 
     -- Remove 'directory:' from line
@@ -53,10 +53,10 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 
 -- next greatest remap ever : asbjornHaland
 -- integrate system clipboard with <leader>y
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 -- delete to void register
-vim.keymap.set({ "n", "v" }, "<leader>D", [["_d]])
+vim.keymap.set({"n", "v"}, "<leader>D", [["_d]])
 
 -- Quickfix list navigation
 -- TODO: need check and fix
@@ -67,20 +67,20 @@ vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 -- Replace word under cursor -> send to command mode
 vim.keymap.set("n", "<leader>S",
-[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+               [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- Make current file executable
-vim.keymap.set("n", "<leader>X", "<cmd>!chmod +x %<CR>", { silent = true })
+vim.keymap.set("n", "<leader>X", "<cmd>!chmod +x %<CR>", {silent = true})
 
 -- Launch script using $TERMINAL
-vim.keymap.set("n", "<leader>o", "<cmd>!$TERMINAL %<CR>", { silent = true })
+vim.keymap.set("n", "<leader>o", "<cmd>!$TERMINAL %<CR>", {silent = true})
 
 -- Open file in external program (xdg-open)
-vim.keymap.set("n", "<leader>O", "<cmd>!xdg-open %<CR>", { silent = true })
+vim.keymap.set("n", "<leader>O", "<cmd>!xdg-open %<CR>", {silent = true})
 
 -- open Ex in nvim config directory
 vim.keymap.set("n", "<Leader>vpe", ":e " .. vim_config_dir .. "<CR>",
-{ desc = "Open Ex in nvim config directory" })
+               {desc = "Open Ex in nvim config directory"})
 
 -- Quickly Destsroy current buffer
 vim.keymap.set("n", "<M-x>", "<cmd>bd<CR>")
@@ -98,7 +98,7 @@ end)
 -- Delete current file
 -- TODO: need add confirmation
 vim.keymap.set("n", "<S-M-Del>",
-"<cmd>call delete(expand('%:p')) | bdelete! %<CR>")
+               "<cmd>call delete(expand('%:p')) | bdelete! %<CR>")
 
 -- Insert new line below/upper current line
 vim.keymap.set("n", "]<space>", "moo<Esc>`o")
@@ -107,34 +107,33 @@ vim.keymap.set("n", "[<space>", "moO<Esc>`o")
 -- resize windows more quickly
 vim.keymap.set("n", "<Leader>=", function()
     vim.cmd("exe \"resize \" . (winheight(0) * 3/2)")
-end, { desc = "Resize window to 3/2" })
+end, {desc = "Resize window to 3/2"})
 
 vim.keymap.set("n", "<Leader>-", function()
     vim.cmd("exe \"resize \" . (winheight(0) * 2/3)")
-end, { desc = "Resize window to 2/3" })
+end, {desc = "Resize window to 2/3"})
 
 -- close current buffer
-vim.keymap.set("n", "<Leader>bd", ":bd<cr>", { desc = "Delete current buffer" })
+vim.keymap.set("n", "<Leader>bd", ":bd<cr>", {desc = "Delete current buffer"})
 
 -- close all buffers except current one
-vim.keymap.set("n", "<Leader>bD", ":%bd|e#<cr>", { desc = "Close all buffers except current" })
+vim.keymap.set("n", "<Leader>bD", ":%bd|e#<cr>",
+               {desc = "Close all buffers except current"})
 
 -- Reload Config
 vim.keymap.set("n", "<leader>vpr", "<cmd>lua ReloadConfig()<CR>",
-{ desc = "Reload nvim config" })
+               {desc = "Reload nvim config"})
 
 -- requires some external tools
 
 -- cd into current file path
-vim.keymap.set("n", "<Leader>z%", function()
-    vim.cmd("!cd %:p:h")
-end, { desc = "cd into current file path" })
-
+vim.keymap.set("n", "<Leader>z%", function() vim.cmd("!cd %:p:h") end,
+               {desc = "cd into current file path"})
 
 -- Plugin specific keymaps
 -- Open lazy config
 vim.keymap.set("n", "<leader>vpp",
-"<cmd>e "..vim_config_dir.."/lua/Personal/lazy.lua<CR>");
+               "<cmd>e " .. vim_config_dir .. "/lua/Personal/lazy.lua<CR>");
 
 --
 -- -- External commands
@@ -217,7 +216,6 @@ vim.keymap.set("n", "<leader>vpp",
 --     end
 -- end, { desc = "Paste html as markdown" })
 
-
 local function renameLinkedFile()
     local linkText = vim.fn.expand("<cWORD>")
     local linkedFileName = linkText:match("%((.-)%)")
@@ -233,7 +231,8 @@ local function renameLinkedFile()
         vim.fn.rename(linkedFileName, newPath)
 
         -- Replace linkedFileName in curret line with newPath, escape / slaches
-        vim.cmd("s/" .. vim.fn.escape(linkedFileName, "/") .. "/" .. vim.fn.escape(newPath, "/") .. "/")
+        vim.cmd("s/" .. vim.fn.escape(linkedFileName, "/") .. "/" ..
+                    vim.fn.escape(newPath, "/") .. "/")
     else
         print("No linked file detected.")
     end
