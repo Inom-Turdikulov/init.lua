@@ -3,8 +3,25 @@ if not ok then
     return
 end
 
-local mark = require("harpoon.mark")
-local ui = require("harpoon.ui")
+harpoon:setup({})
+
+-- basic telescope configuration
+local conf = require("telescope.config").values
+local function toggle_telescope(harpoon_files)
+    local file_paths = {}
+    for _, item in ipairs(harpoon_files.items) do
+        table.insert(file_paths, item.value)
+    end
+
+    require("telescope.pickers").new({}, {
+        prompt_title = "Harpoon",
+        finder = require("telescope.finders").new_table({
+            results = file_paths,
+        }),
+        previewer = conf.file_previewer({}),
+        sorter = conf.generic_sorter({}),
+    }):find()
+end
 
 local map = function(lhs, rhs, desc)
     if desc then desc = "[Harpoon] " .. desc end
@@ -13,32 +30,13 @@ local map = function(lhs, rhs, desc)
 end
 
 
-map("<leader>a", mark.add_file, "add file")
-map("<C-e>", ui.toggle_quick_menu, "menu")
+map("<leader>a", function() harpoon:list():append() end, "Add File")
+map("<C-e>", function() toggle_telescope(harpoon:list()) end, "Open harpoon window")
+map("<C-t>", function() harpoon:list():select(1) end, "Navigate to file 1")
+map("<C-n>", function() harpoon:list():select(2) end, "Navigate to file 2")
+map("<C-M-t>", function() harpoon:list():select(3) end, "Navigate to file 3")
+map("<C-M-n>", function() harpoon:list():select(4) end, "Navigate to file 4")
 
-map("<C-t>", function() ui.nav_file(1) end, "navigate to file 1")
-map("<C-n>", function() ui.nav_file(2) end, "navigate to file 2")
-map("<C-M-t>", function() ui.nav_file(3) end, "navigate to file 3")
-map("<C-M-n>", function() ui.nav_file(4) end, "navigate to file 4")
-
-map("<C-Bslash>", function() require("harpoon.term").gotoTerminal(1) end,
-    "navigate to terminal 1")
-map("<C-M-Bslash>", function() require("harpoon.term").gotoTerminal(2) end,
-    "navigate to terminal 2")
-map("<C-return>", function() require("harpoon.term").gotoTerminal(3) end,
-    "navigate to terminal 3")
-map("<C-M-return>", function() require("harpoon.term").gotoTerminal(4) end,
-    "navigate to terminal 4")
-
-harpoon.setup({
-    -- Yes $HOME works
-    projects = {
-        ["$HOME/Projects/main/wiki"] = {
-            term = {
-                cmds = {
-                    "./deploy.sh<cr>"
-                }
-            }
-        }
-    }
-})
+-- Toggle previous & next buffers stored within Harpoon list
+map("<C-M-p>", function() harpoon:list():prev() end, "Toggle Next buffer")
+map("<C-M-n>", function() harpoon:list():next() end, "Toggle Previous buffer")
