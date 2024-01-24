@@ -132,10 +132,10 @@ end, { desc = "cd into current file path" })
 
 
 -- Plugin specific keymaps
--- -- Open packer config
--- vim.keymap.set("n", "<leader>vpp",
--- "<cmd>e "..vim_config_dir.."/lua/inomoz/packer.lua<CR>");
---
+-- Open lazy config
+vim.keymap.set("n", "<leader>vpp",
+"<cmd>e "..vim_config_dir.."/lua/Personal/lazy.lua<CR>");
+
 --
 -- -- External commands
 -- vim.keymap.set("n", "<Leader>oc",
