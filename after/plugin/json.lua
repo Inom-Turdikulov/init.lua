@@ -1,6 +1,5 @@
 local ok, jsonpath = pcall(require, "jsonpath")
 if not ok then
-  print("jsonpath not found!")
   return
 end
 
