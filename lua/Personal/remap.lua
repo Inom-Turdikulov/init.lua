@@ -12,10 +12,10 @@ vim.keymap.set("n", "<C-с>", "<C-d>")
 vim.keymap.set("n", "<C-ш>", "<C-u>")
 
 -- NOTE: this keymap for xst/st term, in our case Ctrl-Backspace
-vim.keymap.set("i", "<C-H>", "<C-W>", {noremap = true})
+vim.keymap.set("i", "<C-H>", "<C-W>", { noremap = true })
 
 vim.keymap.set("n", "<C-s>", "<cmd>w<CR>")
-vim.keymap.set({"i", "v"}, "<C-s>", "<Esc><cmd>w<CR>")
+vim.keymap.set({ "i", "v" }, "<C-s>", "<Esc><cmd>w<CR>")
 
 -- gf files with spaces
 vim.keymap.set("n", "gF", function()
@@ -31,11 +31,11 @@ vim.keymap.set("n", "gF", function()
     path = path:gsub("^-", "")
 
     -- Remove quotes from path
-    path = path:gsub("\"", "")
+    path = path:gsub('"', "")
 
     -- Go to path, using gf
     vim.cmd("e " .. path)
-end, {desc = "gf files with spaces"})
+end, { desc = "gf files with spaces" })
 
 -- move lines
 vim.keymap.set("v", "<C-J>", ":m '>+1<CR>gv=gv")
@@ -53,10 +53,10 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 
 -- next greatest remap ever : asbjornHaland
 -- integrate system clipboard with <leader>y
-vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 -- delete to void register
-vim.keymap.set({"n", "v"}, "<leader>D", [["_d]])
+vim.keymap.set({ "n", "v" }, "<leader>D", [["_d]])
 
 -- Quickfix list navigation
 -- TODO: need check and fix
@@ -66,21 +66,19 @@ vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
 -- Replace word under cursor -> send to command mode
-vim.keymap.set("n", "<leader>S",
-               [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>S", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- Make current file executable
-vim.keymap.set("n", "<leader>X", "<cmd>!chmod +x %<CR>", {silent = true})
+vim.keymap.set("n", "<leader>X", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- Launch script using $TERMINAL
-vim.keymap.set("n", "<leader>o", "<cmd>!$TERMINAL %<CR>", {silent = true})
+vim.keymap.set("n", "<leader>o", "<cmd>!$TERMINAL %<CR>", { silent = true })
 
 -- Open file in external program (xdg-open)
-vim.keymap.set("n", "<leader>O", "<cmd>!xdg-open %<CR>", {silent = true})
+vim.keymap.set("n", "<leader>O", "<cmd>!xdg-open %<CR>", { silent = true })
 
 -- open Ex in nvim config directory
-vim.keymap.set("n", "<Leader>vpe", ":e " .. vim_config_dir .. "<CR>",
-               {desc = "Open Ex in nvim config directory"})
+vim.keymap.set("n", "<Leader>vpe", ":e " .. vim_config_dir .. "<CR>", { desc = "Open Ex in nvim config directory" })
 
 -- Quickly Destsroy current buffer
 vim.keymap.set("n", "<M-x>", "<cmd>bd<CR>")
@@ -97,8 +95,7 @@ end)
 
 -- Delete current file
 -- TODO: need add confirmation
-vim.keymap.set("n", "<S-M-Del>",
-               "<cmd>call delete(expand('%:p')) | bdelete! %<CR>")
+vim.keymap.set("n", "<S-M-Del>", "<cmd>call delete(expand('%:p')) | bdelete! %<CR>")
 
 -- Insert new line below/upper current line
 vim.keymap.set("n", "]<space>", "moo<Esc>`o")
@@ -106,34 +103,32 @@ vim.keymap.set("n", "[<space>", "moO<Esc>`o")
 
 -- resize windows more quickly
 vim.keymap.set("n", "<Leader>=", function()
-    vim.cmd("exe \"resize \" . (winheight(0) * 3/2)")
-end, {desc = "Resize window to 3/2"})
+    vim.cmd('exe "resize " . (winheight(0) * 3/2)')
+end, { desc = "Resize window to 3/2" })
 
 vim.keymap.set("n", "<Leader>-", function()
-    vim.cmd("exe \"resize \" . (winheight(0) * 2/3)")
-end, {desc = "Resize window to 2/3"})
+    vim.cmd('exe "resize " . (winheight(0) * 2/3)')
+end, { desc = "Resize window to 2/3" })
 
 -- close current buffer
-vim.keymap.set("n", "<Leader>bd", ":bd<cr>", {desc = "Delete current buffer"})
+vim.keymap.set("n", "<Leader>bd", ":bd<cr>", { desc = "Delete current buffer" })
 
 -- close all buffers except current one
-vim.keymap.set("n", "<Leader>bD", ":%bd|e#<cr>",
-               {desc = "Close all buffers except current"})
+vim.keymap.set("n", "<Leader>bD", ":%bd|e#<cr>", { desc = "Close all buffers except current" })
 
 -- Reload Config
-vim.keymap.set("n", "<leader>vpr", "<cmd>lua ReloadConfig()<CR>",
-               {desc = "Reload nvim config"})
+vim.keymap.set("n", "<leader>vpr", "<cmd>lua ReloadConfig()<CR>", { desc = "Reload nvim config" })
 
 -- requires some external tools
 
 -- cd into current file path
-vim.keymap.set("n", "<Leader>z%", function() vim.cmd("!cd %:p:h") end,
-               {desc = "cd into current file path"})
+vim.keymap.set("n", "<Leader>z%", function()
+    vim.cmd("!cd %:p:h")
+end, { desc = "cd into current file path" })
 
 -- Plugin specific keymaps
 -- Open lazy config
-vim.keymap.set("n", "<leader>vpp",
-               "<cmd>e " .. vim_config_dir .. "/lua/Personal/lazy.lua<CR>");
+vim.keymap.set("n", "<leader>vpp", "<cmd>e " .. vim_config_dir .. "/lua/Personal/lazy.lua<CR>")
 
 --
 -- -- External commands
@@ -231,11 +226,135 @@ local function renameLinkedFile()
         vim.fn.rename(linkedFileName, newPath)
 
         -- Replace linkedFileName in curret line with newPath, escape / slaches
-        vim.cmd("s/" .. vim.fn.escape(linkedFileName, "/") .. "/" ..
-                    vim.fn.escape(newPath, "/") .. "/")
+        vim.cmd("s/" .. vim.fn.escape(linkedFileName, "/") .. "/" .. vim.fn.escape(newPath, "/") .. "/")
     else
         print("No linked file detected.")
     end
 end
 
 vim.keymap.set("n", "<leader>rR", renameLinkedFile)
+
+---
+
+-- Insert timestamps from mpv
+-- TODO: very scratchy, need to clean up/improve
+
+function RunBashScript(file_path)
+    -- Get the directory of the current lua script
+    local script_path = vim.fn.expand(vim.fn.stdpath("config") .. "/lua/Personal")
+
+    local bash_script = script_path .. "/mpv-start" -- Assuming myscript.sh is in the same directory
+    if file_path == nil then
+        local currentLine = vim.fn.getline(".")
+
+        -- Define a pattern to match the filename and seconds
+        local pattern = "%[(%d:%d%d:%d%d)%]%(<file://(.-)>%)"
+
+        -- Extract filename and seconds using the pattern
+        local duration, filename = currentLine:match(pattern)
+
+        if filename then
+            file_path = filename
+        else
+            file_path = vim.fn.input("File: ", "", "file")
+        end
+    elseif file_path == "" then
+        vim.fn.jobstart(bash_script)
+    end
+
+    local absolute_path = vim.fn.expand(file_path)
+    local job_id = vim.fn.jobstart({ bash_script, absolute_path })
+end
+
+function InsertTimestamp()
+    -- Pause video
+    vim.fn.system('echo \'{ "command": ["set_property", "pause", true] }\' | socat - /tmp/dublang-mpv.sock')
+
+    -- Get required data
+    local time_pos_data =
+        vim.fn.system('echo \'{ "command": ["get_property", "time-pos"] }\' | socat - /tmp/dublang-mpv.sock')
+    local file_path = vim.fn.system('echo \'{ "command": ["get_property", "path"] }\' | socat - /tmp/dublang-mpv.sock')
+    file_path = vim.fn.json_decode(file_path)["data"]
+
+    local time = math.floor(vim.fn.json_decode(time_pos_data)["data"])
+
+    local days = math.floor(time / 86400)
+    local remaining = time % 86400
+    local hours = math.floor(remaining / 3600)
+    remaining = remaining % 3600
+    local minutes = math.floor(remaining / 60)
+    remaining = remaining % 60
+    local seconds = remaining
+
+    if minutes < 10 then
+        local minutes = "0" .. tostring(minutes)
+    end
+    if seconds < 10 then
+        local seconds = "0" .. tostring(seconds)
+    end
+
+    -- Escape file path
+    file_path = vim.fn.expand(file_path)
+    -- Insert new line and go to next line
+    -- vim.api.nvim_put({""}, "l", true, false)
+    vim.api.nvim_put(
+        { "[" .. hours .. ":" .. minutes .. ":" .. seconds .. "](<file://" .. file_path .. ">)" },
+        "l",
+        false,
+        true
+    )
+    vim.api.nvim_put({ "  " }, "l", false, false)
+    -- vim.a
+    vim.cmd("startinsert!")
+end
+
+function OpenAndSeek()
+    -- Input string
+    local currentLine = vim.fn.getline(".")
+
+    -- Define a pattern to match the filename and seconds
+    local pattern = "%[(%d:%d%d:%d%d)%]%(<file://(.-)>%)"
+
+    -- Extract filename and seconds using the pattern
+    local duration, filename = currentLine:match(pattern)
+
+    if not duration or not filename then
+        print("No filename or duration found")
+        return
+    end
+
+    -- Convert duration to seconds
+    local hours, minutes, seconds = duration:match("(%d+):(%d+):(%d+)")
+    local totalSeconds = hours * 3600 + minutes * 60 + seconds
+    filename = vim.fn.expand(filename)
+
+    local file_path = vim.fn.system('echo \'{ "command": ["get_property", "path"] }\' | socat - /tmp/dublang-mpv.sock')
+    file_path = vim.fn.json_decode(file_path)["data"]
+    if file_path ~= filename then
+        vim.fn.system('echo \'{ "command" : ["loadfile", "' .. filename .. "\"] }' | socat - /tmp/dublang-mpv.sock && ")
+    end
+    vim.fn.system(
+        'echo \'{ "command": ["seek", "' .. totalSeconds .. '", "absolute"] }\' | socat - /tmp/dublang-mpv.sock'
+    )
+end
+
+-- Open mpv with initial file
+vim.keymap.set(
+    "n",
+    "<leader>so",
+    ":lua RunBashScript()<CR>",
+    { noremap = true, silent = true, desc = "[MPV] Open mpv with initial file" }
+)
+vim.keymap.set(
+    { "n", "i" },
+    "<M-s>",
+    InsertTimestamp,
+    { noremap = true, silent = true, desc = "[MPV] Insert timestamp" }
+)
+vim.keymap.set(
+    "n",
+    "<leader>sf",
+    OpenAndSeek,
+    { noremap = true, silent = true, desc = "[MPV] Open and seek to timestamp" }
+)
+
