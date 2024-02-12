@@ -3,7 +3,7 @@
   https://vonheikemen.github.io/devlog/tools/setup-nvim-lspconfig-plus-nvim-cmp/
 ]]
 -- Test plugins exists
-local plugins = { "lspconfig", "cmp", "cmp_nvim_lsp", "luasnip", "copilot_cmp" }
+local plugins = { "lspconfig", "cmp", "cmp_nvim_lsp", "luasnip", "codeium" }
 
 for _, plugin in ipairs(plugins) do
     local ok, _ = pcall(require, plugin)
@@ -96,7 +96,7 @@ sign({ name = "DiagnosticSignInfo", text = "I" })
 sign({ name = "CmpItemKindCopilot", text = "" })
 
 vim.diagnostic.config({
-    virtual_text = false,
+    virtual_text = true,
     severity_sort = true,
     float = { border = "rounded", source = "always" },
 })
@@ -111,8 +111,11 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 
 -- require('mason').setup({})
 -- require('mason-lspconfig').setup({})
-
-require("copilot_cmp").setup()
+require("codeium").setup({
+    tools = {
+        language_server = vim.fn.exepath("codeium-lsp")
+    }
+})
 
 local lspconfig = require("lspconfig")
 local lsp_defaults = lspconfig.util.default_config
@@ -251,15 +254,6 @@ local luasnip = require("luasnip")
 
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 
--- Helper function for copilot_cmp
-local has_words_before = function()
-    if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
-        return false
-    end
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-    return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match("^%s*$") == nil
-end
-
 local timer = nil
 vim.api.nvim_create_autocmd({ "TextChangedI", "CmdlineChanged" }, {
     pattern = "*",
@@ -294,7 +288,7 @@ cmp.setup({
         { name = "path", group_index = 2, keyword_length = 1 },
         { name = "luasnip", group_index = 2, keyword_length = 2 },
         { name = "buffer", group_index = 2, keyword_length = 3 },
-        { name = "copilot", group_index = 2, priority = -10000 },
+        { name = "codeium", group_index = 2, priority = -10000 },
     },
     window = { documentation = cmp.config.window.bordered() },
     formatting = {
@@ -342,18 +336,22 @@ cmp.setup({
             end
         end, { "i", "s" }),
 
-        ["<Tab>"] = vim.schedule_wrap(function(fallback)
-            local col = vim.fn.col(".") - 1
+        -- If the completion menu is visible, move to the next item. If the
+        -- line is "empty", insert a Tab character.
+        -- If the cursor is inside a word, trigger the completion menu.
+        ['<Tab>'] = cmp.mapping(function(fallback)
+            local col = vim.fn.col('.') - 1
 
-            if cmp.visible() and has_words_before() then
-                cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-            elseif col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
+            if cmp.visible() then
+                cmp.select_next_item(select_opts)
+            elseif col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
                 fallback()
             else
                 cmp.complete()
             end
-        end),
+        end, { 'i', 's' }),
 
+        -- If the completion menu is visible, move to the previous item.
         ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item(select_opts)
