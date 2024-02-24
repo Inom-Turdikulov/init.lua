@@ -1,3 +1,4 @@
+-- TODO: depracted, maybe need to remove
 local ok, onedark = pcall(require, "onedark")
 if not ok then return end
 

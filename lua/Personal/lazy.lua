@@ -12,9 +12,11 @@ require("lazy").setup({
     -- Core dependencies
     "nvim-lua/plenary.nvim",
     {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
+    --[[
+         Make nvim looking good
+    --]]
+    "Inom-Turdikulov/alabaster.nvim",
 
-    -- Make nvim looking good
-    "navarasu/onedark.nvim", "nvim-tree/nvim-web-devicons",
     "tjdevries/express_line.nvim", -- Improve core functional
     {"numToStr/Comment.nvim", lazy = false}, "folke/which-key.nvim",
 
