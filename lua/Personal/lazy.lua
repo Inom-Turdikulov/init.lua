@@ -66,6 +66,10 @@ require("lazy").setup({
         version = "v1.x.x", -- version is optional, but recommended
         dependencies = {"neovim/nvim-lspconfig"}
     }, -- Code quality and documentation
+    --[[
+         Code quality and documentation
+    --]]
+    "stevearc/conform.nvim", -- Formatting
     {
         "ThePrimeagen/refactoring.nvim",
         dependencies = {
