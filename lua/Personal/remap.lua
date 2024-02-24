@@ -287,10 +287,10 @@ function InsertTimestamp()
     local seconds = remaining
 
     if minutes < 10 then
-        local minutes = "0" .. tostring(minutes)
+        minutes = "0" .. tostring(minutes)
     end
     if seconds < 10 then
-        local seconds = "0" .. tostring(seconds)
+        seconds = "0" .. tostring(seconds)
     end
 
     -- Escape file path

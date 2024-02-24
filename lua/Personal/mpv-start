@@ -1,0 +1,34 @@
+#!/bin/sh
+
+: <<=cut
+=head1 NAME
+
+mpv-start - start script for MPV using socat
+
+=head1 USAGE
+
+  mpv-start file_path [port] [socket]
+
+=head1 DESCRIPTION
+
+start MPV video player and opens TCP socket proxy using socat, it is expected
+to see the MPV GUI when this script is executed
+
+=cut
+
+cleanup() {
+  echo "kill mpv $PID"
+  killall -q $PID
+  exit
+}
+
+trap cleanup 1 2 3 6
+
+FILE_PATH=$1
+PORT=${2:-42012}
+SOCKET=${3:-/tmp/dublang-mpv.sock}
+mpv --idle --force-window --osd-level=0 --loop=inf --input-ipc-server=${SOCKET} "$FILE_PATH" &
+PID=$!
+echo "mpv pid $PID"
+# -s option set socat not exit on mpv errors
+socat -s TCP4-LISTEN:${PORT},reuseaddr,fork UNIX-CONNECT:${SOCKET}
