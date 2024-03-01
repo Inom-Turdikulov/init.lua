@@ -86,6 +86,10 @@ require("lazy").setup({
         dependencies = {
             "mfussenegger/nvim-dap", "nvim-treesitter/nvim-treesitter"
         }
+     { -- Collection of various small independent plugins/modules
+        'echasnovski/mini.nvim',
+        config = function()
+        end,
     },
     {"mfussenegger/nvim-dap-python", dependencies = {"mfussenegger/nvim-dap"}},
     {"mxsdev/nvim-dap-vscode-js", dependencies = {"mfussenegger/nvim-dap"}}, {
