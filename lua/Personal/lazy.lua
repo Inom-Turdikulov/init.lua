@@ -86,6 +86,7 @@ require("lazy").setup({
         dependencies = {
             "mfussenegger/nvim-dap", "nvim-treesitter/nvim-treesitter"
         }
+     "folke/zen-mode.nvim",
      { -- Collection of various small independent plugins/modules
         'echasnovski/mini.nvim',
         config = function()
