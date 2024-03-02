@@ -111,6 +111,7 @@ require("lazy").setup({
     "antonk52/markdowny.nvim", "Glench/Vim-Jinja2-Syntax",
     "phelipetls/jsonpath.nvim", -- WARNING: this require tresitter which I installed manually (NixOS)
     "jamessan/vim-gnupg"
+     "lewis6991/gitsigns.nvim", -- Git decorations
      "stevearc/conform.nvim", -- Formatting
      "mfussenegger/nvim-dap",
      { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
