@@ -482,3 +482,10 @@ gdb
 Nano
 Pico
 PgUp
+PhantomBuster
+GoLogin
+SGID
+SetUid
+SetGid
+xscreensaver
+keymaps
