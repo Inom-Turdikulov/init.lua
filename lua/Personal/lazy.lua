@@ -79,7 +79,6 @@ require("lazy").setup({
         }
     }, {"folke/trouble.nvim", dependencies = {"nvim-tree/nvim-web-devicons"}},
     "sunaku/vim-dasht", -- Debugging
-    "mfussenegger/nvim-dap",
     {"rcarriga/nvim-dap-ui", dependencies = {"mfussenegger/nvim-dap"}}, {
         "theHamsta/nvim-dap-virtual-text",
         dependencies = {
@@ -91,14 +90,6 @@ require("lazy").setup({
         config = function()
         end,
     },
-    {"mfussenegger/nvim-dap-python", dependencies = {"mfussenegger/nvim-dap"}},
-    {"mxsdev/nvim-dap-vscode-js", dependencies = {"mfussenegger/nvim-dap"}}, {
-        "nvim-telescope/telescope-dap.nvim",
-        dependencies = {
-            "mfussenegger/nvim-dap", "nvim-telescope/telescope.nvim",
-            "nvim-treesitter/nvim-treesitter"
-        }
-    }, -- Code execution and test running
     {
         "michaelb/sniprun",
         branch = "master",
@@ -118,5 +109,24 @@ require("lazy").setup({
     "phelipetls/jsonpath.nvim", -- WARNING: this require tresitter which I installed manually (NixOS)
     "jamessan/vim-gnupg"
      "stevearc/conform.nvim", -- Formatting
+     "mfussenegger/nvim-dap",
+     { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
+     {
+         "theHamsta/nvim-dap-virtual-text",
+         dependencies = {
+             "mfussenegger/nvim-dap",
+             "nvim-treesitter/nvim-treesitter",
+         },
+     },
+     { "mfussenegger/nvim-dap-python", dependencies = { "mfussenegger/nvim-dap" } },
+     { "mxsdev/nvim-dap-vscode-js",    dependencies = { "mfussenegger/nvim-dap" } },
+     {
+         "nvim-telescope/telescope-dap.nvim",
+         dependencies = {
+             "mfussenegger/nvim-dap",
+             "nvim-telescope/telescope.nvim",
+             "nvim-treesitter/nvim-treesitter",
+         },
+     },
      "dkarter/bullets.vim",
 })

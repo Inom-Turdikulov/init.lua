@@ -7,13 +7,13 @@ local map = function(lhs, rhs, desc)
     vim.keymap.set("n", lhs, rhs, {silent = true, desc = desc})
 end
 
-map("<S-F1>", dap.goto_, "goto_")
 map("<F1>", dap.step_back, "step_back")
 map("<F2>", dap.step_into, "step_into")
 map("<F3>", dap.step_over, "step_over")
 map("<F4>", dap.step_out, "step_out")
 map("<F5>", dap.continue, "continue")
 map("<F6>", function() dap.pause.toggle() end, 'Debug pause toggle')
+map("<F7>", dap.goto_, "goto_")
 map("<C-F9>", function()
     dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))
 end, 'set log point')
@@ -93,8 +93,7 @@ if terminal then
 end
 
 -- Virtual text
-local has_dap_virtual_text, dap_virtual_text =
-    pcall(require, "dap-virtual-text")
+local has_dap_virtual_text, dap_virtual_text = pcall(require, "nvim-dap-virtual-text")
 if has_dap_virtual_text then
     dap_virtual_text.setup {
         enabled = true,
@@ -138,7 +137,7 @@ if has_dap_ui then
     }
 
     -- DapUI keybindings
-    map("<Leader>dut", dap_ui.toggle, 'Debug ui toggle and reset')
+    map("<Leader>dut", dap_ui.toggle, 'Debug ui toggle')
     map("<Leader>duc", function() dap_ui.close({reset = true}) end,
         'Debug ui close')
     map("<Leader>duo", function() dap_ui.open({reset = true}) end,
@@ -166,9 +165,9 @@ if has_dap_ui then
         dap_ui.close()
     end
 
-    dap.listeners.before.event_exited["dapui_config"] = function()
-        dap_ui.close()
-    end
+    -- dap.listeners.before.event_exited["dapui_config"] = function()
+    --     dap_ui.close()
+    -- end
 end
 
 -- Requirements:
@@ -203,7 +202,7 @@ if has_dap_python then
         module = 'celery',
         name = 'SLP Celery Workers',
         args = {
-            "worker", "--app=wsgi.celery", "--concurrency=1",
+            "--app=wsgi.celery", "worker", "--concurrency=1",
             "--loglevel=DEBUG", "--queues=linkedin_default", "-B"
         },
         gevent = true,
