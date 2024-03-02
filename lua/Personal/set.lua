@@ -1,5 +1,7 @@
 GLOBAL_LISTCHARS = "tab:>-,extends:>,precedes:<,nbsp:␣,eol:↵"
 
+vim.opt.guicursor = ""
+
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
@@ -14,35 +16,54 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undofile = true
 
+-- Case-insensitive searching UNLESS \C or capital in search
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
+-- Preview substitutions live and higlight only when searching
+vim.opt.inccommand = 'split'
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
 vim.opt.termguicolors = true
 
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 10
 vim.opt.sidescrolloff = 4
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 
-vim.opt.updatetime = 50
+-- Set completeopt to have a better completion experience
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
+
+vim.opt.updatetime = 250
 vim.opt.colorcolumn = "80"
 
 -- Show return characters
 vim.wo.list = true
 vim.wo.listchars = GLOBAL_LISTCHARS
 
+-- Configure how new splits should be opened
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
 -- Custom highlighting in diff mode
-vim.opt.diffopt:append{'linematch:50'}
+vim.opt.diffopt:append { 'linematch:50' }
 
 -- Open diff in vertical split
-vim.opt.diffopt:append{'vertical'}
+vim.opt.diffopt:append { 'vertical' }
 
 -- Enable syntax highlight in code blocks
 vim.g.markdown_fenced_languages = {
-    'asm', 'pascal', 'perl', 'lisp', 'python', 'cpp', 'javascript', 'php',
-    'java', 'rust', 'php', 'sql', 'rb=ruby', 'ruby', 'go', 'lua', 'bash=sh',
-    'java', 'js=javascript', 'json=javascript', 'typescript', 'html', 'css',
-    'scss', 'yaml', 'toml', 'tex', 'nix'
+    'asm',           'pascal',          'perl',
+    'lisp',          'python',          'cpp',
+    'javascript',    'php',             'java',
+    'rust',          'php',             'sql',
+    'rb=ruby',       'ruby',            'go',
+    'lua',           'bash=sh',         'java',
+    'js=javascript', 'json=javascript', "ts=typescript",
+    'typescript',    'html',            'css',
+    'scss',          'yaml',            'toml',
+    'tex',           'nix'
 }
 
 -- Set window title to the current base directory
@@ -61,12 +82,12 @@ vim.g.netrw_localcopydircmd = 'cp -r' -- fix netrw recursive dir copy
 
 -- Save data in session
 vim.o.sessionoptions =
-    "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+"blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- Cursorline highlighting control
 --  Only have it on in the active buffer
 vim.opt.cursorline = true -- Highlight the current line
-local group = vim.api.nvim_create_augroup("CursorLineControl", {clear = true})
+local group = vim.api.nvim_create_augroup("CursorLineControl", { clear = true })
 local set_cursorline = function(event, value, pattern)
     vim.api.nvim_create_autocmd(event, {
         group = group,
