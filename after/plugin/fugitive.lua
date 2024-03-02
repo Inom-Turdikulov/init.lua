@@ -69,10 +69,17 @@ local map = function(lhs, rhs, desc)
     vim.keymap.set("n", lhs, rhs, {silent = true, desc = desc})
 end
 
+-- Grep with quickfix list
+vim.cmd[[
+command -nargs=+ Ggr execute 'Ggrep' <q-args> | cw
+]]
+
 map('<leader>gg', toggleFugitiveGit, 'toggle panel')
 map("<leader>gs", vim.cmd.Git, "panel")
 
 map("<leader>gl", ":Gclog<CR>", "log")
+map("<leader>gL", ":G log -p -S<Space>", "Git History for Code")
+
 map("<leader>gb", ":Git branch<Space>", "branch")
 
 map("<leader>gd", ":Gdiffsplit<CR>", "diff split")
@@ -87,5 +94,7 @@ map("<leader>ga", ":Git commit -v -q --amend<CR>", "ammend")
 map("<leader>gA", ":Git add -p<CR>", "add with patch")
 
 map("<leader>gp", ":Ggrep<Space>", "grep")
+map("<leader>gP", ":Ggr<Space>", "grep with quickfix-list")
+
 map("<leader>gm", ":GMove<Space>", "move")
 map("<leader>go", ":Git checkout<Space>", "checkout")
