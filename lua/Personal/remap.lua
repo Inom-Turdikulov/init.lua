@@ -1,8 +1,11 @@
 local vim_config_dir = vim.fn.stdpath("config")
-vim.g.mapleader = " " -- NOTE: set this before loading package manager
 
 -- Simplify mapping in terminal
 vim.keymap.set("t", "<C-\\><C-\\>", "<C-\\><C-n>")
+-- NOTE: set this before loading package manager
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>pV", ":Lexplore %:p:h<CR>")
