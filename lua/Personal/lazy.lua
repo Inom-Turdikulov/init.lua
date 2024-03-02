@@ -71,7 +71,6 @@ require("lazy").setup({
     --[[
          Code quality and documentation
     --]]
-    "stevearc/conform.nvim", -- Formatting
     {
         "ThePrimeagen/refactoring.nvim",
         dependencies = {
@@ -118,4 +117,5 @@ require("lazy").setup({
     "antonk52/markdowny.nvim", "Glench/Vim-Jinja2-Syntax",
     "phelipetls/jsonpath.nvim", -- WARNING: this require tresitter which I installed manually (NixOS)
     "jamessan/vim-gnupg"
+     "stevearc/conform.nvim", -- Formatting
 })

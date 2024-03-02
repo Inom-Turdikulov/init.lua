@@ -9,7 +9,8 @@ conform.setup({
         python = { "ruff_fix", "ruff_format" },
         go = { "goimports", "gofmt" },
         markdown = { "deno_fmt" },
-        javascript = { "eslint_d", { "deno_fmt" } },
+        javascript = { "deno_fmt" },
+        typescript = { "deno_fmt" },
         json = { "deno_fmt" },
         yaml = { "prettierd" },
         html = { "prettierd" },
@@ -19,7 +20,7 @@ conform.setup({
     },
 })
 
-vim.keymap.set({ "n", "x" }, "<leader>f", function()
+vim.keymap.set({ "n", "x" }, "<leader>=", function()
     conform.format({
         async = true,
         lsp_fallback = true
