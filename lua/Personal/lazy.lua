@@ -118,4 +118,5 @@ require("lazy").setup({
     "phelipetls/jsonpath.nvim", -- WARNING: this require tresitter which I installed manually (NixOS)
     "jamessan/vim-gnupg"
      "stevearc/conform.nvim", -- Formatting
+     "dkarter/bullets.vim",
 })
