@@ -10,11 +10,19 @@ end
 
 neotest.setup({
     floating = {
-        border = "double",
-        max_height = 0.6,
-        max_width = 0.6,
+      border = "solid",
+      max_height = 0.5,
+      max_width = 0.8,
+      options = {}
     },
-
+    output = {
+      enabled = true,
+      open_on_run = "short"
+    },
+    output_panel = {
+      enabled = true,
+      open = "botright split | resize 15"
+    },
     adapters = {
         neotest_python({
             -- Extra arguments for nvim-dap configuration
@@ -42,7 +50,7 @@ map("<leader>dnn", function()
     neotest.run.run()
 end, "neotest run the nearest test")
 
-map("<leader>dnl",
+map("<leader>dnr",
     neotest.run.run_last,
     "neotest run the last test")
 
@@ -60,13 +68,15 @@ map("<leader>dnf", function()
 end, "run the current file")
 
 map("<leader>dna", neotest.run.attach, "attach to the nearest test")
-map("<leader>dns", neotest.run.stop, "stop the nearest test")
+map("<leader>dnx", neotest.run.stop, "stop the nearest test")
 
-map("<leader>dno", function()
+map("<leader>dnt", function()
     neotest.output.open({ enter = true })
 end, "open the output of a test result")
 
-map("<leader>dnt", neotest.output_panel.toggle, "toggle the output panel")
+map("<leader>dno", function ()
+    neotest.output_panel.toggle( { enter = true } )
+end, "toggle the output panel")
 
 map("]n", neotest.jump.next, "Neotest jump to the next test")
 map("[n", neotest.jump.prev, "Neotest jump to the previous test")
