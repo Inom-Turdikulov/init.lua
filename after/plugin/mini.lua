@@ -1,4 +1,4 @@
-local ok, mini = pcall(require, "mini")
+local ok, _ = pcall(require, "mini.ai")
 if not ok then return end
 
 -- Better Around/Inside textobjects
@@ -15,6 +15,9 @@ require('mini.ai').setup { n_lines = 500 }
 -- - sd'   - [S]urround [D]elete [']quotes
 -- - sr)'  - [S]urround [R]eplace [)] [']
 require('mini.surround').setup()
+
+-- Use `ss` to subtititute single char
+vim.keymap.set("n", "ss", "s")
 
 -- Align text interactively
 -- main option modifiers: [s]plit, [j]ustify side, [m] enter merge delimeter
@@ -51,7 +54,13 @@ visitsMap('<Leader>O', "Select recent (cwd)", false, 1)
 -- T*his is example - gmiw, duplicate This word, use 2gmm to duplicate next 2 lines
 -- T*his is example - griw, replace This word with yank buffer, use grr to replace line
 -- b, c, a          - gss, sort into a, b, c, use gsip to sort innner paragrap
-require('mini.operators').setup()
+require('mini.operators').setup(
+    { -- Exchange text regions
+        exchange = {
+            prefix = 'gX',
+        },
+    }
+)
 
 -- ... and there is more!
 --  Check out: https://github.com/echasnovski/mini.nvim
