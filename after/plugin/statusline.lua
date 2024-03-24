@@ -7,7 +7,8 @@ end
 
 require("el").reset_windows()
 
-vim.opt.laststatus = 3
+vim.opt.laststatus = 3   -- global statusline
+vim.opt.showmode = false -- mode is already shown in the statusline
 
 if false then
     -- Disappearing statusline for commands
@@ -76,12 +77,6 @@ local ws_diagnostic_counts = function(_, buffer)
     return table.concat(messages, "")
 end
 
-local show_current_func = function(window, buffer)
-    if buffer.filetype == "lua" then return "" end
-
-    return lsp_statusline.current_function(window, buffer)
-end
-
 local minimal_status_line = function(_, buffer)
     if string.find(buffer.name, "sourcegraph/sourcegraph") then return true end
 end
@@ -100,7 +95,7 @@ require("el").setup {
         local mode = extensions.gen_mode {format_string = " %s "}
         if is_sourcegraph then
             return {
-                {mode}, {sections.split, required = true}, {builtin.file},
+                {mode, required = true}, {sections.split, required = true}, {builtin.file},
                 {sections.split, required = true}, {builtin.filetype}
             }
         end
@@ -108,14 +103,15 @@ require("el").setup {
             {mode, required = true}, {git_branch}, {" "},
             {sections.split, required = true}, {git_icon},
             {
-                sections.maximum_width(builtin.file_relative, 0.60),
+                sections.maximum_width(builtin.file_relative, 0.3),
                 required = true
             }, {sections.collapse_builtin {{" "}, {builtin.modified_flag}}},
             {sections.split, required = true}, {diagnostic_display},
-            {show_current_func}, -- { lsp_statusline.server_progress },
+            -- { lsp_statusline.server_progress },
             -- { ws_diagnostic_counts },
             {git_changes}, {"["}, {builtin.line_with_width(3)}, {":"},
-            {builtin.column_with_width(2)}, {"]"}, {
+            {builtin.column_with_width(2)}, {"]"},
+            {
                 sections.collapse_builtin {
                     "[", builtin.help_list, builtin.readonly_list, "]"
                 }
