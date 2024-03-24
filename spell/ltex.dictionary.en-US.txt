@@ -505,3 +505,4 @@ cmus
 Wengrow-Data
 Masha
 Kolya
+treesitter
