@@ -1,11 +1,14 @@
 local vim_config_dir = vim.fn.stdpath("config")
 
--- Simplify mapping in terminal
-vim.keymap.set("t", "<C-\\><C-\\>", "<C-\\><C-n>")
 -- NOTE: set this before loading package manager
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Exit terminal mode in the builtin terminal with a shortcut that is a bit
+-- easier for people to discover. Otherwise, you normally need to press
+-- <c-\><c-n>, which is not what someone will guess without a bit more
+-- experience.
+vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Escape Escape exits terminal mode" })
 
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set("n", "<leader>pV", ":Lexplore %:p:h<CR>")
@@ -14,11 +17,16 @@ vim.keymap.set("n", "<leader>pV", ":Lexplore %:p:h<CR>")
 vim.keymap.set("n", "<C-с>", "<C-d>")
 vim.keymap.set("n", "<C-ш>", "<C-u>")
 
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+
 -- NOTE: this keymap for xst/st term, in our case Ctrl-Backspace
 vim.keymap.set("i", "<C-H>", "<C-W>", { noremap = true })
 
-vim.keymap.set("n", "<C-s>", "<cmd>w<CR>")
-vim.keymap.set({ "i", "v" }, "<C-s>", "<Esc><cmd>w<CR>")
+-- Save on :W, this is workaround, sometimes I type :W instead :w...
+vim.api.nvim_create_user_command('W', function()
+    vim.cmd('w')
+end, {})
 
 -- gf files with spaces
 vim.keymap.set("n", "gF", function()
@@ -46,8 +54,6 @@ vim.keymap.set("v", "<C-K>", ":m '<-2<CR>gv=gv")
 
 -- save cursor on center
 vim.keymap.set("n", "J", "mzJ`z")
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
@@ -63,8 +69,8 @@ vim.keymap.set({ "n", "v" }, "<leader>D", [["_d]])
 
 -- Quickfix list navigation
 -- TODO: need check and fix
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
@@ -78,23 +84,13 @@ vim.keymap.set("n", "<leader>X", "<cmd>!chmod +x %<CR>", { silent = true })
 vim.keymap.set("n", "<leader>o", "<cmd>!$TERMINAL %<CR>", { silent = true })
 
 -- Open file in external program (xdg-open)
-vim.keymap.set("n", "<leader>O", "<cmd>!xdg-open %<CR>", { silent = true })
+vim.keymap.set("n", "<leader>O", "<cmd>!xdg-open %<CR>", { silent = true, desc = "Open current file with xdg-open" })
 
 -- open Ex in nvim config directory
 vim.keymap.set("n", "<Leader>vpe", ":e " .. vim_config_dir .. "<CR>", { desc = "Open Ex in nvim config directory" })
 
 -- Quickly Destsroy current buffer
 vim.keymap.set("n", "<M-x>", "<cmd>bd<CR>")
-
--- Show/hide special characters
-vim.keymap.set("n", "<leader>vn", function()
-    if vim.wo.list then
-        vim.wo.list = false
-    else
-        vim.wo.list = true
-        vim.wo.listchars = GLOBAL_LISTCHARS
-    end
-end)
 
 -- Delete current file
 -- TODO: need add confirmation
@@ -306,8 +302,6 @@ function InsertTimestamp()
         false,
         true
     )
-    vim.api.nvim_put({ "  " }, "l", false, false)
-    -- vim.a
     vim.cmd("startinsert!")
 end
 
@@ -343,20 +337,20 @@ end
 
 -- Open mpv with initial file
 vim.keymap.set(
-    "n",
-    "<leader>so",
-    ":lua RunBashScript()<CR>",
-    { noremap = true, silent = true, desc = "[MPV] Open mpv with initial file" }
-)
-vim.keymap.set(
-    { "n", "i" },
-    "<M-s>",
+    { "i" },
+    "<C-g>",
     InsertTimestamp,
     { noremap = true, silent = true, desc = "[MPV] Insert timestamp" }
 )
 vim.keymap.set(
     "n",
-    "<leader>sf",
+    "<leader>tF",
+    ":lua RunBashScript()<CR>",
+    { noremap = true, silent = true, desc = "[MPV] Open mpv with initial file" }
+)
+vim.keymap.set(
+    "n",
+    "<leader>tM",
     OpenAndSeek,
     { noremap = true, silent = true, desc = "[MPV] Open and seek to timestamp" }
 )
