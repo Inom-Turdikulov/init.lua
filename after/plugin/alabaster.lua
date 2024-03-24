@@ -8,4 +8,3 @@ vim.api.nvim_set_hl(0,'CopilotSuggestion',{ fg='#9d9c9c'})
 
 -- Express line
 vim.api.nvim_set_hl(0,'ElInsert',{ fg='white', bg='green'})
-
