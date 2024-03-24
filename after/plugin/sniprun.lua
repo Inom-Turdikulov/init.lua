@@ -9,9 +9,5 @@ sniprun.setup({
 })
 
 -- Select block by viB or vaB, and run SnipRun by f key
-vim.api.nvim_set_keymap('v', 'f', '<Plug>SnipRun',
-                        {silent = true, desc = "[SnipRun] Run selection"})
-vim.api.nvim_set_keymap('n', '<leader>ze', '<Plug>SnipRunOperator',
-                        {silent = true, desc = "[SnipRun] Run Operator"})
-vim.api.nvim_set_keymap('n', '<leader>zee', '<Plug>SnipRun',
-                        {silent = true, desc = "[SnipRun] Run"})
+vim.api.nvim_set_keymap('v', '<leader>ve', '<Plug>SnipRun', {silent = true, desc = "[SnipRun] Run selection"})
+vim.api.nvim_set_keymap('n', '<leader>ve', '<Plug>SnipRunOperator', {silent = true, desc = "[SnipRun] Run Operator"})
