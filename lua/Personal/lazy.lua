@@ -172,9 +172,6 @@ require("lazy").setup({
             "nvim-treesitter/nvim-treesitter",
         },
     },
-    {
-        'stevearc/overseer.nvim',  -- Need to be after nvim-dap
-    },
 
     --[[
           Code execution and test running
