@@ -123,5 +123,14 @@
             "> — <cite>$0</cite>"
         ],
         "description": "Insert blockquote snippet"
+    },
+    "Insert flashcard snippet": {
+        "prefix": "flc",
+        "body": [
+            "$1",
+            "&#10;",
+            "$0"
+        ],
+        "description": "Insert flashcard snippet"
     }
 }
