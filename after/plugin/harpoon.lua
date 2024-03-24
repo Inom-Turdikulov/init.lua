@@ -25,7 +25,7 @@ map("<C-e>", function()
     harpoon.ui:toggle_quick_menu(harpoon:list())
 end, "Open harpoon UI")
 
-local bindings = { 't', 'm', 'g', 'n'  }
+local bindings = { 't', 'g', 'm', 'n'  }
 for k,v in pairs(bindings) do
   map("<C-" .. v .. ">", function() harpoon:list():select(k) end, "Navigate to file " .. k)
 end
