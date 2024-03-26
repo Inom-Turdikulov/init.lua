@@ -506,3 +506,4 @@ Wengrow-Data
 Masha
 Kolya
 treesitter
+Obuz
