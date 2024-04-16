@@ -16,6 +16,7 @@ require("lazy").setup({
           Base dependencies
      --]]
     "nvim-lua/plenary.nvim",
+    {'ivanesmantovich/xkbswitch.nvim'},
     { "LunarVim/bigfile.nvim" },
     {
         "nvim-treesitter/nvim-treesitter",
@@ -216,8 +217,8 @@ require("lazy").setup({
           Add support additinal syntax and files specific features
      --]]
     "antonk52/markdowny.nvim",
-    "dkarter/bullets.vim",
     "Glench/Vim-Jinja2-Syntax",
     "phelipetls/jsonpath.nvim", -- WARNING: this require tresitter which I installed manually (NixOS)
     "jamessan/vim-gnupg",
 })
+
