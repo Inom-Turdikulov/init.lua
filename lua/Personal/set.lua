@@ -45,7 +45,6 @@ vim.wo.listchars = GLOBAL_LISTCHARS
 
 -- Configure how new splits should be opened
 vim.opt.splitright = true
-vim.opt.splitbelow = true
 
 -- Custom highlighting in diff mode
 vim.opt.diffopt:append { 'linematch:50' }
