@@ -52,7 +52,7 @@ map("<leader>fb", builtin.builtin, "builtins")
 
 map('<leader>ff', builtin.find_files, "[F]ind [F]iles")
 
-map('<PageDown>', function ()
+map('<M-f>', function ()
     if vim.fn.filereadable(".git/HEAD") == 1 then
         builtin.git_files()
     else
