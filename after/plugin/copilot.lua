@@ -6,6 +6,7 @@ if not ok then return end
 -- you need to auth/validate copilot with github on first run
 -- `Copilot auth` or `Copilot status`
 
+vim.g.copilot_proxy = "http://oka:19888"
 copilot.setup({
     suggestion = {
         enable = true,
