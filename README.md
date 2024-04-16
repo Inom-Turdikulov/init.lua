@@ -3,6 +3,11 @@
 My personal neovim configuration, highly inspired by ThePrimeagen's and TeejDv's
 configurations.
 
+How to install?
+
+Put this repository (copy directory contents or make symlink) in neovim config
+path, you can find it by running `:echo stdpath('config')` in neovim.
+
 ## LSP servers
 
 I manage all my LSP servers using NixOS
