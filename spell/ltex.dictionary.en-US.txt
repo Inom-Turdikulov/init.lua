@@ -507,3 +507,11 @@ Masha
 Kolya
 treesitter
 Obuz
+Zsh
+Mikrotik
+PgDn
+ArjLover
+ShortcutFoo
+KeyCombiner
+QMK
+atuin
