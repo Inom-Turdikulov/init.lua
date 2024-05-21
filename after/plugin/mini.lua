@@ -29,24 +29,23 @@ vim.keymap.set("n", "ss", "s")
 -- - Vipgajr - [V]isual select [I]nner [P]aragraph [J]ustify [R]ight
 require('mini.align').setup()
 
--- Track files visits and provide ui to select them
--- plus some additional features (not using them)
-require('mini.visits').setup()
-
-local make_select_path = function(select_global, recency_weight)
-    local visits = require('mini.visits')
-    local sort = visits.gen_sort.default({ recency_weight = recency_weight })
-    local select_opts = { sort = sort }
-    return function()
-        local cwd = select_global and '' or vim.fn.getcwd()
-        visits.select_path(cwd, select_opts)
-    end
-end
-local visitsMap = function(lhs, desc, ...)
-    vim.keymap.set('n', lhs, make_select_path(...), { desc = desc })
-end
-visitsMap('<Leader>o', 'Select recent (all)', true, 1)
-visitsMap('<Leader>O', "Select recent (cwd)", false, 1)
+-- -- Track files visits and provide ui to select them
+-- -- plus some additional features (not using them)
+-- require('mini.visits').setup()
+-- local make_select_path = function(select_global, recency_weight)
+--     local visits = require('mini.visits')
+--     local sort = visits.gen_sort.default({ recency_weight = recency_weight })
+--     local select_opts = { sort = sort }
+--     return function()
+--         local cwd = select_global and '' or vim.fn.getcwd()
+--         visits.select_path(cwd, select_opts)
+--     end
+-- end
+-- local visitsMap = function(lhs, desc, ...)
+--     vim.keymap.set('n', lhs, make_select_path(...), { desc = desc })
+-- end
+-- visitsMap('<Leader>o', 'Select recent (all)', true, 1)
+-- visitsMap('<Leader>O', "Select recent (cwd)", false, 1)
 
 -- Text edit operators
 -- (1 + 1) - g=i), to evaluate, g= also supporting visual selection
