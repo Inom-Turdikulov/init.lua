@@ -157,17 +157,10 @@ if has_dap_ui then
                    function() require'dap.ui.widgets'.scopes() end,
                    {desc = '[DAP] Debug scopes'})
 
+    -- also useful events are: event_terminated, event_exited
     dap.listeners.after.event_initialized["dapui_config"] = function()
         dap_ui.open()
     end
-
-    dap.listeners.before.event_terminated["dapui_config"] = function()
-        dap_ui.close()
-    end
-
-    -- dap.listeners.before.event_exited["dapui_config"] = function()
-    --     dap_ui.close()
-    -- end
 end
 
 -- Requirements:
@@ -188,7 +181,7 @@ if has_dap_python then
         env = {
             FLASK_APP = 'wsgi.py',
             FLASK_ENV = 'development',
-            FLASK_DEBUG = '1'
+            FLASK_DEBUG = '0'
         },
         args = {'run', '--no-debugger', '--host=0.0.0.0', '--port=45120'},
         console = 'integratedTerminal',
