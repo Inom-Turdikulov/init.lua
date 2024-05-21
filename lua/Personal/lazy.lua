@@ -10,26 +10,25 @@ if not vim.loop.fs_stat(lazypath) then
     })
 end
 vim.opt.rtp:prepend(lazypath)
-
+local is_linux = vim.loop.os_uname().sysname == 'Linux';
 require("lazy").setup({
     --[[
           Base dependencies
      --]]
-    "nvim-lua/plenary.nvim",
-    {'ivanesmantovich/xkbswitch.nvim'},
-    { "LunarVim/bigfile.nvim" },
+    { "nvim-lua/plenary.nvim" },
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate"
     },
-    "folke/which-key.nvim",
+    { "ivanesmantovich/xkbswitch.nvim", enabled=is_linux },
+    { "LunarVim/bigfile.nvim" },
+    { "folke/which-key.nvim" },
     --[[
           Make nvim looking good
      --]]
-    "Inom-Turdikulov/alabaster.nvim",
-    "tjdevries/express_line.nvim",
-    "folke/zen-mode.nvim",
-
+    { "Inom-Turdikulov/alabaster.nvim" },
+    { "tjdevries/express_line.nvim" },
+    { "folke/zen-mode.nvim" },
     { "numToStr/Comment.nvim", lazy = false },
     { "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
     --[[
@@ -69,11 +68,12 @@ require("lazy").setup({
     {
         "Inom-Turdikulov/telekasten.nvim",
         dependencies = {
-            "nvim-telescope/telescope-media-files.nvim",
-            "nvim-lua/popup.nvim",
+            { "nvim-telescope/telescope-media-files.nvim", enabled=is_linux },
+            { "nvim-lua/popup.nvim", enabled=is_linux },
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope.nvim",
         },
+        enabled=is_linux,
     },
     {
         "ThePrimeagen/harpoon", -- TODO: switch to main branch
@@ -83,7 +83,7 @@ require("lazy").setup({
             "nvim-telescope/telescope.nvim",
         },
     },
-    { "kevinhwang91/nvim-ufo",              dependencies = "kevinhwang91/promise-async" },
+    { "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
     {
         "nvim-treesitter/nvim-treesitter-textobjects",
         after = "nvim-treesitter",
@@ -110,6 +110,7 @@ require("lazy").setup({
         "zbirenbaum/copilot.lua",
         cmd = "Copilot",
         event = "InsertEnter",
+        enabled = is_linux
     },
     {
         "hrsh7th/nvim-cmp",
@@ -126,20 +127,14 @@ require("lazy").setup({
                     "saadparwaiz1/cmp_luasnip",
                 },
             },
-            -- {
-            --     "Exafunction/codeium.nvim",
-            --     dependencies = {
-            --         "nvim-lua/plenary.nvim",
-            --     },
-            -- },
         },
     },
-    "barreiroleo/ltex-extra.nvim",
+    { "barreiroleo/ltex-extra.nvim", enabled=is_linux },
 
     --[[
           Code quality and documentation
      --]]
-    "stevearc/conform.nvim", -- Formatting
+    { "stevearc/conform.nvim", enabled=is_linux }, -- Formatting
     {
         "ThePrimeagen/refactoring.nvim",
         dependencies = {
@@ -148,14 +143,14 @@ require("lazy").setup({
             "nvim-treesitter/nvim-treesitter",
         },
     },
-    { "folke/trouble.nvim",   dependencies = { "nvim-tree/nvim-web-devicons" } },
-    "sunaku/vim-dasht",
+    { "folke/trouble.nvim",    dependencies = { "nvim-tree/nvim-web-devicons" } },
+    { "sunaku/vim-dasht", enabled=is_linux },
 
     --[[
           Debugging & Tasks
      --]]
     "mfussenegger/nvim-dap",
-    { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
+    { "rcarriga/nvim-dap-ui",         dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
     {
         "theHamsta/nvim-dap-virtual-text",
         dependencies = {
@@ -181,6 +176,7 @@ require("lazy").setup({
         "michaelb/sniprun",
         branch = "master",
         build = "sh install.sh",
+        enabled = is_linux
         -- do 'sh install.sh 1' if you want to force compile locally
         -- (instead of fetching a binary from the github release). Requires Rust >= 1.65
     },
@@ -219,6 +215,5 @@ require("lazy").setup({
     "antonk52/markdowny.nvim",
     "Glench/Vim-Jinja2-Syntax",
     "phelipetls/jsonpath.nvim", -- WARNING: this require tresitter which I installed manually (NixOS)
-    "jamessan/vim-gnupg",
+    { "jamessan/vim-gnupg", enabled = is_linux },
 })
-
