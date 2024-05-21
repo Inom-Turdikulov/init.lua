@@ -10,7 +10,7 @@ vim.defer_fn(function()
             "c", "cpp", "lua", "vim", "vimdoc", "query", "elixir", "heex", "javascript",
             "tsx", "html", "css", "markdown", "markdown_inline", "scss", "bash", "rust",
             "go", "gdscript", "python", "json", "toml", "tsv", "csv", "yaml",
-            "nix", "sql"
+            "nix", "sql", "pascal"
         },
 
         -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
