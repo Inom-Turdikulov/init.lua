@@ -37,7 +37,7 @@ vim.opt.isfname:append("@-@")
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 vim.opt.updatetime = 250
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "81"
 
 -- Show return characters
 vim.wo.list = true
