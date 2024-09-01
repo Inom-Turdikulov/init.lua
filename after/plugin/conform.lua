@@ -5,18 +5,21 @@ end
 
 conform.setup({
     formatters_by_ft = {
-        nix = { "nixpkgs_fmt" },
-        python = { "ruff_fix", "ruff_format" },
-        go = { "goimports", "gofmt" },
-        markdown = { "deno_fmt" },
-        javascript = { "deno_fmt" },
-        typescript = { "deno_fmt" },
-        json = { "deno_fmt" },
-        yaml = { "prettierd" },
-        html = { "prettierd" },
-        scss = { "prettierd" },
-        css = { "prettierd" },
-        gdscript = { "gdformat" },
+        nix             = { "nixpkgs_fmt" },
+        python          = { "ruff_fix", "ruff_format" },
+        go              = { "goimports", "gofmt" },
+        markdown        = { "deno_fmt" },
+        javascript      = { "biome" },
+        typescript      = { "biome" },
+        typescriptreact = { "biome" },
+        json            = { "biome" },
+        jsonc           = { "biome" },
+        yaml            = { "prettierd" },
+        html            = { "prettierd" },
+        scss            = { "prettierd" },
+        css             = { "prettierd" },
+        gdscript        = { "gdformat" },
+        jinja           = { "djlint" }
     },
 })
 
