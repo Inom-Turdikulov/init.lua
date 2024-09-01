@@ -96,6 +96,9 @@ require("lazy").setup({
         requires = "nvim-treesitter/nvim-treesitter",
     },
     {
+        'AckslD/nvim-FeMaco.lua',
+    },
+    {
         "SuchithSridhar/nvim-treesitter-context", -- TODO: swap to upstream
         after = "nvim-treesitter",
         requires = "nvim-treesitter/nvim-treesitter",
