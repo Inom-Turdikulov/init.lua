@@ -153,7 +153,7 @@ require("lazy").setup({
         },
     },
     { "folke/trouble.nvim",    dependencies = { "nvim-tree/nvim-web-devicons" } },
-    { "sunaku/vim-dasht", enabled=is_linux },
+    { "KabbAmine/zeavim.vim", enabled = is_linux },
 
     --[[
           Debugging & Tasks
