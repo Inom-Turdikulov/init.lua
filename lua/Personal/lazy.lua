@@ -29,8 +29,14 @@ require("lazy").setup({
     { "Inom-Turdikulov/alabaster.nvim" },
     { "tjdevries/express_line.nvim" },
     { "folke/zen-mode.nvim" },
-    { "numToStr/Comment.nvim", lazy = false },
     { "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
+    {
+        "numToStr/Comment.nvim",
+        lazy = false,
+        dependencies = {
+            { "JoosepAlviste/nvim-ts-context-commentstring" }, -- To fix comments in react templates
+        }
+    },
     --[[
           Improve core functional
      --]]
