@@ -139,6 +139,7 @@ require("lazy").setup({
         },
     },
     { "barreiroleo/ltex-extra.nvim", enabled=is_linux },
+    { "lervag/vimtex" },
 
     --[[
           Code quality and documentation
