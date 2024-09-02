@@ -135,6 +135,7 @@ require("lazy").setup({
             },
         },
     },
+    "Teatek/gdscript-extended-lsp.nvim",
     { "barreiroleo/ltex-extra.nvim", enabled = is_linux },
     { "lervag/vimtex" },
 
