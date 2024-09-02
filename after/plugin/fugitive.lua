@@ -71,7 +71,7 @@ end
 
 -- Grep with quickfix list
 vim.cmd[[
-command -nargs=+ Ggr execute 'Ggrep' <q-args> | cw
+command! -nargs=+ Ggr execute 'Ggrep' <q-args> | cw
 ]]
 
 map('<leader>gg', toggleFugitiveGit, 'toggle panel')
