@@ -150,7 +150,19 @@ local function on_attach(client, bufnr)
     end
 
     if client.server_capabilities.inlayHintProvider then
-        vim.lsp.inlay_hint.enable(true, {bufnr=bufnr})
+      -- Inline hints on isert
+      vim.api.nvim_create_augroup("lsp_augroup", { clear = true })
+
+      vim.api.nvim_create_autocmd("InsertEnter", {
+        buffer = bufnr,
+        callback = function() vim.lsp.inlay_hint.enable(true, {bufnr=bufnr}) end,
+        group = "lsp_augroup",
+      })
+      vim.api.nvim_create_autocmd("InsertLeave", {
+        buffer = bufnr,
+        callback = function() vim.lsp.inlay_hint.enable(false, {bufnr=bufnr}) end,
+        group = "lsp_augroup",
+      })
     end
 end
 
