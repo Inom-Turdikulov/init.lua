@@ -175,7 +175,6 @@ lspconfig.biome.setup({
                 "vue", "css" }
 })
 lspconfig.tsserver.setup {}
-lspconfig.html.setup {}
 lspconfig.gopls.setup {}
 lspconfig.cssls.setup {}
 lspconfig.texlab.setup {}
