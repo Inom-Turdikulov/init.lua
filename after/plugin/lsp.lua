@@ -217,6 +217,7 @@ lspconfig.emmet_ls.setup({
     filetypes = { "html", "typescript", "typescriptreact", "jinja", "css", "scss" },
 })
 
+-- NEXT: replace with something better?
 local ok, ltex_extra = pcall(require, "ltex_extra")
 if ok then
     lspconfig.ltex.setup({
