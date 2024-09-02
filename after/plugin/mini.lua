@@ -14,7 +14,12 @@ require('mini.ai').setup { n_lines = 500 }
 -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
 -- - sd'   - [S]urround [D]elete [']quotes
 -- - sr)'  - [S]urround [R]eplace [)] [']
-require('mini.surround').setup()
+require('mini.surround').setup({
+  -- Make `=` insert parts with spaces. `input` pattern stays the same.
+  custom_surroundings = {
+    ['='] = { output = { left = '==', right = '==' } },
+  }
+})
 
 -- Use `ss` to subtititute single char
 vim.keymap.set("n", "ss", "s")
