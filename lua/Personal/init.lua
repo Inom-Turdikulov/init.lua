@@ -29,7 +29,7 @@ function _G.ReloadConfig()
         files_reloaded = files_reloaded + 1
     end
 
-    dofile(vim.env.MYVIMRC)
+    dofile(vim.fn.stdpath("config") .. "/init.lua")
     vim.notify("Reloaded " .. files_reloaded .. " files")
 end
 
