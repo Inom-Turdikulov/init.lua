@@ -233,12 +233,7 @@ if ok then
                 log_level = "warn",                          -- string : "none", "trace", "debug", "info", "warn", "error", "fatal"
             })
         end,
-        settings = {
-            ltex = {
-                -- check LSP config if you add new filetypes
-                filetypes = { "bib", "gitcommit", "markdown", "org", "plaintex", "rst", "rnoweb", "tex", "pandoc", "quarto", "rmd", "context", "html", "xhtml" }
-            },
-        },
+        filetypes = { "gitcommit", "mail", "text", "tex", "markdown" },
     })
 end
 
