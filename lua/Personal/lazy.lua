@@ -179,6 +179,7 @@ require("lazy").setup({
     --[[
           Code execution and test running
      --]]
+    { "tpope/vim-dispatch" },
     {
         "jubnzv/mdeval.nvim",
     },
