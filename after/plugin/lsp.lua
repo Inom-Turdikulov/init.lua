@@ -166,8 +166,13 @@ local function on_attach(client, bufnr)
     end
 end
 
-lspconfig.denols.setup({
-    filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" }
+
+lspconfig.biome.setup({
+  single_file_support = true,
+  filetypes = { "javascript", "javascriptreact", "json",
+                "jsonc", "typescript", "typescript.tsx",
+                "typescriptreact", "astro", "svelte",
+                "vue", "css" }
 })
 lspconfig.tsserver.setup {}
 lspconfig.html.setup {}
