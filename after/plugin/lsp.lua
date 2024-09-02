@@ -136,7 +136,6 @@ lsp_defaults.capabilities = vim.tbl_deep_extend(
 ---
 -- LSP servers
 ---
-
 local function on_attach(client, bufnr)
     local augroup = vim.api.nvim_create_augroup
     if vim.env.NVIM_AUTOFORMAT == "1" and client.supports_method("textDocument/formatting") then
@@ -151,7 +150,7 @@ local function on_attach(client, bufnr)
     end
 
     if client.server_capabilities.inlayHintProvider then
-        vim.lsp.inlay_hint.enable(bufnr, true)
+        vim.lsp.inlay_hint.enable(true, {bufnr=bufnr})
     end
 end
 
