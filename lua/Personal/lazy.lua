@@ -115,9 +115,7 @@ require("lazy").setup({
           LSP+
      --]]
     {
-        "zbirenbaum/copilot.lua",
-        cmd = "Copilot",
-        event = "InsertEnter",
+        "supermaven-inc/supermaven-nvim",
         enabled = is_linux
     },
     {
