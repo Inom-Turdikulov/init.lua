@@ -28,6 +28,10 @@ vim.api.nvim_create_user_command('W', function()
     vim.cmd('w')
 end, {})
 
+-- Use different keys to increment number
+--- C-a I using for different things
+vim.keymap.set({"n", "x"}, "<A-a>", "<C-a>")
+
 -- gf files with spaces
 vim.keymap.set("n", "gF", function()
     local line = vim.fn.getline(".")
