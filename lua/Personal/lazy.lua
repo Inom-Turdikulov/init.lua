@@ -20,7 +20,7 @@ require("lazy").setup({
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate"
     },
-    { "ivanesmantovich/xkbswitch.nvim", enabled=is_linux },
+    { "ivanesmantovich/xkbswitch.nvim", enabled = is_linux },
     { "LunarVim/bigfile.nvim" },
     { "folke/which-key.nvim" },
     --[[
@@ -28,7 +28,6 @@ require("lazy").setup({
      --]]
     { "Inom-Turdikulov/alabaster.nvim" },
     { "tjdevries/express_line.nvim" },
-    { "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
     {
         "numToStr/Comment.nvim",
         lazy = false,
@@ -36,6 +35,7 @@ require("lazy").setup({
             { "JoosepAlviste/nvim-ts-context-commentstring" }, -- To fix comments in react templates
         }
     },
+    { "folke/todo-comments.nvim",       dependencies = { "nvim-lua/plenary.nvim" } },
     --[[
           Improve core functional
      --]]
@@ -73,12 +73,12 @@ require("lazy").setup({
     {
         "Inom-Turdikulov/telekasten.nvim",
         dependencies = {
-            { "nvim-telescope/telescope-media-files.nvim", enabled=is_linux },
-            { "nvim-lua/popup.nvim", enabled=is_linux },
+            { "nvim-telescope/telescope-media-files.nvim", enabled = is_linux },
+            { "nvim-lua/popup.nvim",                       enabled = is_linux },
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope.nvim",
         },
-        enabled=is_linux,
+        enabled = is_linux,
     },
     {
         "ThePrimeagen/harpoon", -- TODO: switch to main branch
@@ -88,7 +88,7 @@ require("lazy").setup({
             "nvim-telescope/telescope.nvim",
         },
     },
-    { "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
+    { "kevinhwang91/nvim-ufo",       dependencies = "kevinhwang91/promise-async" },
     {
         "nvim-treesitter/nvim-treesitter-textobjects",
         after = "nvim-treesitter",
@@ -137,13 +137,13 @@ require("lazy").setup({
             },
         },
     },
-    { "barreiroleo/ltex-extra.nvim", enabled=is_linux },
+    { "barreiroleo/ltex-extra.nvim", enabled = is_linux },
     { "lervag/vimtex" },
 
     --[[
           Code quality and documentation
      --]]
-    { "stevearc/conform.nvim", enabled=is_linux }, -- Formatting
+    { "stevearc/conform.nvim",       enabled = is_linux }, -- Formatting
     {
         "ThePrimeagen/refactoring.nvim",
         dependencies = {
@@ -152,7 +152,7 @@ require("lazy").setup({
             "nvim-treesitter/nvim-treesitter",
         },
     },
-    { "folke/trouble.nvim",    dependencies = { "nvim-tree/nvim-web-devicons" } },
+    { "folke/trouble.nvim", dependencies = { "nvim-tree/nvim-web-devicons" } },
     { "KabbAmine/zeavim.vim", enabled = is_linux },
 
     --[[
