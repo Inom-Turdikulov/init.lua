@@ -5,8 +5,9 @@ local function escape(str)
 end
 
 -- Recommended to use lua template string
-local en = [[jk`qwertyuiop[]asdfghl;'zxcvbnm/]]
-local ru = [[нтёйцлыащшджкхъфвсупьгзэиячмеор.]]
+-- NOTE: this potential source of mapping bugs
+local en = [[jk`qwertyuiop[]asdfghl;'zxcvbnm./]]
+local ru = [[нтёйцлыащшджкхъфвсупьгзэиячмеорю.]]
 local en_shift = [[~QWERTYUIOP{}ASDFGHJKL:ZXCVBNM<>]]
 local ru_shift = [[ЁЙЦЛВАЩШДЖКХЪФВСУПЬНТГЗИЯЧМЕОРБЮ]]
 
