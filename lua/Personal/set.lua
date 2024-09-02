@@ -60,7 +60,8 @@ vim.g.markdown_fenced_languages = {
     'rust',          'php',             'sql',
     'rb=ruby',       'ruby',            'go',
     'lua',           'bash=sh',         'java',
-    'js=javascript', 'json=javascript', "ts=typescript",
+    'javascript',    'js=javascript',   'json=javascript',
+    "ts=typescript",
     'typescript',    'html',            'css',
     'scss',          'yaml',            'toml',
     'tex',           'nix'
