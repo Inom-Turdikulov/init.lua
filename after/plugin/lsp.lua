@@ -302,7 +302,7 @@ cmp.setup({
                 luasnip = "s",
                 buffer = "b",
                 path = "/",
-                copilot = "c",
+                supermaven = "c",
             }
 
             item.menu = menu_icon[entry.source.name]
