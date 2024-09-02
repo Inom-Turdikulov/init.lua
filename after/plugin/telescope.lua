@@ -52,7 +52,7 @@ map("<leader>fb", builtin.builtin, "builtins")
 
 map('<leader>ff', builtin.find_files, "[F]ind [F]iles")
 
-map('<M-f>', function ()
+map('<M-f>', function()
     if vim.fn.filereadable(".git/HEAD") == 1 then
         builtin.git_files()
     else
@@ -70,7 +70,9 @@ end, "oldfiles")
 
 map('<leader>fh', builtin.help_tags, "Help tags")
 
-map("<leader>fk", builtin.keymaps, "keymaps")
+map("<leader>fk", function ()
+    builtin.keymaps({ show_plug = false })
+end , "keymaps")
 
 map("<leader>fK", builtin.commands, "commands")
 
