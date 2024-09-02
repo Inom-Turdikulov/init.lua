@@ -183,12 +183,7 @@ require("lazy").setup({
           Code execution and test running
      --]]
     {
-        "michaelb/sniprun",
-        branch = "master",
-        build = "sh install.sh",
-        enabled = is_linux
-        -- do 'sh install.sh 1' if you want to force compile locally
-        -- (instead of fetching a binary from the github release). Requires Rust >= 1.65
+        "jubnzv/mdeval.nvim",
     },
     {
         "nvim-neotest/neotest",
