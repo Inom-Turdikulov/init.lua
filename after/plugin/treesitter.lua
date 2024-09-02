@@ -6,11 +6,18 @@ if not pcall(require, "nvim-treesitter") then return end
 vim.defer_fn(function()
     require('nvim-treesitter.configs').setup {
         -- Add languages to be installed here that you want installed for treesitter
+        -- TODO: merge with markdown fenced languages
         ensure_installed = {
-            "c", "cpp", "lua", "vim", "vimdoc", "query", "elixir", "heex", "javascript",
-            "tsx", "html", "css", "markdown", "markdown_inline", "scss", "bash", "rust",
-            "go", "gdscript", "python", "json", "toml", "tsv", "csv", "yaml",
-            "nix", "sql", "pascal"
+            "c",      "cpp",        "lua",
+            "vim",    "vimdoc",     "query",
+            "elixir", "heex",       "javascript",
+            "tsx",    "typescript", "html",
+            "css",    "markdown",   "markdown_inline",
+            "scss",   "bash",       "rust",
+            "ruby",   "go",         "gdscript",
+            "python", "json",       "toml",
+            "tsv",    "csv",        "yaml",
+            "nix",    "sql",        "pascal"
         },
 
         -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
