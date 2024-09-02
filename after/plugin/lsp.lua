@@ -199,7 +199,16 @@ lspconfig.lua_ls.setup({
     -- },
 })
 lspconfig.ruff_lsp.setup({ on_attach = on_attach })
-lspconfig.pyright.setup({ on_attach = on_attach })
+lspconfig.basedpyright.setup({
+    on_attach = on_attach,
+    settings = {
+        basedpyright = {
+            analysis = {
+                diagnosticMode = "openFiles",  -- "workspace" or "openFiles"
+            }
+        }
+    }
+})
 lspconfig.clangd.setup({ on_attach = on_attach })
 lspconfig.rust_analyzer.setup({ on_attach = on_attach })
 lspconfig.gdscript.setup({})
