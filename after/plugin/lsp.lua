@@ -213,7 +213,7 @@ lspconfig.clangd.setup({ on_attach = on_attach })
 lspconfig.rust_analyzer.setup({ on_attach = on_attach })
 lspconfig.gdscript.setup({})
 lspconfig.emmet_ls.setup({
-    filetypes = { "html", "typescript", "jinja", "css", "scss" },
+    filetypes = { "html", "typescript", "typescriptreact", "jinja", "css", "scss" },
 })
 
 local ok, ltex_extra = pcall(require, "ltex_extra")
