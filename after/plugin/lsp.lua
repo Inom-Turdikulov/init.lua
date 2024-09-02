@@ -285,10 +285,11 @@ end, { silent = true })
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 cmp.setup({
     sources = {
-        { name = "nvim_lsp", group_index = 2},
-        { name = "luasnip",  group_index = 2},
-        { name = "path",     group_index = 2, keyword_length = 3 },
-        { name = "buffer",   group_index = 2, keyword_length = 3 },
+        { name = "nvim_lsp", group_index = 2, priority=1000},
+        { name = "luasnip",  group_index = 2, priority=750},
+        { name = "buffer",   group_index = 2, keyword_length = 3, priority=500},
+        { name = "path",     group_index = 2, keyword_length = 3, priority=250},
+        { name = "supermaven", group_index = 2, priority=100},
     },
     snippet = {
         expand = function(args)
