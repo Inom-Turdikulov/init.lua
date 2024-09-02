@@ -4,7 +4,7 @@ if not has_dap then return end
 local map = function(lhs, rhs, desc)
     if desc then desc = "[DAP] " .. desc end
 
-    vim.keymap.set("n", lhs, rhs, {silent = true, desc = desc})
+    vim.keymap.set("n", lhs, rhs, { silent = true, desc = desc })
 end
 
 map("<F1>", dap.step_back, "step_back")
@@ -65,12 +65,12 @@ end
 
 -- Configure custom signs
 vim.fn.sign_define("DapBreakpoint",
-                   {text = "ß", texthl = "", linehl = "", numhl = ""})
+    { text = "ß", texthl = "", linehl = "", numhl = "" })
 vim.fn.sign_define("DapBreakpointCondition",
-                   {text = "ü", texthl = "", linehl = "", numhl = ""})
+    { text = "ü", texthl = "", linehl = "", numhl = "" })
 
 -- Setup cool Among Us as avatar
-vim.fn.sign_define("DapStopped", {text = "ඞ", texthl = "Error"})
+vim.fn.sign_define("DapStopped", { text = "ඞ", texthl = "Error" })
 
 -- Configure repl
 -- You can set trigger characters OR it will default to '.'
@@ -88,7 +88,7 @@ if terminal then
     local terminal_path = vim.fn.trim(vim.fn.system("which " .. terminal))
     dap.defaults.fallback.external_terminal = {
         command = terminal_path,
-        args = {"-e"}
+        args = { "-e" }
     }
 end
 
@@ -112,7 +112,7 @@ if has_dap_virtual_text then
 
         -- experimental features:
         virt_text_pos = "eol", -- position of virtual text, see `:h nvim_buf_set_extmark()`
-        all_frames = false -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
+        all_frames = false     -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
     }
 end
 
@@ -129,7 +129,7 @@ if has_dap_ui then
                 position = "right"
             },
             {
-                elements = {{id = "console", size = 1}},
+                elements = { { id = "console", size = 1 } },
                 size = 10,
                 position = "bottom"
             }
@@ -138,24 +138,24 @@ if has_dap_ui then
 
     -- DapUI keybindings
     map("<Leader>dut", dap_ui.toggle, 'Debug ui toggle')
-    map("<Leader>duc", function() dap_ui.close({reset = true}) end,
+    map("<Leader>duc", function() dap_ui.close({ reset = true }) end,
         'Debug ui close')
-    map("<Leader>duo", function() dap_ui.open({reset = true}) end,
+    map("<Leader>duo", function() dap_ui.open({ reset = true }) end,
         'Debug ui open')
     map("<Leader>due", dap_ui.eval, 'eval')
 
-    vim.keymap.set({"n", "v"}, "<Leader>dh",
-                   function() require'dap.ui.widgets'.hover() end,
-                   {desc = '[DAP] Debug hover'})
-    vim.keymap.set({"n", "v"}, "<Leader>dp",
-                   function() require'dap.ui.widgets'.preview() end,
-                   {desc = '[DAP] Debug preview'})
-    vim.keymap.set({"n", "v"}, "<Leader>dF",
-                   function() require'dap.ui.widgets'.frames() end,
-                   {desc = '[DAP] Debug frames'})
-    vim.keymap.set({"n", "v"}, "<Leader>ds",
-                   function() require'dap.ui.widgets'.scopes() end,
-                   {desc = '[DAP] Debug scopes'})
+    vim.keymap.set({ "n", "v" }, "<Leader>dh",
+        function() require 'dap.ui.widgets'.hover() end,
+        { desc = '[DAP] Debug hover' })
+    vim.keymap.set({ "n", "v" }, "<Leader>dp",
+        function() require 'dap.ui.widgets'.preview() end,
+        { desc = '[DAP] Debug preview' })
+    vim.keymap.set({ "n", "v" }, "<Leader>dF",
+        function() require 'dap.ui.widgets'.frames() end,
+        { desc = '[DAP] Debug frames' })
+    vim.keymap.set({ "n", "v" }, "<Leader>ds",
+        function() require 'dap.ui.widgets'.scopes() end,
+        { desc = '[DAP] Debug scopes' })
 
     -- also useful events are: event_terminated, event_exited
     dap.listeners.after.event_initialized["dapui_config"] = function()
@@ -183,7 +183,7 @@ if has_dap_python then
             FLASK_ENV = 'development',
             FLASK_DEBUG = '0'
         },
-        args = {'run', '--no-debugger', '--host=0.0.0.0', '--port=45120'},
+        args = { 'run', '--no-debugger', '--host=0.0.0.0', '--port=45120' },
         console = 'integratedTerminal',
         cwd = vim.fn.getcwd(),
         jinja = true
@@ -224,7 +224,7 @@ if lldb_path then
             request = 'launch',
             program = function()
                 return vim.fn.input('Path to executable: ',
-                                    vim.fn.getcwd() .. '/', 'file')
+                    vim.fn.getcwd() .. '/', 'file')
             end,
             cwd = '${workspaceFolder}',
             stopOnEntry = false,
