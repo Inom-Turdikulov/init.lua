@@ -96,6 +96,13 @@ vim.keymap.set("n", "<M-x>", "<cmd>bd<CR>")
 -- TODO: need add confirmation
 vim.keymap.set("n", "<S-M-Del>", "<cmd>call delete(expand('%:p')) | bdelete! %<CR>")
 
+-- Toggle signcolumn and line numbers
+vim.keymap.set("n", "<leader>zz", function()
+    vim.o.signcolumn = vim.o.signcolumn == "yes" and "no" or "yes"
+    vim.o.relativenumber = not vim.o.relativenumber
+    vim.o.number = not vim.o.number
+end)
+
 -- Insert new line below/upper current line
 vim.keymap.set("n", "]<space>", "moo<Esc>`o")
 vim.keymap.set("n", "[<space>", "moO<Esc>`o")

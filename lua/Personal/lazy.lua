@@ -28,7 +28,6 @@ require("lazy").setup({
      --]]
     { "Inom-Turdikulov/alabaster.nvim" },
     { "tjdevries/express_line.nvim" },
-    { "folke/zen-mode.nvim" },
     { "folke/todo-comments.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
     {
         "numToStr/Comment.nvim",
