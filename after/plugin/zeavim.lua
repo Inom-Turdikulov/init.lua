@@ -2,7 +2,7 @@
 vim.cmd [[
 let g:zv_zeal_executable = has('win32')
             \ ? $ProgramFiles . '\Zeal\zeal.exe'
-            \ : '/etc/dotfiles/bin/tmux-zeal-query'
+            \ : 'tmux-zeal-query'
 
 let g:zv_file_types = {
             \   'help'                : 'vim',
