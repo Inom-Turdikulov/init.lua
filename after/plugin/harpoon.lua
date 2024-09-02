@@ -18,7 +18,7 @@ local map = function(lhs, rhs, desc)
 end
 
 map("<leader>a", function()
-    harpoon:list():append()
+    harpoon:list():add()
 end, "Add File")
 
 map("<C-e>", function()
@@ -38,4 +38,3 @@ end, "Toggle Previous buffer")
 map("<C-M-N>", function()
     harpoon:list():prev()
 end, "Toggle Next buffer")
-
