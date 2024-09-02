@@ -319,9 +319,8 @@ cmp.setup({
         ["<C-u>"] = cmp.mapping.scroll_docs(-4),
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
 
-        ["<C-c>"] = cmp.mapping.abort(),
-
-        ['<C-y>'] = cmp.mapping.confirm({ select = true }),
         ["<C-space>"] = cmp.mapping.complete(),
+        ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+        ["<C-c>"] = cmp.mapping.abort(),
     },
 })
