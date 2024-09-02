@@ -178,6 +178,7 @@ lspconfig.tsserver.setup {}
 lspconfig.html.setup {}
 lspconfig.gopls.setup {}
 lspconfig.cssls.setup {}
+lspconfig.texlab.setup {}
 lspconfig.lua_ls.setup({
     -- settings = {
     --     Lua = {
