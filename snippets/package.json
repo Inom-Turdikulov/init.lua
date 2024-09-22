@@ -11,6 +11,22 @@
           "rmd"
         ],
         "path": "./markdown.json"
+      },
+      {
+        "language": "python",
+        "path": "./python/snippets/base.json"
+      },
+      {
+        "language": "python",
+        "path": "./python/snippets/unittest.json"
+      },
+      {
+        "language": "python",
+        "path": "./python/snippets/comprehension.json"
+      },
+      {
+        "language": "python",
+        "path": "./python/snippets/debug.json"
       }
     ]
   }

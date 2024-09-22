@@ -16,5 +16,25 @@
     "prefix": "flc",
     "body": ["\n&#10;", "$0"],
     "description": "Insert flashcard snippet"
+  },
+  "Mathjax Big O": {
+    "prefix": "bo",
+    "body": ["\\$\\mathcal{O}($0)\\$"],
+    "description": "Insert mathjax Big O snippet"
+  },
+  "Mathjax Big O(n)": {
+    "prefix": "bon",
+    "body": ["\\$\\mathcal{O}(n$0)\\$"],
+    "description": "Insert mathjax Big O(n) snippet"
+  },
+  "Mathjax Big O(n^2)": {
+    "prefix": "bon2",
+    "body": ["\\$\\mathcal{O}(n^2$0)\\$"],
+    "description": "Insert mathjax Big (n^2) snippet"
+  },
+  "Mathjax Big O(log)": {
+    "prefix": "bolog",
+    "body": ["\\$\\mathcal{O}(log $0)\\$"],
+    "description": "Insert mathjax Big O(log) snippet"
   }
 }

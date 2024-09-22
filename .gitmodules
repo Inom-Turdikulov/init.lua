@@ -1,0 +1,6 @@
+[submodule "snippets/python_snippets"]
+	path = snippets/python_snippets
+	url = https://github.com/iturdikulov/vscode-python-snippet-pack-2.0
+[submodule "snippets/python"]
+	path = snippets/python
+	url = https://github.com/iturdikulov/python-snippets
