@@ -10,8 +10,15 @@ femaco.setup {
     post_open_float = function(winnr)
         if Language == "js" then
             vim.cmd("setlocal filetype=javascript")
+        elseif Language == "py" then
+            vim.cmd("setlocal filetype=python")
+        elseif Language == "go" then
+            vim.cmd("setlocal noexpandtab")
         end
-    end
+    end,
+    ensure_newline = function(base_filetype)
+        return base_filetype == 'markdown'
+    end,
 }
 
 vim.keymap.set("n", "<Leader>vv", require('femaco.edit').edit_code_block, { desc = "[Femaco] edit code block" })
