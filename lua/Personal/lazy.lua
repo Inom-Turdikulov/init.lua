@@ -71,16 +71,6 @@ require("lazy").setup({
         }
     },
     {
-        "Inom-Turdikulov/telekasten.nvim",
-        dependencies = {
-            { "nvim-telescope/telescope-media-files.nvim", enabled = is_linux },
-            { "nvim-lua/popup.nvim",                       enabled = is_linux },
-            "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope.nvim",
-        },
-        enabled = is_linux,
-    },
-    {
         "ThePrimeagen/harpoon", -- TODO: switch to main branch
         branch = "harpoon2",
         dependencies = {
