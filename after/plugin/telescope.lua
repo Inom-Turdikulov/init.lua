@@ -48,7 +48,7 @@ pcall(telescope.load_extension, "ui-select")
 pcall(telescope.load_extension, "media_files")
 
 -- find telescope builtins
-map("<leader>fb", builtin.builtin, "builtins")
+map("<leader>fb", builtin.buffers, "buffers")
 
 map('<leader>ff', builtin.find_files, "[F]ind [F]iles")
 
