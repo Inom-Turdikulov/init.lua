@@ -90,6 +90,13 @@ vim.keymap.set("n", "<leader>o", "<cmd>!$TERMINAL %<CR>", { silent = true })
 -- Open file in external program (xdg-open)
 vim.keymap.set("n", "<leader>O", "<cmd>!xdg-open %<CR>", { silent = true, desc = "Open current file with xdg-open" })
 
+--- Open file in obsidian, file is current buffer name without .md extension
+vim.keymap.set("n", "<leader>to", function()
+    local bufname = vim.fn.expand("%:t:r")
+    local obsidian_url = "obsidian://open?vault=Wiki&file=" .. bufname
+    vim.fn.jobstart({ 'obsidian_open', obsidian_url })
+end, { desc = "open in obsidian" })
+
 -- open Ex in nvim config directory
 vim.keymap.set("n", "<Leader>vpe", ":e " .. vim_config_dir .. "<CR>", { desc = "Open Ex in nvim config directory" })
 
