@@ -206,6 +206,15 @@ require("lazy").setup({
     --[[
           Add support additinal syntax and files specific features
      --]]
+    {
+        "iamcco/markdown-preview.nvim",
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        build = "cd app && yarn install",
+        init = function()
+            vim.g.mkdp_filetypes = { "markdown" }
+        end,
+        ft = { "markdown" },
+    },
     "antonk52/markdowny.nvim",
     "Glench/Vim-Jinja2-Syntax",
     "phelipetls/jsonpath.nvim", -- WARNING: this require tresitter which I installed manually (NixOS)
