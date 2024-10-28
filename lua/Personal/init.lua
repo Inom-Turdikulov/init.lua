@@ -69,13 +69,6 @@ autocmd({ 'BufWinEnter' }, {
     callback = function() vim.opt_local.filetype = 'markdown' end
 })
 
--- Enable swapfile for markdown files
-autocmd({ 'BufRead', 'BufNewFile' }, {
-    desc = 'Enable swapfile for markdown and text files',
-    pattern = { '*.md', '*.markdown', '*.txt' },
-    callback = function() vim.opt_local.swapfile = true end
-})
-
 vim.api.nvim_create_user_command("CopySearch", function(args)
     vim.fn.setreg(args.reg, "")
     vim.api.nvim_cmd({
