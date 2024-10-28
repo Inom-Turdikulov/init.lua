@@ -20,12 +20,6 @@ autocmd("BufWinEnter", {
                            {buffer = bufnr, desc = desc, remap = false})
         end
 
-        if vim.bo.ft == "diff" then
-            -- TODO: need test it
-            map("gn", "<cmd>diffget //2<CR>", "select left side of diff")
-            map("gt", "<cmd>diffget //3<CR>", "select right side of diff")
-        end
-
         if vim.bo.ft ~= "fugitive" then return end
 
         map("<leader>pp", function() vim.cmd.Git('push') end, "Git push")
