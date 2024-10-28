@@ -14,4 +14,4 @@ vim.g.vimtex_compiler_latexmk = {
         '-synctex=1'
     }
 }
-vim.g.vimtex_view_method = 'sioyek'
+vim.g.vimtex_view_method = 'zathura'
