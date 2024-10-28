@@ -539,3 +539,15 @@ dunder
 FastAPI
 asyncpg
 pass-throughs
+fugutive
+datatypes
+keybind
+lighttable
+subquery
+linkedin-related
+realpython
+Pre-emptive
+trie
+untyped
+hyprland
+Hyprland
