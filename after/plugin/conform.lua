@@ -19,8 +19,10 @@ conform.setup({
         scss            = { "prettierd" },
         css             = { "prettierd" },
         gdscript        = { "gdformat" },
-        jinja           = { "djlint" }
-    },
+        jinja           = { "djlint" },
+        sql             = { "sqlfluff" },
+        bash            = { "shfmt" },
+    }
 })
 
 vim.keymap.set({ "n", "x" }, "<leader>=", function()
