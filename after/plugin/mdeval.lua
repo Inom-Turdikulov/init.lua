@@ -12,6 +12,12 @@ mdeval.setup({
     using namespace std;
       ]]
     },
+    go = {
+      command = {"go", "run"},  -- Command to run go compiler
+      language_code = "go",    -- Markdown language code
+      exec_type = "interpreted",  -- compiled or interpreted
+      extension = "go",        -- File extension for temporary files
+    },
   },
 })
 
