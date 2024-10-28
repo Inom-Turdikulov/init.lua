@@ -10,9 +10,6 @@ vim.g.maplocalleader = " "
 -- experience.
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Escape Escape exits terminal mode" })
 
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
-vim.keymap.set("n", "<leader>pV", ":Lexplore %:p:h<CR>")
-
 -- Fix cyrillic Ctrl mappings
 vim.keymap.set("n", "<C-с>", "<C-d>")
 vim.keymap.set("n", "<C-ш>", "<C-u>")

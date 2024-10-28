@@ -66,5 +66,11 @@ require('mini.operators').setup(
     }
 )
 
+-- Files
+--
+require('mini.files').setup()
+vim.keymap.set("n", "<leader>pv", MiniFiles.open)
+
+
 -- ... and there is more!
 --  Check out: https://github.com/echasnovski/mini.nvim
