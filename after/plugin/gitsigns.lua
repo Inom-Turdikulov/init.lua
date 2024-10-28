@@ -17,6 +17,7 @@ gitsigns.setup({
         topdelete = { text = "‾" },
         changedelete = { text = "~" },
     },
+    signs_staged_enable = false,
     current_line_blame_opts = {
         delay = 2000,
         virt_text_pos = "eol",
