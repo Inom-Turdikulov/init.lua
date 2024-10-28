@@ -56,6 +56,7 @@ vim.opt.diffopt:append { 'vertical' }
 vim.g.markdown_fenced_languages = {
     'asm',           'pascal',          'perl',
     'lisp',          'python',          'cpp',
+    'py=python',
     'javascript',    'php',             'java',
     'rust',          'php',             'sql',
     'rb=ruby',       'ruby',            'go',
