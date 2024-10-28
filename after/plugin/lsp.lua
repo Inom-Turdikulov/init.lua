@@ -174,10 +174,13 @@ lspconfig.biome.setup({
                 "typescriptreact", "astro", "svelte",
                 "vue", "css" }
 })
-lspconfig.tsserver.setup {}
+lspconfig.nil_ls.setup{}
+lspconfig.ts_ls.setup {}
 lspconfig.gopls.setup {}
 lspconfig.cssls.setup {}
 lspconfig.texlab.setup {}
+lspconfig.marksman.setup {}
+lspconfig.arduino_language_server.setup {}
 lspconfig.lua_ls.setup({
     settings = {
         Lua = {
@@ -277,18 +280,40 @@ vim.keymap.set({ "i", "s" }, "<c-j>", function()
 end, { silent = true })
 
 local select_opts = { behavior = cmp.SelectBehavior.Select }
+cmp.setup.filetype({ "sql", "mysql" }, {
+    sources = {
+        { name = "vim-dadbod-completion"},
+        { name = "buffer"},
+    }
+})
 cmp.setup({
     sources = {
-        { name = "nvim_lsp", group_index = 2, priority=1000},
-        { name = "luasnip",  group_index = 2, priority=750},
-        { name = "buffer",   group_index = 2, keyword_length = 3, priority=500},
-        { name = "path",     group_index = 2, keyword_length = 3, priority=250},
-        { name = "supermaven", group_index = 2, priority=100},
+        { name = "nvim_lsp", order = 50 },
+        { name = "luasnip", order = 40 },
+        { name = "path", order = 30 },
+        { name = "buffer", order = 20 },
+        { name = "supermaven", order = 10 },
     },
     snippet = {
         expand = function(args)
             luasnip.lsp_expand(args.body)
         end,
+    },
+      sorting = {
+    priority_weight = 2,
+        comparators = {
+            cmp.config.compare.order,
+            -- Below is the default comparitor list and order for nvim-cmp
+            cmp.config.compare.offset,
+            -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            cmp.config.compare.recently_used,
+            cmp.config.compare.locality,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+        },
     },
     window = { documentation = cmp.config.window.bordered() },
     formatting = {
